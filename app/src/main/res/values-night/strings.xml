@@ -17,4 +17,5 @@
     <string name="Friday">Friday:</string>
     <string name="SearchByIng">Search by Ingredients</string>
     <string name="SearchbyMeals">Search by Meals</string>
+    <string name="title_chooseDay">Choose The Day</string>
 </resources>

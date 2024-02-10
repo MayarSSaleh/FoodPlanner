@@ -36,7 +36,6 @@ public class FragFavMealsActivity extends Fragment implements FavMealsView {
     ProductRemoteDataSourceImpl productRemoteDataSource;
     FaviourtLocalDataSourceImpl prodcutsLocalDataSource;
     PlannedLocalDataSourceImpl plannedLocalDataSource;
-
     List<FavMeals> favMealsList;
     FavMealsPresnterImp presenterImp;
 
@@ -47,27 +46,17 @@ public class FragFavMealsActivity extends Fragment implements FavMealsView {
         recyclerView = rootView.findViewById(R.id.fav_recycle);
         repository = MealsRepositoryImpl.getInstance(productRemoteDataSource, prodcutsLocalDataSource, plannedLocalDataSource);
         linearLayoutManager = new LinearLayoutManager(getContext());
-// can not as we are in fragment not activity
-//        linearLayoutManager = new LinearLayoutManager(this);
         favMealsList = new ArrayList<>();
         miniMealsCardAdaptor = new FavMiniMealsCardAdaptor(getContext(), favMealsList);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(miniMealsCardAdaptor);
         Log.i(TAG, "on creation of fav");
-//        Since FragFavMealsActivity implements FavMealsView, you can simply pass this as the first argument to the constructor, as the fragment itself serves as the view:
         presenterImp = new FavMealsPresnterImp(this, repository);
 
-//1. Wrap your data in a LiveData
         APPDataBase db = APPDataBase.getInstance(getContext());
         FavMealsDAO dao = db.getFavMealsDAO();
         LiveData<List<FavMeals>> Favourits = dao.getAllFavProducts();
-//        3. Attach the Observer object to the LiveData object using observe()
-//        By using getViewLifecycleOwner(), you ensure that the observer is removed when the Fragment's view is destroyed, preventing any potential memory leaks.
-//
-//Additionally, ensure that your FavMealsPresnterImp class properly handles the lifecycle of the view interface (FavMealsView)
-// to avoid potential memory leaks. Typically, this involves clearing any references to the view interface when the Fragment's onDestroyView()
-// method is called.
-        Favourits.observe(getViewLifecycleOwner(), new Observer<List<FavMeals>>() {//                2. Create an Observer object that defines the onChanged().
+        Favourits.observe(getViewLifecycleOwner(), new Observer<List<FavMeals>>() {
             @Override
             public void onChanged(List<FavMeals> products) {
                 Log.i(TAG, "onChanged: in fav activity");
@@ -76,11 +65,6 @@ public class FragFavMealsActivity extends Fragment implements FavMealsView {
         });
         return rootView;
     }
-//
-//    @Override
-//    public void removeFromFav(FavMeals favMeal) {
-//        presenterImp.delete(favMeal);
-//    }
 }
 
 

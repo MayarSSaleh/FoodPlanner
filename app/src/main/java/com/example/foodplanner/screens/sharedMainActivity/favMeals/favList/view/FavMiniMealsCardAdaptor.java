@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,13 +22,14 @@ import java.util.List;
 public class FavMiniMealsCardAdaptor extends RecyclerView.Adapter<FavMiniMealsCardAdaptor.MealsViewHolder> {
     private Context context;
     private  List<FavMeals> favMealsList;
+
+    FavMealsView favMealsView;
     public FavMiniMealsCardAdaptor(Context context, List<FavMeals> favMeals) {
         this.context = context;
         favMealsList= favMeals;
     }
     public void setList(List<FavMeals> updatedProdcuts){
         favMealsList=updatedProdcuts;
-
         notifyDataSetChanged();// it is importent as make the screen updated
     }
     @NonNull
@@ -42,6 +44,12 @@ public class FavMiniMealsCardAdaptor extends RecyclerView.Adapter<FavMiniMealsCa
         FavMeals current = favMealsList.get(position);
         holder.nameTextView.setText(current.getName());
         Glide.with(context).load(current.getPhotourl()).into(holder.imageView);
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                favMealsView.showThisFavMeal(current);
+            }
+        });
     }
 
     @Override
@@ -59,4 +67,5 @@ public class FavMiniMealsCardAdaptor extends RecyclerView.Adapter<FavMiniMealsCa
             imageView = itemView.findViewById(R.id.ImgMiniMeal);
         }
     }
+
 }

@@ -20,7 +20,7 @@ public class PlannedMeals {
     String photourl;
     String country;
     String videoUrl;
-    List<Ingredient> allingredient;
+    List<Ingredient> allingredient = new ArrayList<>();
     String steps;
     boolean isFav;
     boolean isinplan;    //if click add to plan button make value = true and opposite

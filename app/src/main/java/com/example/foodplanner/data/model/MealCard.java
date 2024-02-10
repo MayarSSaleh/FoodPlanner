@@ -50,12 +50,20 @@ public class MealCard {
     String ingr18m;
     String ingr19m;
     String ingr20m;
-    List<Ingredient> allingredient;
+    List<Ingredient> allingredient = new ArrayList<>();
+
     String steps;
     boolean fav;
     boolean plan;    //if click add to plan button make value = true and opposite
 
     public MealCard() {
+    }
+    public List<Ingredient> getAllingredient() {
+        return allingredient;
+    }
+
+    public void setAllingredient(List<Ingredient> allingredient) {
+        this.allingredient = allingredient;
     }
 
     public String getMealId() {
@@ -426,7 +434,7 @@ public class MealCard {
         this.steps = steps;
     }
 
-    public boolean isFav() {
+    public boolean isFav(boolean b) {
         return fav;
     }
 

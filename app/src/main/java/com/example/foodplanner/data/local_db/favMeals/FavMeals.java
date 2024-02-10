@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey;
 
 import com.example.foodplanner.data.model.Ingredient;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity(tableName = "favMeals_table")
@@ -18,7 +19,7 @@ public class FavMeals {
     String photourl;
     String country;
     String videoUrl;
-    List<Ingredient> allingredient;
+    List<Ingredient> allingredient = new ArrayList<>();
     String steps;
     boolean isFav;
     boolean isinplan;    //if click add to plan button make value = true and opposite
