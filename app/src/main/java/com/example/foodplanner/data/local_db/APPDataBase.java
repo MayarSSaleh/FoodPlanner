@@ -8,7 +8,7 @@ import com.example.foodplanner.data.local_db.favMeals.FavMeals;
 import com.example.foodplanner.data.local_db.favMeals.FavMealsDAO;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedMeals;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedMealsDAO;
-@Database(entities={FavMeals.class, PlannedMeals.class}, version = 1)
+@Database(entities={FavMeals.class, PlannedMeals.class}, version = 2)
 
 public abstract class APPDataBase extends RoomDatabase {
     private static APPDataBase instance = null;
@@ -20,7 +20,9 @@ public abstract class APPDataBase extends RoomDatabase {
     public abstract PlannedMealsDAO getPlannedMealsDAO();
     public static synchronized APPDataBase getInstance(Context context) {
         if (instance == null) {
-            instance = Room.databaseBuilder(context.getApplicationContext(), APPDataBase.class, "mealsdb").build();
+            instance = Room.databaseBuilder(context.getApplicationContext(), APPDataBase.class, "mealsdb")
+                    .fallbackToDestructiveMigration() // Add this line
+                    .build();
         }
         return instance;
     }

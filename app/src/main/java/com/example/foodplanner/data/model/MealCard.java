@@ -1,68 +1,14 @@
 package com.example.foodplanner.data.model;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MealCard {
+    String mealId;
     String name;
     String photourl;
     String country;
-
-    public MealCard(String name, String photourl, String country, String videoUrl, String ingr1, String ingr2, String ingr3, String ingr4, String ingr5, String ingr6, String ingr7, String ingr8, String ingr9, String ingr10, String ingr11, String ingr12, String ingr13, String ingr14, String ingr15, String ingr16, String ingr17, String ingr18, String ingr19, String ingr20, String ingr1m, String ingr2m, String ingr3m, String ingr4m, String ingr5m, String ingr6m, String ingr7m, String ingr8m, String ingr9m, String ingr10m, String ingr11m, String ingr12m, String ingr13m, String ingr14m, String ingr15m, String ingr16m, String ingr17m, String ingr18m, String ingr19m, String ingr20m, String step1, String step2, String step3, String step4, String step5, String step6, String step7, String step8, boolean fav, boolean plan) {
-        this.name = name;
-        this.photourl = photourl;
-        this.country = country;
-        this.videoUrl = videoUrl;
-        this.ingr1 = ingr1;
-        this.ingr2 = ingr2;
-        this.ingr3 = ingr3;
-        this.ingr4 = ingr4;
-        this.ingr5 = ingr5;
-        this.ingr6 = ingr6;
-        this.ingr7 = ingr7;
-        this.ingr8 = ingr8;
-        this.ingr9 = ingr9;
-        this.ingr10 = ingr10;
-        this.ingr11 = ingr11;
-        this.ingr12 = ingr12;
-        this.ingr13 = ingr13;
-        this.ingr14 = ingr14;
-        this.ingr15 = ingr15;
-        this.ingr16 = ingr16;
-        this.ingr17 = ingr17;
-        this.ingr18 = ingr18;
-        this.ingr19 = ingr19;
-        this.ingr20 = ingr20;
-        this.ingr1m = ingr1m;
-        this.ingr2m = ingr2m;
-        this.ingr3m = ingr3m;
-        this.ingr4m = ingr4m;
-        this.ingr5m = ingr5m;
-        this.ingr6m = ingr6m;
-        this.ingr7m = ingr7m;
-        this.ingr8m = ingr8m;
-        this.ingr9m = ingr9m;
-        this.ingr10m = ingr10m;
-        this.ingr11m = ingr11m;
-        this.ingr12m = ingr12m;
-        this.ingr13m = ingr13m;
-        this.ingr14m = ingr14m;
-        this.ingr15m = ingr15m;
-        this.ingr16m = ingr16m;
-        this.ingr17m = ingr17m;
-        this.ingr18m = ingr18m;
-        this.ingr19m = ingr19m;
-        this.ingr20m = ingr20m;
-        this.step1 = step1;
-        this.step2 = step2;
-        this.step3 = step3;
-        this.step4 = step4;
-        this.step5 = step5;
-        this.step6 = step6;
-        this.step7 = step7;
-        this.step8 = step8;
-        this.fav = fav;
-        this.plan = plan;
-    }
-
     String videoUrl;
     String ingr1;
     String ingr2;
@@ -104,17 +50,21 @@ public class MealCard {
     String ingr18m;
     String ingr19m;
     String ingr20m;
-    String step1;
-    String step2;
-    String step3;
-    String step4;
-    String step5;
-    String step6;
-    String step7;
-    String step8;
+    List<Ingredient> allingredient;
+    String steps;
     boolean fav;
     boolean plan;    //if click add to plan button make value = true and opposite
 
+    public MealCard() {
+    }
+
+    public String getMealId() {
+        return mealId;
+    }
+
+    public void setMealId(String mealId) {
+        this.mealId = mealId;
+    }
 
     public String getName() {
         return name;
@@ -468,68 +418,12 @@ public class MealCard {
         this.ingr20m = ingr20m;
     }
 
-    public String getStep1() {
-        return step1;
+    public String getSteps() {
+        return steps;
     }
 
-    public void setStep1(String step1) {
-        this.step1 = step1;
-    }
-
-    public String getStep2() {
-        return step2;
-    }
-
-    public void setStep2(String step2) {
-        this.step2 = step2;
-    }
-
-    public String getStep3() {
-        return step3;
-    }
-
-    public void setStep3(String step3) {
-        this.step3 = step3;
-    }
-
-    public String getStep4() {
-        return step4;
-    }
-
-    public void setStep4(String step4) {
-        this.step4 = step4;
-    }
-
-    public String getStep5() {
-        return step5;
-    }
-
-    public void setStep5(String step5) {
-        this.step5 = step5;
-    }
-
-    public String getStep6() {
-        return step6;
-    }
-
-    public void setStep6(String step6) {
-        this.step6 = step6;
-    }
-
-    public String getStep7() {
-        return step7;
-    }
-
-    public void setStep7(String step7) {
-        this.step7 = step7;
-    }
-
-    public String getStep8() {
-        return step8;
-    }
-
-    public void setStep8(String step8) {
-        this.step8 = step8;
+    public void setSteps(String step1) {
+        this.steps = steps;
     }
 
     public boolean isFav() {
@@ -547,10 +441,6 @@ public class MealCard {
     public void setPlan(boolean plan) {
         this.plan = plan;
     }
-
-    public MealCard() {
-    }
-
 
 }
 
