@@ -18,8 +18,8 @@ public class FaviourtLocalDataSourceImpl {
 
     public FaviourtLocalDataSourceImpl(Context context) {
         this.context = context;
-//        APPDataBase db = APPDataBase.getInstance(context);
-//        mealDAO = db.getFavMealsDAO();
+        APPDataBase db = APPDataBase.getInstance(context);
+        mealDAO = db.getFavMealsDAO();
         storedFvProduct = mealDAO.getAllFavProducts();
     }
 

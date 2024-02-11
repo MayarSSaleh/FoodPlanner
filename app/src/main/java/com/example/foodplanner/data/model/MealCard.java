@@ -1,10 +1,11 @@
 package com.example.foodplanner.data.model;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MealCard {
+public class MealCard implements Serializable {
     String mealId;
     String name;
     String photourl;
@@ -430,11 +431,11 @@ public class MealCard {
         return steps;
     }
 
-    public void setSteps(String step1) {
+    public void setSteps(String steps) {
         this.steps = steps;
     }
 
-    public boolean isFav(boolean b) {
+    public boolean isFav() {
         return fav;
     }
 

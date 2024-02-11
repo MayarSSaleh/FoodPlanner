@@ -1,5 +1,7 @@
 package com.example.foodplanner.data.model;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 
 import com.example.foodplanner.data.local_db.favMeals.FavMeals;
@@ -12,6 +14,8 @@ import com.example.foodplanner.data.network.ProductRemoteDataSourceImpl;
 import java.util.List;
 
 public class MealsRepositoryImpl implements MealsRepository {
+    private static final String TAG = "TAG";
+
     ProductRemoteDataSourceImpl productRemoteDataSource;
     FaviourtLocalDataSourceImpl prodcutsLocalDataSource;
     PlannedLocalDataSourceImpl plannedLocalDataSource;
@@ -54,11 +58,13 @@ public class MealsRepositoryImpl implements MealsRepository {
 
     @Override
     public void deleteFromFav(FavMeals favMeals) {
+
         prodcutsLocalDataSource.delete(favMeals);
     }
 
     @Override
     public void insertintoPlanTable(PlannedMeals plannedMeal) {
+        Log.i(TAG, "plannedMeal" );
         plannedLocalDataSource.insert(plannedMeal);
     }
 

@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,15 +15,15 @@ import com.example.foodplanner.R;
 import com.example.foodplanner.screens.sharedMainActivity.DailyInsperationAllMeals.MinimizedMealCard.presenter.InsperMealsPresenter;
 
 
-public class FragDailyInspActivity extends Fragment {
+public class DailyInspFragment extends Fragment {
     TextView dailyInspi;
     RecyclerView recyclerView;
     private static final String TAG = "team";
-    MiniMealsCardAdaptor miniMealsCardAdaptor;
+    MiniMealsCardAdapter miniMealsCardAdaptor;
     LinearLayoutManager linearLayoutManager;
     InsperMealsPresenter insperMealsPresenter;
 
-    public FragDailyInspActivity() {
+    public DailyInspFragment() {
         // Required empty public constructor
     }
 

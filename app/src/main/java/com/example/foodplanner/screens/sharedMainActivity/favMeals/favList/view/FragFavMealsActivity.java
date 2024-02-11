@@ -19,7 +19,6 @@ import com.example.foodplanner.data.local_db.favMeals.FavMeals;
 import com.example.foodplanner.data.local_db.favMeals.FavMealsDAO;
 import com.example.foodplanner.data.local_db.favMeals.FaviourtLocalDataSourceImpl;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedLocalDataSourceImpl;
-import com.example.foodplanner.data.model.MealCard;
 import com.example.foodplanner.data.model.MealsRepositoryImpl;
 import com.example.foodplanner.data.network.ProductRemoteDataSourceImpl;
 import com.example.foodplanner.screens.sharedMainActivity.favMeals.favList.presenter.FavMealsPresnterImp;
@@ -27,7 +26,7 @@ import com.example.foodplanner.screens.sharedMainActivity.favMeals.favList.prese
 import java.util.ArrayList;
 import java.util.List;
 
-public class FragFavMealsActivity extends Fragment implements FavMealsView {
+public class FragFavMealsActivity extends Fragment {
     private static final String TAG = "team";
     FavMiniMealsCardAdaptor miniMealsCardAdaptor;
     RecyclerView recyclerView;
@@ -38,6 +37,7 @@ public class FragFavMealsActivity extends Fragment implements FavMealsView {
     PlannedLocalDataSourceImpl plannedLocalDataSource;
     List<FavMeals> favMealsList;
     FavMealsPresnterImp presenterImp;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,7 +51,7 @@ public class FragFavMealsActivity extends Fragment implements FavMealsView {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(miniMealsCardAdaptor);
         Log.i(TAG, "on creation of fav");
-        presenterImp = new FavMealsPresnterImp(this, repository);
+        presenterImp = new FavMealsPresnterImp(repository);
 
         APPDataBase db = APPDataBase.getInstance(getContext());
         FavMealsDAO dao = db.getFavMealsDAO();

@@ -16,11 +16,11 @@ import com.example.foodplanner.MinimizedMealCardDRAFTneedUpdateWIthNormalCardAnd
 
 import java.util.List;
 
-public class MiniMealsCardAdaptor extends RecyclerView.Adapter<MiniMealsCardAdaptor.MealsViewHolder> {
+public class MiniMealsCardAdapter extends RecyclerView.Adapter<MiniMealsCardAdapter.MealsViewHolder> {
     private Context context;
     private List<MinimizedMealCardDRAFTneedUpdateWIthNormalCardAndChosseWhatToSHOW> mealsList;
 
-    public MiniMealsCardAdaptor(Context context, List<MinimizedMealCardDRAFTneedUpdateWIthNormalCardAndChosseWhatToSHOW> mealsList) {
+    public MiniMealsCardAdapter(Context context, List<MinimizedMealCardDRAFTneedUpdateWIthNormalCardAndChosseWhatToSHOW> mealsList) {
         this.context = context;
         this.mealsList = mealsList;
     }

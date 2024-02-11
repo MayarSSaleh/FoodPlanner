@@ -3,13 +3,15 @@ package com.example.foodplanner.data.local_db.plannedMeals;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-
+import androidx.room.TypeConverters;
+import com.example.foodplanner.data.local_db.Converters;
 import com.example.foodplanner.data.model.Ingredient;
-
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity(tableName = "plannedMeals_table")
+@TypeConverters(Converters.class)
+
 public class PlannedMeals {
     @PrimaryKey
     @NonNull

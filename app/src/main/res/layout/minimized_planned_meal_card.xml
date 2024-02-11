@@ -5,7 +5,6 @@
     android:id="@+id/miniCard"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginStart="55dp"
     tools:context=".screens.sharedMainActivity.DailyInsperationAllMeals.MinimizedMealCard.view.fragCardActivity">
 
     <TextView
@@ -17,20 +16,34 @@
         android:text="@string/hello_blank_fragment"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.392"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ImgMiniMeal"
-        app:layout_constraintVertical_bias="0.047" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/ImgMiniMeal"
         android:layout_width="301dp"
         android:layout_height="162dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:foregroundGravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.236"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/avatars" />
+
+    <ImageView
+        android:id="@+id/img_remove"
+        android:layout_width="47dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.567"
+        app:layout_constraintStart_toEndOf="@+id/ImgMiniMeal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/delete" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

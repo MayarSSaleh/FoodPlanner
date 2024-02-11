@@ -1,6 +1,6 @@
 package com.example.foodplanner.data.network;
 
-import com.example.foodplanner.data.model.ProductsResponse;
+import com.example.foodplanner.data.model.MealsResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -12,6 +12,6 @@ public interface MealsService {
     // for implment any thing make call ...... get almment i named it
 
     @GET("randomselection")
-    Call<ProductsResponse> getProducts();
+    Call<MealsResponse> getProducts();
 
 }

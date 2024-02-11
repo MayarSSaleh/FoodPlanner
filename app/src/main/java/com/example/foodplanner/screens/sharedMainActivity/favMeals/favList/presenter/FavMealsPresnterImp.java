@@ -2,14 +2,11 @@ package com.example.foodplanner.screens.sharedMainActivity.favMeals.favList.pres
 
 import com.example.foodplanner.data.local_db.favMeals.FavMeals;
 import com.example.foodplanner.data.model.MealsRepositoryImpl;
-import com.example.foodplanner.screens.sharedMainActivity.favMeals.favList.view.FavMealsView;
 
 public class FavMealsPresnterImp implements FavMealsPresenter {
-    FavMealsView view;
     MealsRepositoryImpl repos;
 
-    public FavMealsPresnterImp(FavMealsView view, MealsRepositoryImpl repos) {
-        this.view = view;
+    public FavMealsPresnterImp( MealsRepositoryImpl repos) {
         this.repos = repos;
     }
 

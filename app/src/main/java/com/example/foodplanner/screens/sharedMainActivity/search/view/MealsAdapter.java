@@ -1,4 +1,4 @@
 package com.example.foodplanner.screens.sharedMainActivity.search.view;
 
-public class CountryAdaptor {
+public class MealsAdapter {
 }

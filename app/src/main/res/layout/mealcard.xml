@@ -14,7 +14,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
@@ -33,25 +33,22 @@
             <ImageView
                 android:id="@+id/img_meal"
                 android:layout_width="360dp"
-                android:layout_marginStart="0dp"
                 android:layout_height="245dp"
-                android:layout_marginTop="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_fav"
                 app:srcCompat="@drawable/u" />
 
             <TextView
                 android:id="@+id/tv_mealName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="4dp"
                 android:fontFamily="cursive"
                 android:text="name"
                 android:textSize="48sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/img_meal" />
 
@@ -80,37 +77,28 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_country" />
 
             <TextView
-                android:id="@+id/steps"
+                android:id="@+id/steps_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="284dp"
+                android:layout_marginTop="12dp"
                 android:text="Steps:"
                 android:textSize="28sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.08"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/recyclerView_ing" />
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/steps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="0dp"
                 android:layout_marginTop="28dp"
-                android:textSize="28sp"
+                android:layout_marginStart="-40dp"
                 android:text="all steps"
+                android:textSize="28sp"
                 app:layout_constraintStart_toStartOf="@id/steps"
-                app:layout_constraintTop_toBottomOf="@+id/steps" />
-
-            <VideoView
-                android:id="@+id/videoView"
-                android:layout_width="351dp"
-                android:layout_height="186dp"
-                android:layout_marginTop="44dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.658"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView9" />
+                app:layout_constraintTop_toBottomOf="@+id/steps_title" />
 
             <Button
                 android:id="@+id/btn_add_to_plan"
@@ -133,6 +121,15 @@
                 app:layout_constraintHorizontal_bias="0.448"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/Ingredients" />
+
+            <WebView
+                android:id="@+id/web_view"
+                android:layout_width="363dp"
+                android:layout_height="95dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/steps" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

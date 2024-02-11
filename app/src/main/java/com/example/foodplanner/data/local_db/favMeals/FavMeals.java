@@ -3,14 +3,19 @@ package com.example.foodplanner.data.local_db.favMeals;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
+import com.example.foodplanner.data.local_db.Converters;
 import com.example.foodplanner.data.model.Ingredient;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity(tableName = "favMeals_table")
-public class FavMeals {
+@TypeConverters(Converters.class)
+
+public class FavMeals implements Serializable {
 
     @PrimaryKey
     @NonNull

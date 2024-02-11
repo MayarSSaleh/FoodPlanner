@@ -11,7 +11,6 @@ public interface MealsRepository {
 
 
     // >>>>>>>>>>>>>>>>>>>>>>>>LOCAL HANDLING<<<<<<<<<<<<<<<<<<<<<<<<<<
-
     //>>>>>>>>>>>>>>>>>>>>>>...for faviourt<<<<<<<<<
     void insertinFavTable(FavMeals favMeals);
 

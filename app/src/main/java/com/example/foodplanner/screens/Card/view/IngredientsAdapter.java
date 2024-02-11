@@ -11,28 +11,28 @@ import com.example.foodplanner.R;
 import com.example.foodplanner.data.model.Ingredient;
 import java.util.List;
 
-public class IngtedientsAdaptor extends RecyclerView.Adapter<IngtedientsAdaptor.ViewHolder> {
+public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.ViewHolder> {
 
     private static final String TAG = "team";
     Context context;
     List<Ingredient> ingredientList;
 
-    public IngtedientsAdaptor(Context context, List<Ingredient> ingredientList) {
+    public IngredientsAdapter(Context context, List<Ingredient> ingredientList) {
         this.context = context;
         this.ingredientList = ingredientList;
     }
 
     @NonNull
     @Override
-    public IngtedientsAdaptor.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public IngredientsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.ingredient, parent, false);
-        IngtedientsAdaptor.ViewHolder myViewHolder = new IngtedientsAdaptor.ViewHolder(view);
+        IngredientsAdapter.ViewHolder myViewHolder = new IngredientsAdapter.ViewHolder(view);
         return myViewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull IngtedientsAdaptor.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull IngredientsAdapter.ViewHolder holder, int position) {
         Ingredient current = ingredientList.get(position);
         holder.ingName.setText((current.getName()));
         holder.ingAmount.setText(current.getAmount());

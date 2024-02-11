@@ -1,6 +1,8 @@
 package com.example.foodplanner.data.model;
 
-public class Ingredient {
+import java.io.Serializable;
+
+public class Ingredient implements Serializable {
     String name;
     String amount;
 

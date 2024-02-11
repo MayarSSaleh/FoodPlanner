@@ -24,8 +24,9 @@
         <activity android:name=".screens.logIn.view.loginEnterUser"></activity>
         <activity android:name=".screens.signUp.view.signUPActivity"></activity>
         <activity android:name=".SplashScreenActivity"> </activity>
-
+        <activity android:name=".screens.Card.view.ChossePlannedDay"></activity>
         <activity android:name=".screens.Card.view.MealCardActivity"></activity>
+
 
         <meta-data
             android:name="preloaded_fonts"
