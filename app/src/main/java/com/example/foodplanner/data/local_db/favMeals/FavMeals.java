@@ -20,6 +20,7 @@ public class FavMeals implements Serializable {
     @PrimaryKey
     @NonNull
     String mealId;
+
     String name;
     String photourl;
     String country;

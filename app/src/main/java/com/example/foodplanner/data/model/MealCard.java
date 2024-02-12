@@ -1,64 +1,120 @@
 package com.example.foodplanner.data.model;
 
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MealCard implements Serializable {
+
+    //    @SerializedName("idCategory")
+//    @SerializedName("strCategory")
+//    @SerializedName("strCategoryThumb")
+
+    @SerializedName("idMeal")
     String mealId;
+    @SerializedName("strMeal")
     String name;
+    @SerializedName("strMealThumb")
     String photourl;
+    @SerializedName("strArea")
     String country;
+    @SerializedName("strYoutube")
     String videoUrl;
+    @SerializedName("strIngredient1")
     String ingr1;
+    @SerializedName("strIngredient2")
     String ingr2;
+    @SerializedName("strIngredient3")
     String ingr3;
+    @SerializedName("strIngredient4")
     String ingr4;
+    @SerializedName("strIngredient5")
     String ingr5;
+    @SerializedName("strIngredient6")
     String ingr6;
+    @SerializedName("strIngredient7")
     String ingr7;
+    @SerializedName("strIngredient8")
     String ingr8;
+    @SerializedName("strIngredient9")
     String ingr9;
+    @SerializedName("strIngredient10")
     String ingr10;
+    @SerializedName("strIngredient11")
     String ingr11;
+    @SerializedName("strIngredient12")
     String ingr12;
+    @SerializedName("strIngredient13")
     String ingr13;
+    @SerializedName("strIngredient14")
     String ingr14;
+    @SerializedName("strIngredient15")
     String ingr15;
+    @SerializedName("strIngredient16")
     String ingr16;
+    @SerializedName("strIngredient17")
     String ingr17;
+    @SerializedName("strIngredient18")
     String ingr18;
+    @SerializedName("strIngredient19")
     String ingr19;
+    @SerializedName("strIngredient20")
     String ingr20;
+    @SerializedName("strMeasure1")
     String ingr1m;
+    @SerializedName("strMeasure2")
     String ingr2m;
+    @SerializedName("strMeasure3")
     String ingr3m;
+    @SerializedName("strMeasure4")
     String ingr4m;
+    @SerializedName("strMeasure5")
     String ingr5m;
+    @SerializedName("strMeasure6")
     String ingr6m;
+    @SerializedName("strMeasure7")
     String ingr7m;
+    @SerializedName("strMeasure8")
     String ingr8m;
+    @SerializedName("strMeasure9")
     String ingr9m;
+    @SerializedName("strMeasure10")
     String ingr10m;
+    @SerializedName("strMeasure11")
     String ingr11m;
+    @SerializedName("strMeasure12")
     String ingr12m;
+    @SerializedName("strMeasure13")
     String ingr13m;
+    @SerializedName("strMeasure14")
     String ingr14m;
+    @SerializedName("strMeasure15")
     String ingr15m;
+    @SerializedName("strMeasure16")
     String ingr16m;
+    @SerializedName("strMeasure17")
     String ingr17m;
+    @SerializedName("strMeasure18")
     String ingr18m;
+    @SerializedName("strMeasure19")
     String ingr19m;
+    @SerializedName("strMeasure20")
     String ingr20m;
+    @SerializedName("strInstructions")
+    String steps;
+
+
     List<Ingredient> allingredient = new ArrayList<>();
 
-    String steps;
     boolean fav;
     boolean plan;    //if click add to plan button make value = true and opposite
 
     public MealCard() {
     }
+
     public List<Ingredient> getAllingredient() {
         return allingredient;
     }

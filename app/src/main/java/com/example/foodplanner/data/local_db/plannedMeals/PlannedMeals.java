@@ -17,8 +17,7 @@ public class PlannedMeals {
     @NonNull
     String mealId;
     String name;
-    @NonNull
-    String day;
+    boolean Saturday,Monday,Tuesday,Wednesday,Thursday,Sunday,Friday;
     String photourl;
     String country;
     String videoUrl;
@@ -26,6 +25,14 @@ public class PlannedMeals {
     String steps;
     boolean isFav;
     boolean isinplan;    //if click add to plan button make value = true and opposite
+
+    public boolean isFriday() {
+        return Friday;
+    }
+
+    public void setFriday(boolean friday) {
+        Friday = friday;
+    }
 
     public String getMealId() {
         return mealId;
@@ -43,13 +50,52 @@ public class PlannedMeals {
         this.allingredient = allingredient;
     }
 
-    @NonNull
-    public String getDay() {
-        return day;
+    public boolean isSaturday() {
+        return Saturday;
     }
 
-    public void setDay(@NonNull String day) {
-        this.day = day;
+    public void setSaturday(boolean saturday) {
+        Saturday = saturday;
+    }
+
+    public boolean isMonday() {
+        return Monday;
+    }
+
+    public void setMonday(boolean monday) {
+        Monday = monday;
+    }
+
+    public boolean isTuesday() {
+        return Tuesday;
+    }
+
+    public void setTuesday(boolean tuesday) {
+        Tuesday = tuesday;
+    }
+
+    public boolean isWednesday() {
+        return Wednesday;
+    }
+
+    public void setWednesday(boolean wednesday) {
+        Wednesday = wednesday;
+    }
+
+    public boolean isThursday() {
+        return Thursday;
+    }
+
+    public void setThursday(boolean thursday) {
+        Thursday = thursday;
+    }
+
+    public boolean isSunday() {
+        return Sunday;
+    }
+
+    public void setSunday(boolean sunday) {
+        Sunday = sunday;
     }
 
     @NonNull

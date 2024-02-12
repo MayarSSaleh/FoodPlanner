@@ -10,7 +10,7 @@ import com.example.foodplanner.data.local_db.favMeals.FavMeals;
 import com.example.foodplanner.data.local_db.favMeals.FavMealsDAO;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedMeals;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedMealsDAO;
-@Database(entities={FavMeals.class, PlannedMeals.class}, version = 3)
+@Database(entities={FavMeals.class, PlannedMeals.class}, version = 4)
 @TypeConverters(Converters.class)
 public abstract class APPDataBase extends RoomDatabase {
     private static APPDataBase instance = null;
@@ -29,21 +29,4 @@ public abstract class APPDataBase extends RoomDatabase {
         return instance;
     }
 }
-//@Database(entities = {Meal.class, MealSchedule.class}, version = 1)
 
-//public abstract class AppDatabase extends RoomDatabase {
-
-//    public abstract MealDao mealDao();
-//    public abstract MealScheduleDao mealScheduleDao();
-
-//    private static AppDatabase instance;
-//    public static synchronized AppDatabase getInstance(Context context) {
-//        if (instance == null) {
-//            instance = Room.databaseBuilder(context.getApplicationContext(),
-//                    AppDatabase.class, "app_database")
-//                    .fallbackToDestructiveMigration()
-//                    .build();
-//        }
-//        return instance;
-//    }
-//}

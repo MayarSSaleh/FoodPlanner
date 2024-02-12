@@ -12,7 +12,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ProductRemoteDataSourceImpl {
     private static final String TAG = "team";
-    private static final String BASE_URL = "www.themealdb.com/api/json/v1/1/";
+    private static final String BASE_URL = "https://www.themealdb.com/api/json/v1/1/";
+
     public ProductRemoteDataSourceImpl() {
     }
 
@@ -21,12 +22,12 @@ public class ProductRemoteDataSourceImpl {
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(BASE_URL).build();
         MealsService pService = retrofit.create(MealsService.class);
-        pService.getProducts().enqueue(new Callback<MealsResponse>() {
+        pService.getMeal().enqueue(new Callback<MealsResponse>() {
             @Override
             public void onResponse(Call<MealsResponse> call, Response<MealsResponse> response) {
                 if (response.isSuccessful()) {
                     Log.i(TAG, " on response + isSuccessful");
-                    networkCallback.onSuccessResultForRandom(response.body().randomselection);
+                    networkCallback.onSuccessResultForRandom(response.body().meals);
                 }
             }
             @Override

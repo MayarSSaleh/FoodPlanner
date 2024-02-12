@@ -40,7 +40,23 @@ public class MealCardPresenterImp implements MealCardPresenter {
         newMeal.setAllingredient(mealCard.getAllingredient());
         newMeal.setFav(mealCard.isFav());
         newMeal.setSteps(mealCard.getSteps());
-        newMeal.setDay(day);
+        Log.i(TAG, "mealCard day " + day);
+
+        if (day.equals("Saturday")) {
+            newMeal.setSaturday(true);
+        } else if (day.equals("Sunday")) {
+            newMeal.setSunday(true);
+        } else if (day.equals("Monday")) {
+            newMeal.setMonday(true);
+        } else if (day.equals("Tuesday")) {
+            newMeal.setTuesday(true);
+        } else if (day.equals("Wednesday")) {
+            newMeal.setWednesday(true);
+        } else if (day.equals("Thursday")) {
+            newMeal.setThursday(true);
+        } else if (day.equals("Friday")) {
+            newMeal.setFriday(true);
+        }
         repository.insertintoPlanTable(newMeal);
     }
 
@@ -66,6 +82,7 @@ public class MealCardPresenterImp implements MealCardPresenter {
         // here i should change meal card to fav
 //i only need the primary key to delete
     }
+
     String TAG = "TAG";
 
     public void showThisFavMeal(FavMeals favMeal) {
@@ -75,9 +92,9 @@ public class MealCardPresenterImp implements MealCardPresenter {
         mealCard.setName(favMeal.getName());
         mealCard.setCountry(favMeal.getCountry());
         mealCard.setAllingredient(favMeal.getAllingredient());
-        Log.i(TAG, "showThisFavMeal:fav .getsteps "+favMeal.getSteps());
+        Log.i(TAG, "showThisFavMeal:fav .getsteps " + favMeal.getSteps());
         mealCard.setSteps(favMeal.getSteps());
-        Log.i(TAG, "mealCard "+mealCard.getSteps());
+        Log.i(TAG, "mealCard " + mealCard.getSteps());
 
         mealCard.setFav(favMeal.isFav());
         mealCard.setPhotourl(favMeal.getPhotourl());

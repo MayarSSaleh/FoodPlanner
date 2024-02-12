@@ -5,6 +5,6 @@ import com.example.foodplanner.data.model.MealCard;
 import java.util.List;
 
 public interface InsperMealsView {
-    public void showData (List<MealCard> products);
-//    public void showErrMsg(String error);
+    public void showData (MealCard mealCard);
+    public void showErrMsg(String error);
 }

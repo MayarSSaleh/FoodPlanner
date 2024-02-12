@@ -15,7 +15,7 @@
         android:background="@drawable/rounded_corner_edittext"
         android:drawableLeft="@drawable/baseline_manage_search_24"
         android:drawablePadding="9dp"
-        android:hint="@string/SearchTab"
+        android:hint="@string/searchbymeal"
         android:inputType="text"
         android:padding="10dp"
         app:layout_constraintStart_toStartOf="parent"

@@ -48,7 +48,7 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
     private TextView allSteps;
     private Button addToPlanButton;
     private WebView webView;
-    VideoView videoView;
+
     RecyclerView ingS_recyclerView;
     IngredientsAdapter ingredientsAdapter;
     LinearLayoutManager linearLayoutManager;
@@ -65,19 +65,33 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mealcard);
         UI();
+        ingredientsAdapter = new IngredientsAdapter(this);
+        /////to get from fav
         Intent intent = getIntent();
         Log.i(TAG, "intent" + intent.hasExtra(FAV_OBJECT));
         FavMeals current = (FavMeals) intent.getSerializableExtra(FAV_OBJECT);
         Log.i(TAG, "on card" + current);
-        mealCardPresenterImp = new MealCardPresenterImp(this, mealsRepository);
-        if (current != null) {
-            mealCardPresenterImp.showThisFavMeal(current);
-        }
-        linearLayoutManager = new LinearLayoutManager(this);
+
         productRemoteDataSource = new ProductRemoteDataSourceImpl();
         prodcutsLocalDataSource = new FaviourtLocalDataSourceImpl(this);
         plannedLocalDataSource = new PlannedLocalDataSourceImpl(this);
         mealsRepository = MealsRepositoryImpl.getInstance(productRemoteDataSource, prodcutsLocalDataSource, plannedLocalDataSource);
+
+        mealCardPresenterImp = new MealCardPresenterImp(this, mealsRepository);
+        if (current != null) {
+            mealCardPresenterImp.showThisFavMeal(current);
+        }
+
+        linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+
+        //to get object from daily insper
+        Intent intent1 = getIntent();
+        Log.i(TAG, "daily object" + intent1.hasExtra("object"));
+        MealCard inspMeal = (MealCard) intent1.getSerializableExtra("object");
+        Log.i(TAG, "on card" + inspMeal);
+        if (inspMeal != null) {
+            setThisMealAtCard(inspMeal);
+        }
         handlingSetonAction();
     }
 
@@ -101,19 +115,19 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
         Log.d(TAG, "second: " + currentMeal.getName());
         mealName.setText(mealCard.getName());
         country.setText(mealCard.getCountry());
-        ingredientsAdapter = new IngredientsAdapter(MealCardActivity.this, mealCard.getAllingredient());
-        ingS_recyclerView.setLayoutManager(linearLayoutManager);
+        ingS_recyclerView.setLayoutManager(new LinearLayoutManager(this));
         ingS_recyclerView.setAdapter(ingredientsAdapter);
-        Log.d(TAG, "s" + mealCard.getSteps());
+        ingredientsAdapter.setIngredientsList(mealCard.getAllingredient());
 
         allSteps.setText(mealCard.getSteps());
         Glide.with(MealCardActivity.this).load(mealCard.getPhotourl()).into(mealImage);
         Log.d(TAG, "VIDEO URL: " + mealCard.getVideoUrl());
-        updatefavImageAccordingActullayStatus(mealCard.getName());
+
+        updatefavImageAccordingActullayStatus(mealCard.getMealId());
+
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient());
         webView.loadUrl(mealCard.getVideoUrl());
-//        playVideo(mealCard.getVideoUrl());
     }
 
     public void handlingSetonAction() {
@@ -133,6 +147,7 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
                     favStatus.setImageDrawable(drawable);
                     currentMeal.setFav(false);
                     removeFromFav(currentMeal);
+                    finish();
                 } else {
                     drawable.setColorFilter(ContextCompat.getColor(MealCardActivity.this, com.google.android.material.R.color.design_dark_default_color_error), PorterDuff.Mode.SRC_IN);
                     favStatus.setImageDrawable(drawable);
@@ -151,50 +166,28 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
         favourits.observe(this, new Observer<List<FavMeals>>() {
             @Override
             public void onChanged(List<FavMeals> favMealsList) {
+                // check using filter stream if any >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.
                 for (FavMeals favMeal : favMealsList) {
+
                     Drawable drawable = favStatus.getDrawable();
-                    if (favMeal.getName().equals(mealId)) {
+                    if (favMeal.getMealId().equals(mealId)) {
                         Log.d(TAG, "Found a FavMeals object with the desired name: " + favMeal.getName());
                         drawable.setColorFilter(ContextCompat.getColor(MealCardActivity.this, com.google.android.material.R.color.design_dark_default_color_error), PorterDuff.Mode.SRC_IN);
                         favStatus.setImageDrawable(drawable);
                         isFav = true;
+                        Log.d("hhhhh", "if " + mealId + "  " + favMeal.getMealId());
                     } else {
 // Remove the color filter (tint)
                         drawable.setColorFilter(null);
                         favStatus.setImageDrawable(drawable);
                         isFav = false;
+                        Log.d("hhhhh", "else " + mealId + "         " + favMeal.getMealId());
+
                     }
                 }
             }
         });
     }
-
-    //
-//    public void playVideo(String videoUrl) {
-//        Uri uri = Uri.parse(videoUrl);
-//        videoView.setVideoURI(uri);
-//        videoView.start();
-//    }
-//    public void playVideo(String videoUrl) {
-//        // Extract the video ID from the YouTube video URL
-//        String videoId = extractVideoId(videoUrl);
-//        // Construct the embed URL with the video ID
-//        String embedUrl = "https://www.youtube.com/embed/" + videoId;
-//        // Enable JavaScript (optional, depends on the content of the web page)
-//        webView.getSettings().setJavaScriptEnabled(true);
-//        // Load the YouTube video using the embed URL
-//        webView.loadUrl(embedUrl);
-//    }
-//    private String extractVideoId(String videoUrl) {
-//        if (videoUrl == null) {
-//            return null;
-//        }
-//        Uri uri = Uri.parse(videoUrl);
-//        String videoId = uri.getQueryParameter("v");
-//        return videoId;
-//    }
-
-
 
     @Override
     public void addToFav(MealCard currentMeal) {

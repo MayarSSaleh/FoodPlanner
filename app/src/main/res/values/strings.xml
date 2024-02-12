@@ -32,4 +32,6 @@
     <string name="SearchbyMeals">Search by Meals</string>
     <string name="SearchbyCountery">Search by Countery</string>
     <string name="title_chooseDay">Choose The Day</string>
+    <string name="RefreshPage">Refresh page, \nTo get another insper meal</string>
+    <string name="searchbymeal">Search by meal</string>
 </resources>

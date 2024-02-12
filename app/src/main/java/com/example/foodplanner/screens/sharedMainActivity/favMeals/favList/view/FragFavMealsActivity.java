@@ -44,6 +44,10 @@ public class FragFavMealsActivity extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.frag_fav_meals, container, false);
         recyclerView = rootView.findViewById(R.id.fav_recycle);
+
+        productRemoteDataSource = new ProductRemoteDataSourceImpl();
+        prodcutsLocalDataSource = new FaviourtLocalDataSourceImpl(requireContext());
+        plannedLocalDataSource = new PlannedLocalDataSourceImpl(requireContext());
         repository = MealsRepositoryImpl.getInstance(productRemoteDataSource, prodcutsLocalDataSource, plannedLocalDataSource);
         linearLayoutManager = new LinearLayoutManager(getContext());
         favMealsList = new ArrayList<>();

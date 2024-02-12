@@ -18,4 +18,6 @@
     <string name="SearchByIng">Search by Ingredients</string>
     <string name="SearchbyMeals">Search by Meals</string>
     <string name="title_chooseDay">Choose The Day</string>
+    <string name="RefreshPage">Refresh page, \nTo get another insper meal</string>
+    <string name="searchbymeal">Search by meal</string>
 </resources>

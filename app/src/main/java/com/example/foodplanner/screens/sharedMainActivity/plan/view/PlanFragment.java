@@ -15,7 +15,7 @@ import com.example.foodplanner.R;
 
 public class PlanFragment extends Fragment {
 
-
+    WeekAdapter weekAdapter;
     public PlanFragment() {
         // Required empty public constructor
     }

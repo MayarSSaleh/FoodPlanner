@@ -51,7 +51,6 @@ public class FavMiniMealsCardAdaptor extends RecyclerView.Adapter<FavMiniMealsCa
         FavMeals current = favMealsList.get(position);
         holder.nameTextView.setText(current.getName());
         // the follwoing for testing
-        current.setMealId("test");
         Glide.with(context).load(current.getPhotourl()).into(holder.imageView);
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override

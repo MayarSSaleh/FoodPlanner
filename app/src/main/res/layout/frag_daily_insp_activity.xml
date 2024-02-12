@@ -11,6 +11,7 @@
         android:id="@+id/tv_dailyInspi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/berkshire_swash"
         android:gravity="center"
         android:text="@string/DailyInsperationTitile"
@@ -19,13 +20,41 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/daily_insp_recycle"
-        android:layout_width="387dp"
-        android:layout_height="571dp"
-        android:layout_marginBottom="16dp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        app:cardBackgroundColor="#E1DCEC"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="18dp"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.636"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_dailyInspi"
+        app:layout_constraintVertical_bias="0.384">
+
+        <ImageView
+            android:id="@+id/img_mealDaily"
+            android:layout_width="270dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="20dp"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/tv_meal_name_daily"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="420dp"
+            android:fontFamily="cursive"
+            android:textSize="50dp"
+            tools:ignore="mealName" />
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
