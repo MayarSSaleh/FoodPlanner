@@ -48,26 +48,26 @@ public class MainScreenActivity extends AppCompatActivity {
         APPDataBase db = APPDataBase.getInstance(this);
         FavMealsDAO dao = db.getFavMealsDAO();
 //         same photo of first prodcut but it is not the first it is just test
-        FavMeals testDB = new FavMeals();
-        testDB.setName("TEST");
-        testDB.setMealId("12345");
-        testDB.setPhotourl("https://cdn.dummyjson.com/product-images/1/thumbnail.jpg");
-        testDB.setVideoUrl("https://www.youtube.com/watch?v=mTvlmY4vCug");
-        testDB.setCountry("egypt");
-        testDB.setFav(true);
-        List<Ingredient> in=new ArrayList<>();
-        in.add(new Ingredient("ing1","ing2"));
-        testDB.setAllingredient(in);
-        testDB.setSteps("one");
-        Log.i(TAG, "testDB "+testDB.getSteps());
-
-        new Thread() {
-            @Override
-            public void run() {
-                Log.i(TAG, "run: insert prodcut");
-                dao.insertToFav(testDB);
-            }
-        }.start();
+//        FavMeals testDB = new FavMeals();
+//        testDB.setName("TEST");
+//        testDB.setMealId("12345");
+//        testDB.setPhotourl("https://cdn.dummyjson.com/product-images/1/thumbnail.jpg");
+//        testDB.setVideoUrl("https://www.youtube.com/watch?v=mTvlmY4vCug");
+//        testDB.setCountry("egypt");
+//        testDB.setFav(true);
+//        List<Ingredient> in=new ArrayList<>();
+//        in.add(new Ingredient("ing1","ing2"));
+//        testDB.setAllingredient(in);
+//        testDB.setSteps("one");
+//        Log.i(TAG, "testDB "+testDB.getSteps());
+//
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                Log.i(TAG, "run: insert prodcut");
+//                dao.insertToFav(testDB);
+//            }
+//        }.start();
     }
     private void ui() {
         tabLayout = findViewById(R.id.tab_layout);

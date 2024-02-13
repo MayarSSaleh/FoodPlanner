@@ -50,7 +50,6 @@ public class FaviourtLocalDataSourceImpl {
             @Override
             public void run() {
                 Log.i(TAG, "ON insert respoitory");
-
                 mealDAO.insertToFav(mealCard);
             }
         }).start();

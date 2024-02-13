@@ -58,19 +58,20 @@ public class MealsRepositoryImpl implements MealsRepository {
 
     @Override
     public void deleteFromFav(FavMeals favMeals) {
-
         prodcutsLocalDataSource.delete(favMeals);
     }
 
     @Override
-    public void insertintoPlanTable(PlannedMeals plannedMeal) {
-        Log.i(TAG, "plannedMeal" );
-        plannedLocalDataSource.insert(plannedMeal);
+    public void insertintoPlanTable(List<PlannedMeals> meals, PlannedMeals plannedMeal , String day) {
+        Log.i(TAG, "plannedMeal meal repos  imp" + day );
+
+        plannedLocalDataSource.updateOrInsertMeal(meals,plannedMeal ,day);
     }
 
     @Override
-    public void deleteFromPlanTable(PlannedMeals plannedMeal) {
-        plannedLocalDataSource.delete(plannedMeal);
+    public void deleteFromPlanTable(PlannedMeals plannedMeal, String day) {
+        plannedLocalDataSource.updateOrDeletMeal(plannedMeal, day);
     }
 }
+
 

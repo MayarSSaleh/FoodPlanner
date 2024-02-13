@@ -6,13 +6,15 @@ import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 import com.example.foodplanner.data.local_db.Converters;
 import com.example.foodplanner.data.model.Ingredient;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity(tableName = "plannedMeals_table")
 @TypeConverters(Converters.class)
 
-public class PlannedMeals {
+public class PlannedMeals implements Serializable  {
     @PrimaryKey
     @NonNull
     String mealId;

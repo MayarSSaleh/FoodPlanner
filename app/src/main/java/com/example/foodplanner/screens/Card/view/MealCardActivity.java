@@ -27,6 +27,7 @@ import com.example.foodplanner.data.local_db.favMeals.FavMeals;
 import com.example.foodplanner.data.local_db.favMeals.FavMealsDAO;
 import com.example.foodplanner.data.local_db.favMeals.FaviourtLocalDataSourceImpl;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedLocalDataSourceImpl;
+import com.example.foodplanner.data.local_db.plannedMeals.PlannedMeals;
 import com.example.foodplanner.data.model.MealCard;
 import com.example.foodplanner.data.model.MealsRepositoryImpl;
 import com.example.foodplanner.data.network.ProductRemoteDataSourceImpl;
@@ -37,14 +38,14 @@ import java.util.List;
 public class MealCardActivity extends AppCompatActivity implements MealCardView, OnAddORrmoveFavClickListener {
     //    String videoUrl = "https://www.example.com/your_video.mp4";
     public static final String FAV_OBJECT = "FavObject";
+    public static final String PLANNED_MEAL = "planned_meal";
+
     MealCard currentMeal = new MealCard();
     String TAG = "TAG";
     private ImageView mealImage;
     private ImageView favStatus;
     private TextView mealName;
     private TextView country;
-    private TextView allIngredients;
-    private TextView alling_amount;
     private TextView allSteps;
     private Button addToPlanButton;
     private WebView webView;
@@ -71,7 +72,6 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
         Log.i(TAG, "intent" + intent.hasExtra(FAV_OBJECT));
         FavMeals current = (FavMeals) intent.getSerializableExtra(FAV_OBJECT);
         Log.i(TAG, "on card" + current);
-
         productRemoteDataSource = new ProductRemoteDataSourceImpl();
         prodcutsLocalDataSource = new FaviourtLocalDataSourceImpl(this);
         plannedLocalDataSource = new PlannedLocalDataSourceImpl(this);
@@ -81,6 +81,13 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
         if (current != null) {
             mealCardPresenterImp.showThisFavMeal(current);
         }
+
+// get from planned
+        PlannedMeals plannedMeal = (PlannedMeals)intent.getSerializableExtra(PLANNED_MEAL);
+        if (plannedMeal != null) {
+            mealCardPresenterImp.showThisPlannedMeal(plannedMeal);
+        }
+
 
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
 
@@ -147,7 +154,7 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
                     favStatus.setImageDrawable(drawable);
                     currentMeal.setFav(false);
                     removeFromFav(currentMeal);
-                    finish();
+//                    finish();
                 } else {
                     drawable.setColorFilter(ContextCompat.getColor(MealCardActivity.this, com.google.android.material.R.color.design_dark_default_color_error), PorterDuff.Mode.SRC_IN);
                     favStatus.setImageDrawable(drawable);

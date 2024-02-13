@@ -21,15 +21,10 @@ import com.example.foodplanner.R;
 import com.example.foodplanner.data.local_db.favMeals.FaviourtLocalDataSourceImpl;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedLocalDataSourceImpl;
 import com.example.foodplanner.data.model.MealCard;
-import com.example.foodplanner.data.model.MealsRepository;
 import com.example.foodplanner.data.model.MealsRepositoryImpl;
-import com.example.foodplanner.data.network.NetworkCallback;
 import com.example.foodplanner.data.network.ProductRemoteDataSourceImpl;
 import com.example.foodplanner.screens.Card.view.MealCardActivity;
-import com.example.foodplanner.screens.sharedMainActivity.DailyInsperationAllMeals.MinimizedMealCard.presenter.InsperMealsPresenter;
 import com.example.foodplanner.screens.sharedMainActivity.DailyInsperationAllMeals.MinimizedMealCard.presenter.InsperMealsPresenterImp;
-
-import java.util.List;
 
 
 public class DailyInspFragment extends Fragment implements InsperMealsView {
@@ -49,7 +44,7 @@ public class DailyInspFragment extends Fragment implements InsperMealsView {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.frag_daily_insp_activity, container, false);
+        View rootView = inflater.inflate(R.layout.daily_insperation, container, false);
         mealName = rootView.findViewById(R.id.tv_meal_name_daily);
         mealImage = rootView.findViewById(R.id.img_mealDaily);
 //        recyclerView = rootView.findViewById(R.id.daily_insp_recycle);

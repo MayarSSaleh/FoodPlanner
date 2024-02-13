@@ -42,7 +42,7 @@ public class FragFavMealsActivity extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.frag_fav_meals, container, false);
+        View rootView = inflater.inflate(R.layout.fav_meals, container, false);
         recyclerView = rootView.findViewById(R.id.fav_recycle);
 
         productRemoteDataSource = new ProductRemoteDataSourceImpl();

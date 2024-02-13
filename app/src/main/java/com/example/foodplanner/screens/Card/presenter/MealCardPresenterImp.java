@@ -9,6 +9,8 @@ import com.example.foodplanner.data.model.MealCard;
 import com.example.foodplanner.data.model.MealsRepositoryImpl;
 import com.example.foodplanner.screens.Card.view.MealCardView;
 
+import java.util.List;
+
 public class MealCardPresenterImp implements MealCardPresenter {
     MealCardView mealCardView;
     MealsRepositoryImpl repository;
@@ -30,7 +32,7 @@ public class MealCardPresenterImp implements MealCardPresenter {
     }
 
     @Override
-    public void addToPlan(MealCard mealCard, String day) {
+    public void addToPlan(List<PlannedMeals> meals, MealCard mealCard, String day) {
         PlannedMeals newMeal = new PlannedMeals();
         newMeal.setName(mealCard.getName());
         newMeal.setMealId(mealCard.getMealId());
@@ -57,7 +59,8 @@ public class MealCardPresenterImp implements MealCardPresenter {
         } else if (day.equals("Friday")) {
             newMeal.setFriday(true);
         }
-        repository.insertintoPlanTable(newMeal);
+        Log.i(TAG, "in meal card presenter imp ");
+        repository.insertintoPlanTable(meals,newMeal,day);
     }
 
     @Override
@@ -92,13 +95,29 @@ public class MealCardPresenterImp implements MealCardPresenter {
         mealCard.setName(favMeal.getName());
         mealCard.setCountry(favMeal.getCountry());
         mealCard.setAllingredient(favMeal.getAllingredient());
-        Log.i(TAG, "showThisFavMeal:fav .getsteps " + favMeal.getSteps());
+//        Log.i(TAG, "showThisFavMeal:fav .getsteps " + favMeal.getSteps());
         mealCard.setSteps(favMeal.getSteps());
-        Log.i(TAG, "mealCard " + mealCard.getSteps());
+//        Log.i(TAG, "mealCard " + mealCard.getSteps());
 
         mealCard.setFav(favMeal.isFav());
         mealCard.setPhotourl(favMeal.getPhotourl());
         mealCard.setVideoUrl(favMeal.getVideoUrl());
         mealCardView.setThisMealAtCard(mealCard);
+    }
+
+    public void showThisPlannedMeal(PlannedMeals plannedMeal) {
+        MealCard mealCard = new MealCard();
+        mealCard.setMealId(plannedMeal.getMealId());
+        mealCard.setName(plannedMeal.getName());
+        mealCard.setCountry(plannedMeal.getCountry());
+        mealCard.setAllingredient(plannedMeal.getAllingredient());
+        Log.i(TAG, "showThisFavMeal:fav .getsteps " + plannedMeal.getSteps());
+        mealCard.setSteps(plannedMeal.getSteps());
+        Log.i(TAG, "mealCard " + mealCard.getSteps());
+        mealCard.setFav(plannedMeal.isFav());
+        mealCard.setPhotourl(plannedMeal.getPhotourl());
+        mealCard.setVideoUrl(plannedMeal.getVideoUrl());
+        mealCardView.setThisMealAtCard(mealCard);
+
     }
 }
