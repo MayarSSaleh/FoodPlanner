@@ -1,6 +1,8 @@
 package com.example.foodplanner.screens.Card.presenter;
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.foodplanner.data.local_db.favMeals.FavMeals;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedMeals;
@@ -9,26 +11,68 @@ import com.example.foodplanner.data.model.MealCard;
 import com.example.foodplanner.data.model.MealsRepositoryImpl;
 import com.example.foodplanner.screens.Card.view.MealCardView;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MealCardPresenterImp implements MealCardPresenter {
     MealCardView mealCardView;
     MealsRepositoryImpl repository;
+    Context context;
 
-    public MealCardPresenterImp(MealCardView mealCardView, MealsRepositoryImpl repository) {
+    public MealCardPresenterImp(MealCardView mealCardView, MealsRepositoryImpl repository, Context context) {
         this.mealCardView = mealCardView;
         this.repository = repository;
+        this.context=context;
     }
 
-    public void showAtCard(MealCard mealCard) {
-        for (int i = 1; i <= 20; i++) {
-            String ingredientName = "ingr" + i;
-            String ingredientAmount = "ingr" + i + "m";
-            if (!ingredientName.equals("")) {
-                Ingredient ingredient = new Ingredient(ingredientName, ingredientAmount);
-                mealCard.getAllingredient().add(ingredient);
-            }
+    @Override
+    public ArrayList<Ingredient> getIngredients(MealCard meal) {
+        ArrayList<Ingredient> ingredientsList = new ArrayList<>();
+        if (!meal.getIngr1().isEmpty())
+            ingredientsList.add(new Ingredient(meal.getIngr1(), meal.getIngr1m()));
+        if (!meal.getIngr2().isEmpty())
+            ingredientsList.add(new Ingredient(meal.getIngr2(), meal.getIngr2m()));
+        if (!meal.getIngr3().isEmpty())
+            ingredientsList.add(new Ingredient(meal.getIngr3(), meal.getIngr3m()));
+        if (!meal.getIngr4().isEmpty())
+            ingredientsList.add(new Ingredient(meal.getIngr4(), meal.getIngr4m()));
+        if (meal.getIngr5() != null && !meal.getIngr4().isEmpty())
+            ingredientsList.add(new Ingredient(meal.getIngr5(), meal.getIngr5m()));
+        if (!meal.getIngr6().isEmpty())
+            ingredientsList.add(new Ingredient(meal.getIngr6(), meal.getIngr6m()));
+        if (!meal.getIngr7().isEmpty())
+            ingredientsList.add(new Ingredient(meal.getIngr7(), meal.getIngr7m()));
+        if (!meal.getIngr8().isEmpty())
+            ingredientsList.add(new Ingredient(meal.getIngr8(), meal.getIngr8m()));
+        if (!meal.getIngr9().isEmpty())
+            ingredientsList.add(new Ingredient(meal.getIngr9(), meal.getIngr9m()));
+        if (!meal.getIngr10().isEmpty())
+            ingredientsList.add(new Ingredient(meal.getIngr10(), meal.getIngr10m()));
+        if (!meal.getIngr11().isEmpty())
+            ingredientsList.add(new Ingredient(meal.getIngr11(), meal.getIngr11m()));
+        if (meal.getIngr12() != null && !meal.getIngr12().isEmpty())
+            ingredientsList.add(new Ingredient(meal.getIngr12(), meal.getIngr12m()));
+        if (!meal.getIngr13().isEmpty())
+            ingredientsList.add(new Ingredient(meal.getIngr13(), meal.getIngr13m()));
+        if (!meal.getIngr14().isEmpty())
+            ingredientsList.add(new Ingredient(meal.getIngr14(), meal.getIngr14m()));
+        if (!meal.getIngr15().isEmpty())
+            ingredientsList.add(new Ingredient(meal.getIngr15(), meal.getIngr15m()));
+        if (!meal.getIngr16().isEmpty())
+            ingredientsList.add(new Ingredient(meal.getIngr16(), meal.getIngr16m()));
+        if (!meal.getIngr17().isEmpty())
+            ingredientsList.add(new Ingredient(meal.getIngr17(), meal.getIngr17m()));
+        if (!meal.getIngr18().isEmpty())
+            ingredientsList.add(new Ingredient(meal.getIngr18(), meal.getIngr18m()));
+        if (!meal.getIngr19().isEmpty())
+            ingredientsList.add(new Ingredient(meal.getIngr19(), meal.getIngr19m()));
+        if (!meal.getIngr20().isEmpty()) {
+            ingredientsList.add(new Ingredient(meal.getIngr20(), meal.getIngr20m()));
         }
+        return ingredientsList;
     }
 
     @Override
@@ -60,9 +104,10 @@ public class MealCardPresenterImp implements MealCardPresenter {
             newMeal.setFriday(true);
         }
         Log.i(TAG, "in meal card presenter imp ");
-        repository.insertintoPlanTable(meals,newMeal,day);
+        repository.insertintoPlanTable(meals, newMeal, day);
     }
 
+    
     @Override
     public void addtoDataBaseFavMeal(MealCard mealCard) {
         FavMeals newFavMeal = new FavMeals();
@@ -74,16 +119,32 @@ public class MealCardPresenterImp implements MealCardPresenter {
         newFavMeal.setAllingredient(mealCard.getAllingredient());
         newFavMeal.setFav(mealCard.isFav());
         newFavMeal.setSteps(mealCard.getSteps());
-        repository.insertinFavTable(newFavMeal);
+        repository.insertinFavTable(newFavMeal)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        () -> {
+                            Toast.makeText(context, "The meal in your Favourites now", Toast.LENGTH_SHORT).show();
+                        },
+                        error -> {
+                            Toast.makeText(context, "Sorry, could not add it. Please try again later", Toast.LENGTH_SHORT).show();
+                        }
+                );
     }
 
     @Override
     public void removeFeomDBfavMeal(MealCard mealCard) {
         FavMeals newFavMeal = new FavMeals();
         newFavMeal.setMealId(mealCard.getMealId());
-        repository.deleteFromFav(newFavMeal);
-        // here i should change meal card to fav
-//i only need the primary key to delete
+        repository.deleteFromFav(newFavMeal)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        () -> {
+                            Toast.makeText(context, "Removed from your Favouirt", Toast.LENGTH_SHORT).show();                        },
+                        error -> {
+                        }
+                );
     }
 
     String TAG = "TAG";
@@ -120,4 +181,5 @@ public class MealCardPresenterImp implements MealCardPresenter {
         mealCardView.setThisMealAtCard(mealCard);
 
     }
+
 }

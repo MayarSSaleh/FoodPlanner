@@ -1,32 +1,27 @@
-package com.example.foodplanner.screens.sharedMainActivity.favMeals.favList.view;
+package com.example.foodplanner.screens.sharedMainActivity.favMeals.favList.views;
 
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.example.foodplanner.R;
-import com.example.foodplanner.data.local_db.APPDataBase;
 import com.example.foodplanner.data.local_db.favMeals.FavMeals;
-import com.example.foodplanner.data.local_db.favMeals.FavMealsDAO;
 import com.example.foodplanner.data.local_db.favMeals.FaviourtLocalDataSourceImpl;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedLocalDataSourceImpl;
 import com.example.foodplanner.data.model.MealsRepositoryImpl;
 import com.example.foodplanner.data.network.ProductRemoteDataSourceImpl;
 import com.example.foodplanner.screens.sharedMainActivity.favMeals.favList.presenter.FavMealsPresnterImp;
-
 import java.util.ArrayList;
 import java.util.List;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class FragFavMealsActivity extends Fragment {
+public class FragFavMeals extends Fragment implements FraFavMeals {
     private static final String TAG = "team";
     FavMiniMealsCardAdaptor miniMealsCardAdaptor;
     RecyclerView recyclerView;
@@ -56,18 +51,28 @@ public class FragFavMealsActivity extends Fragment {
         recyclerView.setAdapter(miniMealsCardAdaptor);
         Log.i(TAG, "on creation of fav");
         presenterImp = new FavMealsPresnterImp(repository);
-
-        APPDataBase db = APPDataBase.getInstance(getContext());
-        FavMealsDAO dao = db.getFavMealsDAO();
-        LiveData<List<FavMeals>> Favourits = dao.getAllFavProducts();
-        Favourits.observe(getViewLifecycleOwner(), new Observer<List<FavMeals>>() {
-            @Override
-            public void onChanged(List<FavMeals> products) {
-                Log.i(TAG, "onChanged: in fav activity");
-                miniMealsCardAdaptor.setList(products);
-            }
-        });
+        showFavProdcuts();
+//        APPDataBase db = APPDataBase.getInstance(getContext());
+//        FavMealsDAO dao = db.getFavMealsDAO();
+//        LiveData<List<FavMeals>> Favourits = dao.getAllFavProducts();
+//        Favourits.observe(getViewLifecycleOwner(), new Observer<List<FavMeals>>() {
+//            @Override
+//            public void onChanged(List<FavMeals> products) {
+//                Log.i(TAG, "onChanged: in fav activity");
+//                miniMealsCardAdaptor.setList(products);
+//            }
+//        });
         return rootView;
+    }
+
+    @Override
+    public void showFavProdcuts(){
+        Flowable<List<FavMeals>> theFav = presenterImp.getStoredFvProduct();
+        theFav.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(meals ->{
+                    miniMealsCardAdaptor.setList(meals);
+                });
     }
 }
 

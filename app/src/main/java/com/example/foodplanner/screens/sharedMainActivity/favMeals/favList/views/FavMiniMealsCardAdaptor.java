@@ -1,4 +1,4 @@
-package com.example.foodplanner.screens.sharedMainActivity.favMeals.favList.view;
+package com.example.foodplanner.screens.sharedMainActivity.favMeals.favList.views;
 
 import static com.example.foodplanner.screens.Card.view.MealCardActivity.FAV_OBJECT;
 
@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,10 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.R;
 import com.example.foodplanner.data.local_db.favMeals.FavMeals;
-import com.example.foodplanner.data.model.MealCard;
 import com.example.foodplanner.screens.Card.view.MealCardActivity;
 
-import java.util.Collections;
 import java.util.List;
 
 public class FavMiniMealsCardAdaptor extends RecyclerView.Adapter<FavMiniMealsCardAdaptor.MealsViewHolder> {

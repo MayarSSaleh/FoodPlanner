@@ -13,15 +13,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ProductRemoteDataSourceImpl {
     private static final String TAG = "team";
     private static final String BASE_URL = "https://www.themealdb.com/api/json/v1/1/";
-
+    MealsService pService;
     public ProductRemoteDataSourceImpl() {
-    }
-
-    public void makeNetworkCall(NetworkCallback networkCallback) {
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(BASE_URL).build();
-        MealsService pService = retrofit.create(MealsService.class);
+         pService = retrofit.create(MealsService.class);
+    }
+
+    public void makeNetworkCall(NetworkCallback networkCallback) {
         pService.getMeal().enqueue(new Callback<MealsResponse>() {
             @Override
             public void onResponse(Call<MealsResponse> call, Response<MealsResponse> response) {

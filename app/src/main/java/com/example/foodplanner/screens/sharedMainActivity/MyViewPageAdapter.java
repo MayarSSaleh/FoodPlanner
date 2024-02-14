@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.foodplanner.screens.sharedMainActivity.DailyInsperationAllMeals.MinimizedMealCard.view.DailyInspFragment;
-import com.example.foodplanner.screens.sharedMainActivity.favMeals.favList.view.FragFavMealsActivity;
+import com.example.foodplanner.screens.sharedMainActivity.favMeals.favList.views.FragFavMeals;
 import com.example.foodplanner.screens.sharedMainActivity.plan.view.PlanFragment;
 import com.example.foodplanner.screens.sharedMainActivity.search.view.FragSearchView;
 
@@ -27,7 +27,7 @@ public class MyViewPageAdapter extends FragmentStateAdapter {
            case 2:
                return new PlanFragment();
            case 3:
-               return new FragFavMealsActivity();
+               return new FragFavMeals();
            default:
                return new DailyInspFragment();
        }

@@ -47,16 +47,9 @@ public class DailyInspFragment extends Fragment implements InsperMealsView {
         View rootView = inflater.inflate(R.layout.daily_insperation, container, false);
         mealName = rootView.findViewById(R.id.tv_meal_name_daily);
         mealImage = rootView.findViewById(R.id.img_mealDaily);
-//        recyclerView = rootView.findViewById(R.id.daily_insp_recycle);
-        // give him the viewer and the reposirty to get the data form it
-        insperMealsPresenter = new InsperMealsPresenterImp(MealsRepositoryImpl.getInstance(new ProductRemoteDataSourceImpl(), new FaviourtLocalDataSourceImpl(getContext()), new PlannedLocalDataSourceImpl(getContext())), DailyInspFragment.this);
+        insperMealsPresenter = new InsperMealsPresenterImp(MealsRepositoryImpl.getInstance(new ProductRemoteDataSourceImpl(),
+                new FaviourtLocalDataSourceImpl(getContext()), new PlannedLocalDataSourceImpl(getContext())), DailyInspFragment.this);
         insperMealsPresenter.getAllProducts();
-//        linearLayoutManager = new LinearLayoutManager(this);
-//        miniMealsCardAdaptor = new MiniMealsCardAdaptor(fragDailyInspActivity.this, mealsList);
-//        recyclerView.setLayoutManager(linearLayoutManager);
-//        recyclerView.setAdapter(miniMealsCardAdaptor);
-//        Log.i(TAG, "on creation");
-
         return rootView;
     }
 

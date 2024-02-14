@@ -1,13 +1,15 @@
 package com.example.foodplanner.screens.Card.view;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 import com.example.foodplanner.R;
 import com.example.foodplanner.data.model.Ingredient;
 
@@ -19,6 +21,8 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
     private static final String TAG = "team";
     Context context;
     List<Ingredient> ingredientList = Collections.emptyList();
+    private String base ="https://www.themealdb.com/images/ingredients/";
+    private  String remainAccordingIng =".png";
 
     public IngredientsAdapter(Context context) {
         this.context = context;
@@ -42,6 +46,7 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
         Ingredient current = ingredientList.get(position);
         holder.ingName.setText(current.getName());
         holder.ingAmount.setText(current.getAmount());
+        Glide.with(context).load(base+current.getName()+remainAccordingIng).into(holder.ingImag);
     }
 
     @Override
@@ -53,11 +58,13 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView ingName;
         TextView ingAmount;
+        ImageView ingImag;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            ingName = itemView.findViewById(R.id.tv_ingName);
-            ingAmount = itemView.findViewById(R.id.tv_ing_amount);
+            ingName = itemView.findViewById(R.id.tv_ing_amount);
+            ingAmount = itemView.findViewById(R.id.tv_ingName);
+            ingImag = itemView.findViewById(R.id.ingImag);
         }
     }
 

@@ -13,6 +13,9 @@ import com.example.foodplanner.data.network.ProductRemoteDataSourceImpl;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Flowable;
+
 public class MealsRepositoryImpl implements MealsRepository {
     private static final String TAG = "TAG";
 
@@ -38,10 +41,26 @@ public class MealsRepositoryImpl implements MealsRepository {
         this.plannedLocalDataSource = plannedLocalDataSource;
     }
 // it impact to live
-    public LiveData<List<FavMeals>> getStoredProducts() {
+//    public LiveData<List<FavMeals>> getStoredProducts() {
+//        return prodcutsLocalDataSource.getStoredFvProduct();
+//    }
+    public Flowable<List<FavMeals>> getStoredFvProduct() {
         return prodcutsLocalDataSource.getStoredFvProduct();
     }
 
+    @Override
+    public Completable insertinFavTable(FavMeals mealCard) {
+        return prodcutsLocalDataSource.insert(mealCard);
+    }
+    @Override
+//    public void deleteFromFav(FavMeals favMeals) {
+//        prodcutsLocalDataSource.delete(favMeals);
+//    }
+    public Completable deleteFromFav(FavMeals mealCard) {
+        return prodcutsLocalDataSource.delete(mealCard);
+    }
+
+    //plllllllllllllllllllllllllllan
     public LiveData<List<PlannedMeals>> getStoredplannedProducts() {
         return plannedLocalDataSource.getStoredPlannedMeals();
     }
@@ -49,16 +68,6 @@ public class MealsRepositoryImpl implements MealsRepository {
     @Override
     public void getAllInsperMeals(NetworkCallback networkCallback) {
         productRemoteDataSource.makeNetworkCall(networkCallback);
-    }
-
-    @Override
-    public void insertinFavTable(FavMeals favMeals) {
-        prodcutsLocalDataSource.insert(favMeals);
-    }
-
-    @Override
-    public void deleteFromFav(FavMeals favMeals) {
-        prodcutsLocalDataSource.delete(favMeals);
     }
 
     @Override

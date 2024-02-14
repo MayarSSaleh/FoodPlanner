@@ -45,7 +45,7 @@ public class ChossePlannedDay extends AppCompatActivity {
         prodcutsLocalDataSource = new FaviourtLocalDataSourceImpl(this);
         plannedLocalDataSource = new PlannedLocalDataSourceImpl(this);
         repository = MealsRepositoryImpl.getInstance(productRemoteDataSource, prodcutsLocalDataSource, plannedLocalDataSource);
-        mealCardPresenterImp = new MealCardPresenterImp(mealCardView, repository);
+        mealCardPresenterImp = new MealCardPresenterImp(mealCardView, repository, ChossePlannedDay.this);
         sta = findViewById(R.id.tv_saturday);
         sun = findViewById(R.id.tv_suunday);
         mon = findViewById(R.id.tv_monday);
