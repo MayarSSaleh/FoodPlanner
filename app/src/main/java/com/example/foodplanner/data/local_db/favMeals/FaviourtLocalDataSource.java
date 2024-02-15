@@ -1,9 +1,6 @@
 package com.example.foodplanner.data.local_db.favMeals;
 
 import android.content.Context;
-import android.util.Log;
-
-import androidx.lifecycle.LiveData;
 
 import com.example.foodplanner.data.local_db.APPDataBase;
 
@@ -13,27 +10,26 @@ import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
 
 // i write imp after the name of calss as we can make interface , but for now we didinot
-public class FaviourtLocalDataSourceImpl {
+public class FaviourtLocalDataSource {
     private static final String TAG = "team";
     private Context context;
     private FavMealsDAO mealDAO;
     private Flowable<List<FavMeals>> storedFvProduct;
-    private static FaviourtLocalDataSourceImpl rep = null;
+    private static FaviourtLocalDataSource rep = null;
 
-    public FaviourtLocalDataSourceImpl(Context context) {
+    public FaviourtLocalDataSource(Context context) {
         this.context = context;
         APPDataBase db = APPDataBase.getInstance(context);
         mealDAO = db.getFavMealsDAO();
         storedFvProduct = mealDAO.getAllFavProducts();
     }
 
-    public static FaviourtLocalDataSourceImpl getInstance(Context context) {
+    public static FaviourtLocalDataSource getInstance(Context context) {
         if (rep == null) {
-            rep = new FaviourtLocalDataSourceImpl(context);
+            rep = new FaviourtLocalDataSource(context);
         }
         return rep;
     }
-
 
     public Flowable<List<FavMeals>> getStoredFvProduct() {
         return mealDAO.getAllFavProducts();   }

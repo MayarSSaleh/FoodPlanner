@@ -7,11 +7,10 @@
     <string name="asking_to_login">Aleardy have an acount?</string>
     <string name="login">Log In</string>
     <string name="above_btn_siginUp">Sign Up</string>
-    <string name="Password">Password</string>
-    <string name="Email">Email</string>
+    <string name="Password">Password (least 6 characters)</string>
+    <string name="Email">Email ex:Abc@gmail.com </string>
     <string name="btn_loginWhichStartCooking">Start Cooking</string>
     <string name="tv_signUP">Sign Up</string>
-    <string name="tv_confirmPass">Confirm Password</string>
     <string name="hint_email">Email</string>
     <string name="Professionalchef">Professional \nChef</string>
     <string name="HomeTab">Home</string>
@@ -34,4 +33,6 @@
     <string name="title_chooseDay">Choose The Day</string>
     <string name="RefreshPage">Refresh page, \nTo get another insper meal</string>
     <string name="searchbymeal">Search by meal</string>
+    <string name="searchByText">You also can see and search by:</string>
+    <string name="contAsGuest">Guest</string>
 </resources>

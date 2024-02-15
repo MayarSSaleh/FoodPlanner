@@ -107,7 +107,7 @@ public class MealCardPresenterImp implements MealCardPresenter {
         repository.insertintoPlanTable(meals, newMeal, day);
     }
 
-    
+
     @Override
     public void addtoDataBaseFavMeal(MealCard mealCard) {
         FavMeals newFavMeal = new FavMeals();

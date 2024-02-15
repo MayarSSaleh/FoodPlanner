@@ -13,7 +13,7 @@ import androidx.lifecycle.Observer;
 
 import com.example.foodplanner.R;
 import com.example.foodplanner.data.local_db.APPDataBase;
-import com.example.foodplanner.data.local_db.favMeals.FaviourtLocalDataSourceImpl;
+import com.example.foodplanner.data.local_db.favMeals.FaviourtLocalDataSource;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedLocalDataSourceImpl;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedMeals;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedMealsDAO;
@@ -32,7 +32,7 @@ public class ChossePlannedDay extends AppCompatActivity {
     MealCardView mealCardView;
     MealsRepositoryImpl repository;
     ProductRemoteDataSourceImpl productRemoteDataSource;
-    FaviourtLocalDataSourceImpl prodcutsLocalDataSource;
+    FaviourtLocalDataSource prodcutsLocalDataSource;
     PlannedLocalDataSourceImpl plannedLocalDataSource;
     String choosedDay;
     List<PlannedMeals> meals;
@@ -41,18 +41,14 @@ public class ChossePlannedDay extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fra_choose_the_day);
+        userInterface();
+        setOnClickListenersForDays();
         productRemoteDataSource = new ProductRemoteDataSourceImpl();
-        prodcutsLocalDataSource = new FaviourtLocalDataSourceImpl(this);
+        prodcutsLocalDataSource = new FaviourtLocalDataSource(this);
         plannedLocalDataSource = new PlannedLocalDataSourceImpl(this);
         repository = MealsRepositoryImpl.getInstance(productRemoteDataSource, prodcutsLocalDataSource, plannedLocalDataSource);
         mealCardPresenterImp = new MealCardPresenterImp(mealCardView, repository, ChossePlannedDay.this);
-        sta = findViewById(R.id.tv_saturday);
-        sun = findViewById(R.id.tv_suunday);
-        mon = findViewById(R.id.tv_monday);
-        tues = findViewById(R.id.tv_tuesday);
-        wed = findViewById(R.id.tv_wednesday);
-        thu = findViewById(R.id.tv_thursday);
-        friday = findViewById(R.id.tv_friday);
+
         Intent intent = getIntent();
         mealCard = (MealCard) intent.getSerializableExtra("myObject");
 
@@ -65,7 +61,37 @@ public class ChossePlannedDay extends AppCompatActivity {
                 meals = lifeSavedMeals;
             }
         });
+    }
 
+
+
+
+
+
+
+
+    private void userInterface(){
+        sta = findViewById(R.id.tv_saturday);
+        sun = findViewById(R.id.tv_suunday);
+        mon = findViewById(R.id.tv_monday);
+        tues = findViewById(R.id.tv_tuesday);
+        wed = findViewById(R.id.tv_wednesday);
+        thu = findViewById(R.id.tv_thursday);
+        friday = findViewById(R.id.tv_friday);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    private void setOnClickListenersForDays(){
         sta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,6 +149,6 @@ public class ChossePlannedDay extends AppCompatActivity {
                 finish();
             }
         });
-    }
 
+    }
 }

@@ -5,7 +5,7 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 
 import com.example.foodplanner.data.local_db.favMeals.FavMeals;
-import com.example.foodplanner.data.local_db.favMeals.FaviourtLocalDataSourceImpl;
+import com.example.foodplanner.data.local_db.favMeals.FaviourtLocalDataSource;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedLocalDataSourceImpl;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedMeals;
 import com.example.foodplanner.data.network.NetworkCallback;
@@ -20,12 +20,12 @@ public class MealsRepositoryImpl implements MealsRepository {
     private static final String TAG = "TAG";
 
     ProductRemoteDataSourceImpl productRemoteDataSource;
-    FaviourtLocalDataSourceImpl prodcutsLocalDataSource;
+    FaviourtLocalDataSource prodcutsLocalDataSource;
     PlannedLocalDataSourceImpl plannedLocalDataSource;
     private static MealsRepositoryImpl repo = null;
 
     public static MealsRepositoryImpl getInstance(ProductRemoteDataSourceImpl productRemoteDataSource,
-                                                  FaviourtLocalDataSourceImpl prodcutsLocalDataSource,
+                                                  FaviourtLocalDataSource prodcutsLocalDataSource,
                                                   PlannedLocalDataSourceImpl plannedLocalDataSource) {
         if (repo == null) {
             repo = new MealsRepositoryImpl(productRemoteDataSource, prodcutsLocalDataSource, plannedLocalDataSource);
@@ -34,7 +34,7 @@ public class MealsRepositoryImpl implements MealsRepository {
     }
 
     private MealsRepositoryImpl(ProductRemoteDataSourceImpl productRemoteDataSource,
-                                FaviourtLocalDataSourceImpl prodcutsLocalDataSource,
+                                FaviourtLocalDataSource prodcutsLocalDataSource,
                                 PlannedLocalDataSourceImpl plannedLocalDataSource) {
         this.prodcutsLocalDataSource = prodcutsLocalDataSource;
         this.productRemoteDataSource = productRemoteDataSource;

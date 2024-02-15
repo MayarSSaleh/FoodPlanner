@@ -16,7 +16,6 @@ import java.util.List;
 @TypeConverters(Converters.class)
 
 public class FavMeals implements Serializable {
-
     @PrimaryKey
     @NonNull
     String mealId;

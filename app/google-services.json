@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "136512925540",
+    "project_id": "food-planner-by-mayar-saleh",
+    "storage_bucket": "food-planner-by-mayar-saleh.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:136512925540:android:1ebc78723358b437f5d471",
+        "android_client_info": {
+          "package_name": "com.example.foodplanner"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUBVDzFaMdSGBkJMTjMBFDlA_hdtMFybY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

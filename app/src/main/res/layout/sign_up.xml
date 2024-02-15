@@ -21,65 +21,47 @@
 
     <EditText
         android:id="@+id/ed_user_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_width="302dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="72dp"
         android:ems="10"
-        android:hint="Email"
+        android:hint="@string/Email"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.208"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ed_name" />
-
-    <EditText
-        android:id="@+id/ed_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:ems="10"
-        android:hint="Display Name"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.208"
+        app:layout_constraintHorizontal_bias="0.248"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_login" />
 
     <EditText
         android:id="@+id/ed_user_pass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_width="305dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="48dp"
         android:ems="10"
         android:hint="@string/Password"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.208"
+        app:layout_constraintHorizontal_bias="0.213"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ed_user_email" />
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="49dp"
+        android:layout_height="30dp"
+        android:visibility="gone" />
+
+
     <Button
-        android:id="@+id/btn_loginandNext"
+        android:id="@+id/btn_startCooking_atSignUp"
         style="?attr/materialButtonOutlinedStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="116dp"
         android:layout_marginTop="140dp"
         android:backgroundTint="@color/title"
         android:text="@string/btn_loginWhichStartCooking"
         android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ed_user_pass" />
-
-    <EditText
-        android:id="@+id/ed_conf_pass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="44dp"
-        android:ems="10"
-        android:hint="@string/tv_confirmPass"
-        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ed_user_pass" />
 

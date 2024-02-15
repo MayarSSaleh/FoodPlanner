@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.R;
-import com.example.foodplanner.data.local_db.favMeals.FaviourtLocalDataSourceImpl;
+import com.example.foodplanner.data.local_db.favMeals.FaviourtLocalDataSource;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedLocalDataSourceImpl;
 import com.example.foodplanner.data.model.MealCard;
 import com.example.foodplanner.data.model.MealsRepositoryImpl;
@@ -48,7 +48,7 @@ public class DailyInspFragment extends Fragment implements InsperMealsView {
         mealName = rootView.findViewById(R.id.tv_meal_name_daily);
         mealImage = rootView.findViewById(R.id.img_mealDaily);
         insperMealsPresenter = new InsperMealsPresenterImp(MealsRepositoryImpl.getInstance(new ProductRemoteDataSourceImpl(),
-                new FaviourtLocalDataSourceImpl(getContext()), new PlannedLocalDataSourceImpl(getContext())), DailyInspFragment.this);
+                new FaviourtLocalDataSource(getContext()), new PlannedLocalDataSourceImpl(getContext())), DailyInspFragment.this);
         insperMealsPresenter.getAllProducts();
         return rootView;
     }

@@ -20,4 +20,6 @@
     <string name="title_chooseDay">Choose The Day</string>
     <string name="RefreshPage">Refresh page, \nTo get another insper meal</string>
     <string name="searchbymeal">Search by meal</string>
+    <string name="searchByText">You also can see and search by:</string>
+    <string name="contAsGuest">Continue as Guest</string>
 </resources>

@@ -6,8 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
@@ -16,12 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodplanner.R;
 import com.example.foodplanner.data.local_db.APPDataBase;
-import com.example.foodplanner.data.local_db.favMeals.FaviourtLocalDataSourceImpl;
-import com.example.foodplanner.data.local_db.plannedMeals.PlannedLocalDataSourceImpl;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedMeals;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedMealsDAO;
-import com.example.foodplanner.data.model.MealsRepositoryImpl;
-import com.example.foodplanner.data.network.ProductRemoteDataSourceImpl;
 import com.example.foodplanner.screens.sharedMainActivity.plan.presenter.PlanMealsPresenterImp;
 
 import java.util.ArrayList;

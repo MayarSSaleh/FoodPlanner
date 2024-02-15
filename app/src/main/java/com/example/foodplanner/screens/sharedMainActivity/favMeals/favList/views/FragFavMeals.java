@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.example.foodplanner.R;
 import com.example.foodplanner.data.local_db.favMeals.FavMeals;
-import com.example.foodplanner.data.local_db.favMeals.FaviourtLocalDataSourceImpl;
+import com.example.foodplanner.data.local_db.favMeals.FaviourtLocalDataSource;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedLocalDataSourceImpl;
 import com.example.foodplanner.data.model.MealsRepositoryImpl;
 import com.example.foodplanner.data.network.ProductRemoteDataSourceImpl;
@@ -28,7 +28,7 @@ public class FragFavMeals extends Fragment implements FraFavMeals {
     LinearLayoutManager linearLayoutManager;
     MealsRepositoryImpl repository;
     ProductRemoteDataSourceImpl productRemoteDataSource;
-    FaviourtLocalDataSourceImpl prodcutsLocalDataSource;
+    FaviourtLocalDataSource prodcutsLocalDataSource;
     PlannedLocalDataSourceImpl plannedLocalDataSource;
     List<FavMeals> favMealsList;
     FavMealsPresnterImp presenterImp;
@@ -41,7 +41,7 @@ public class FragFavMeals extends Fragment implements FraFavMeals {
         recyclerView = rootView.findViewById(R.id.fav_recycle);
 
         productRemoteDataSource = new ProductRemoteDataSourceImpl();
-        prodcutsLocalDataSource = new FaviourtLocalDataSourceImpl(requireContext());
+        prodcutsLocalDataSource = new FaviourtLocalDataSource(requireContext());
         plannedLocalDataSource = new PlannedLocalDataSourceImpl(requireContext());
         repository = MealsRepositoryImpl.getInstance(productRemoteDataSource, prodcutsLocalDataSource, plannedLocalDataSource);
         linearLayoutManager = new LinearLayoutManager(getContext());

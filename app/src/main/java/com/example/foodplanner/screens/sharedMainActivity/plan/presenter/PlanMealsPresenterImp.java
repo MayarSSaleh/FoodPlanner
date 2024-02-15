@@ -3,10 +3,9 @@ package com.example.foodplanner.screens.sharedMainActivity.plan.presenter;
 import android.content.Context;
 import android.util.Log;
 
-import com.example.foodplanner.data.local_db.favMeals.FaviourtLocalDataSourceImpl;
+import com.example.foodplanner.data.local_db.favMeals.FaviourtLocalDataSource;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedLocalDataSourceImpl;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedMeals;
-import com.example.foodplanner.data.model.MealCard;
 import com.example.foodplanner.data.model.MealsRepositoryImpl;
 import com.example.foodplanner.data.network.ProductRemoteDataSourceImpl;
 import com.example.foodplanner.screens.sharedMainActivity.plan.view.DayMeals;
@@ -26,7 +25,7 @@ public class PlanMealsPresenterImp implements PlanMealPresenter {
     List<PlannedMeals> FridayAllMeals;
     MealsRepositoryImpl repository;
     ProductRemoteDataSourceImpl productRemoteDataSource;
-    FaviourtLocalDataSourceImpl prodcutsLocalDataSource;
+    FaviourtLocalDataSource prodcutsLocalDataSource;
     PlannedLocalDataSourceImpl plannedLocalDataSource;
 
 
@@ -81,7 +80,7 @@ public class PlanMealsPresenterImp implements PlanMealPresenter {
         Log.d("TAG, ","onClick: remove in plan presenert");
 
         productRemoteDataSource = new ProductRemoteDataSourceImpl();
-        prodcutsLocalDataSource = new FaviourtLocalDataSourceImpl(context);
+        prodcutsLocalDataSource = new FaviourtLocalDataSource(context);
         plannedLocalDataSource = new PlannedLocalDataSourceImpl(context);
         repository = MealsRepositoryImpl.getInstance(productRemoteDataSource, prodcutsLocalDataSource, plannedLocalDataSource);
         repository.deleteFromPlanTable(meal,day);

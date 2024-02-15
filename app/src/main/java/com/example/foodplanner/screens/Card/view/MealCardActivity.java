@@ -11,12 +11,9 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.VideoView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,7 +22,7 @@ import com.example.foodplanner.R;
 import com.example.foodplanner.data.local_db.APPDataBase;
 import com.example.foodplanner.data.local_db.favMeals.FavMeals;
 import com.example.foodplanner.data.local_db.favMeals.FavMealsDAO;
-import com.example.foodplanner.data.local_db.favMeals.FaviourtLocalDataSourceImpl;
+import com.example.foodplanner.data.local_db.favMeals.FaviourtLocalDataSource;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedLocalDataSourceImpl;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedMeals;
 import com.example.foodplanner.data.model.MealCard;
@@ -62,7 +59,7 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
     Drawable drawable;
     MealsRepositoryImpl mealsRepository;
     ProductRemoteDataSourceImpl productRemoteDataSource;
-    FaviourtLocalDataSourceImpl prodcutsLocalDataSource;
+    FaviourtLocalDataSource prodcutsLocalDataSource;
     PlannedLocalDataSourceImpl plannedLocalDataSource;
 
     @Override
@@ -77,7 +74,7 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
         FavMeals current = (FavMeals) intent.getSerializableExtra(FAV_OBJECT);
         Log.i(TAG, "on card" + current);
         productRemoteDataSource = new ProductRemoteDataSourceImpl();
-        prodcutsLocalDataSource = new FaviourtLocalDataSourceImpl(this);
+        prodcutsLocalDataSource = new FaviourtLocalDataSource(this);
         plannedLocalDataSource = new PlannedLocalDataSourceImpl(this);
         mealsRepository = MealsRepositoryImpl.getInstance(productRemoteDataSource, prodcutsLocalDataSource, plannedLocalDataSource);
 

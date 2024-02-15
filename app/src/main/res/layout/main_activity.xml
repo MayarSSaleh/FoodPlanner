@@ -21,6 +21,24 @@
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:src="@drawable/person_fill0_wght400_grad0_opsz24" />
+
+
+        <TextView
+            android:id="@+id/tv_userEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/toolbar"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="259dp"
+            android:layout_marginBottom="21dp"
+            android:text="@string/hint_email"
+            android:textColorHint="#6A5E5E"
+            android:textSize="34sp"
+            app:layout_constraintStart_toEndOf="@+id/profile" />
+
     </androidx.appcompat.widget.Toolbar>
 
 
@@ -58,9 +76,9 @@
             android:layout_height="wrap_content"
             android:text="@string/FavoriteTab"
      />
-
     </com.google.android.material.tabs.TabLayout>
-<!--    -->
+
+    <!--    -->
 <!--    <com.google.android.material.tabs.TabLayout-->
 <!--        android:id="@+id/tab_layout"-->
 <!--        android:layout_width="match_parent"-->

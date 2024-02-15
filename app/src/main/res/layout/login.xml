@@ -11,8 +11,10 @@
         style="?attr/materialButtonOutlinedStyle"
         android:layout_width="145dp"
         android:layout_height="68dp"
-        android:layout_marginStart="44dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
+        android:gravity="start|center_vertical"
+        android:text="Sign by"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
@@ -25,34 +27,35 @@
         android:src="@drawable/google_icon"
         app:layout_constraintBottom_toBottomOf="@+id/btn_google"
         app:layout_constraintEnd_toEndOf="@+id/btn_google"
+        app:layout_constraintHorizontal_bias="0.857"
         app:layout_constraintStart_toStartOf="@+id/btn_google"
-        app:layout_constraintTop_toTopOf="@+id/btn_google" />
+        app:layout_constraintTop_toTopOf="@+id/btn_google"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <!--    <ImageView-->
+<!--        android:layout_width="34dp"-->
+<!--        android:layout_height="53dp"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:src="@drawable/email_icon"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/btn_signUp"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/btn_signUp"-->
+<!--        app:layout_constraintHorizontal_bias="0.857"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/btn_signUp"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/btn_signUp"-->
+<!--        app:layout_constraintVertical_bias="0.4" />-->
 
     <Button
         android:id="@+id/btn_signUp"
         style="?attr/materialButtonOutlinedStyle"
         android:layout_width="145dp"
         android:layout_height="68dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="64dp"
         android:layout_marginTop="20dp"
-        android:gravity="start|center_vertical"
+        android:gravity="center"
         android:paddingStart="16dp"
         android:text="@string/above_btn_siginUp"
-        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/btn_google"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <ImageView
-        android:layout_width="34dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/email_icon"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_signUp"
-        app:layout_constraintEnd_toEndOf="@+id/btn_signUp"
-        app:layout_constraintHorizontal_bias="0.857"
-        app:layout_constraintStart_toStartOf="@+id/btn_signUp"
-        app:layout_constraintTop_toTopOf="@+id/btn_signUp"
-        app:layout_constraintVertical_bias="0.4" />
 
     <TextView
         android:id="@+id/textView2"
@@ -104,5 +107,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/photo" />
+
+    <TextView
+        android:id="@+id/tv_cont_as_guest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="23dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="20dp"
+
+        android:text="@string/contAsGuest"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/btn_signUp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

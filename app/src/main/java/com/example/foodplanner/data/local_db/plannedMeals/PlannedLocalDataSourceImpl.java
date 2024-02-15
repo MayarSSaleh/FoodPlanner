@@ -5,7 +5,7 @@ import android.content.Context;
 import androidx.lifecycle.LiveData;
 
 import com.example.foodplanner.data.local_db.APPDataBase;
-import com.example.foodplanner.data.local_db.favMeals.FaviourtLocalDataSourceImpl;
+import com.example.foodplanner.data.local_db.favMeals.FaviourtLocalDataSource;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class PlannedLocalDataSourceImpl {
 //    private LiveData<List<PlannedMeals>> storedPlannedMeals;
 //    private LiveData<List<PlannedMeals>> storedPlannedMeals;
 
-    private static FaviourtLocalDataSourceImpl rep = null;
+    private static FaviourtLocalDataSource rep = null;
 
     public PlannedLocalDataSourceImpl(Context context) {
         this.context = context;
@@ -36,9 +36,9 @@ public class PlannedLocalDataSourceImpl {
 
     }
 
-    public static FaviourtLocalDataSourceImpl getInstance(Context context) {
+    public static FaviourtLocalDataSource getInstance(Context context) {
         if (rep == null) {
-            rep = new FaviourtLocalDataSourceImpl(context);
+            rep = new FaviourtLocalDataSource(context);
         }
         return rep;
     }
