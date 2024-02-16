@@ -40,32 +40,32 @@
         android:layout_height="130dp"
         android:layout_marginStart="36dp"
         android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toStartOf="@id/img_Categories"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
-        app:srcCompat="@drawable/img_2" />
+        app:srcCompat="@drawable/flags" />
 
     <ImageView
         android:id="@+id/img_Categories"
-        android:layout_width="150dp"
+        android:layout_width="0dp"
         android:layout_height="130dp"
         android:layout_marginTop="40dp"
+        android:layout_marginStart="20dp"
         android:layout_marginEnd="52dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/img_countery"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
-        tools:srcCompat="@drawable/img_1" />
+        app:srcCompat="@drawable/categ" />
 
     <ImageView
         android:id="@+id/img_ingr"
-        android:layout_width="150dp"
-        android:layout_height="130dp"
+        android:layout_width="165dp"
+        android:layout_height="177dp"
         android:layout_marginTop="48dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.582"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_countery"
-        tools:srcCompat="@drawable/ing" />
+        app:srcCompat="@drawable/ingredients" />
 
     <TextView
         android:id="@+id/textView3"
@@ -78,14 +78,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_searchByMeal" />
 
-    <FrameLayout
-        android:id="@+id/fragmentAboveSearch"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-    </FrameLayout>
+<!--    <Button-->
+<!--        android:id="@+id/btn_cate"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="56dp"-->
+<!--        android:text="cate"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/et_searchByMeal" />-->
+
+<!--    <FrameLayout-->
+<!--        android:id="@+id/fragmentAboveSearch"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+
+<!--        &lt;!&ndash;        <Button&ndash;&gt;-->
+<!--        &lt;!&ndash;            android:id="@+id/button"&ndash;&gt;-->
+<!--        &lt;!&ndash;            android:layout_width="wrap_content"&ndash;&gt;-->
+<!--        &lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
+<!--        &lt;!&ndash;            android:text="Button" />&ndash;&gt;-->
+<!--    </FrameLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

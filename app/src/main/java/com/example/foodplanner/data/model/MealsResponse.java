@@ -6,7 +6,5 @@ import java.util.ArrayList;
 
 public class MealsResponse {
      public ArrayList <MealCard> meals;
-//public ArrayList <MealCard> randomselection;
-//public MealCard mealCard;
 
 }

@@ -35,7 +35,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/img_fav"
-                app:srcCompat="@drawable/u" />
+                />
 
             <TextView
                 android:id="@+id/tv_mealName"
@@ -43,10 +43,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:fontFamily="cursive"
+                android:gravity="center"
                 android:text="name"
                 android:textSize="48sp"
                 android:textStyle="bold"
-                android:gravity="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/img_meal" />
@@ -101,13 +101,13 @@
 
             <TextView
                 android:id="@+id/steps"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:text="all steps"
                 android:textSize="28sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/steps"
+                app:layout_constraintStart_toStartOf="@id/steps_title"
                 app:layout_constraintTop_toBottomOf="@+id/steps_title" />
 
             <Button

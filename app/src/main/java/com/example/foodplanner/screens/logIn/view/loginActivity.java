@@ -7,13 +7,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.foodplanner.R;
-import com.example.foodplanner.SplashScreenActivity;
-import com.example.foodplanner.screens.sharedMainActivity.MainScreenActivity;
+import com.example.foodplanner.screens.sharedMainActivity.BasicSharedScreen.view.MainScreenActivity;
 import com.example.foodplanner.screens.signUp.view.signUPActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -30,6 +26,7 @@ public class loginActivity extends AppCompatActivity {
     TextView tvLogin, tv_cont_as_guest;
     GoogleSignInOptions googleSignInOptions;
     GoogleSignInClient googleSignInClient;
+    GoogleSignInAccount account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +38,9 @@ public class loginActivity extends AppCompatActivity {
         tv_cont_as_guest = findViewById(R.id.tv_cont_as_guest);
         googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         googleSignInClient = GoogleSignIn.getClient(loginActivity.this, googleSignInOptions);
+        googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
+        account = GoogleSignIn.getLastSignedInAccount(this);
 
 
         tv_cont_as_guest.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +76,7 @@ public class loginActivity extends AppCompatActivity {
         });
 
     }
+
     void signIn() {
         Intent signInTntent = googleSignInClient.getSignInIntent();
         startActivityForResult(signInTntent, 1000);
@@ -88,12 +89,17 @@ public class loginActivity extends AppCompatActivity {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 task.getResult(ApiException.class);// signin successful
+//                SharedPreferences preferences = getPreferences(Context.MODE_PRIVATE);
+//                SharedPreferences.Editor editor = preferences.edit();
+//                editor.putString("userEmail", account.getEmail());
+//                editor.apply();
+
                 Intent intent = new Intent(loginActivity.this, MainScreenActivity.class);
                 startActivity(intent);
                 finish();
             } catch (ApiException e) {
                 e.printStackTrace();
-                Toast.makeText(loginActivity.this,"Sorry can not sign in, there are something wrong",Toast.LENGTH_SHORT);
+                Toast.makeText(loginActivity.this, "Sorry can not sign in, there are something wrong", Toast.LENGTH_SHORT);
             }
         }
     }

@@ -9,12 +9,18 @@ import com.example.foodplanner.data.local_db.plannedMeals.PlannedMeals;
 import com.example.foodplanner.data.model.Ingredient;
 import com.example.foodplanner.data.model.MealCard;
 import com.example.foodplanner.data.model.MealsRepositoryImpl;
+import com.example.foodplanner.data.model.MealsResponse;
+import com.example.foodplanner.screens.Card.view.MealCardActivity;
 import com.example.foodplanner.screens.Card.view.MealCardView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MealCardPresenterImp implements MealCardPresenter {
@@ -25,8 +31,36 @@ public class MealCardPresenterImp implements MealCardPresenter {
     public MealCardPresenterImp(MealCardView mealCardView, MealsRepositoryImpl repository, Context context) {
         this.mealCardView = mealCardView;
         this.repository = repository;
-        this.context=context;
+        this.context = context;
     }
+
+    @Override
+    public void getMealDetailsofThisMeal(String mealName){
+        Observable<MealsResponse> observable = repository.getMealDetails(mealName);
+        observable.observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<MealsResponse>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                    }
+
+                    @Override
+                    public void onNext(@NonNull MealsResponse mealsResponse) {
+                        Log.d("daaaaaaaaa",":::  "  + mealsResponse.meals.size());
+                        Log.d("daaaaaaaaa",":::  "  + mealsResponse.meals.get(0).getName());
+
+                        mealCardView.setThisMealAtCard(mealsResponse.meals.get(0));
+                    }
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+
+                    }
+                    @Override
+                    public void onComplete() {
+                    }
+                });
+    }
+
 
     @Override
     public ArrayList<Ingredient> getIngredients(MealCard meal) {
@@ -141,7 +175,8 @@ public class MealCardPresenterImp implements MealCardPresenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         () -> {
-                            Toast.makeText(context, "Removed from your Favouirt", Toast.LENGTH_SHORT).show();                        },
+                            Toast.makeText(context, "Removed from your Favouirt", Toast.LENGTH_SHORT).show();
+                        },
                         error -> {
                         }
                 );

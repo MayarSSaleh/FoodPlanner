@@ -11,6 +11,7 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -29,6 +30,12 @@ import com.example.foodplanner.data.model.MealCard;
 import com.example.foodplanner.data.model.MealsRepositoryImpl;
 import com.example.foodplanner.data.network.ProductRemoteDataSourceImpl;
 import com.example.foodplanner.screens.Card.presenter.MealCardPresenterImp;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
 
@@ -62,10 +69,25 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
     FaviourtLocalDataSource prodcutsLocalDataSource;
     PlannedLocalDataSourceImpl plannedLocalDataSource;
 
+    FirebaseAuth auth;
+    FirebaseUser user;
+    GoogleSignInOptions googleSignInOptions;
+    GoogleSignInClient googleSignInClient;
+    GoogleSignInAccount account;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mealcard);
+        googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
+        account = GoogleSignIn.getLastSignedInAccount(this);
+
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+
+
         UI();
         ingredientsAdapter = new IngredientsAdapter(this);
         /////to get from fav
@@ -78,7 +100,7 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
         plannedLocalDataSource = new PlannedLocalDataSourceImpl(this);
         mealsRepository = MealsRepositoryImpl.getInstance(productRemoteDataSource, prodcutsLocalDataSource, plannedLocalDataSource);
 
-        mealCardPresenterImp = new MealCardPresenterImp(this, mealsRepository,getBaseContext());
+        mealCardPresenterImp = new MealCardPresenterImp(this, mealsRepository, getBaseContext());
         if (current != null) {
             mealCardPresenterImp.showThisFavMeal(current);
         }
@@ -94,12 +116,18 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
 
         //to get object from daily insper
         Intent intent1 = getIntent();
-        Log.i(TAG, "daily object" + intent1.hasExtra("object"));
         MealCard inspMeal = (MealCard) intent1.getSerializableExtra("object");
-        Log.i(TAG, "on card" + inspMeal);
         if (inspMeal != null) {
             setThisMealAtCard(inspMeal);
         }
+
+        Intent comeFromList = getIntent();
+        MealCard mealComeFromList = (MealCard) intent1.getSerializableExtra("mealComeFromList");
+        if (mealComeFromList != null) {
+            mealCardPresenterImp.getMealDetailsofThisMeal(mealComeFromList.getName());
+            Toast.makeText(this, "Getting your meals", Toast.LENGTH_SHORT).show();
+        }
+
         handlingSetonAction();
     }
 
@@ -118,16 +146,19 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
 
     @Override
     public void setThisMealAtCard(MealCard mealCard) {
-//        Log.d(TAG, "First: " + mealCard.getName());
+        Log.d(TAG, "First: " + mealCard.getName());
         currentMeal = mealCard;
-//        Log.d(TAG, "second: " + currentMeal.getName());
+        Log.d(TAG, "second: " + currentMeal.getName());
         mealName.setText(mealCard.getName());
         country.setText(mealCard.getCountry());
         ingS_recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        if (!mealCard.isFav()){
+        if (!mealCard.isFav()) {
+            Log.d(TAG, "getIngr1: " + mealCard.getIngr1() + currentMeal);
+            Log.d(TAG, "mealCard: " + mealCard.getIngr1() + mealCard);
+
             currentMeal.setAllingredient(mealCardPresenterImp.getIngredients(mealCard));
             ingredientsAdapter.setIngredientsList(mealCardPresenterImp.getIngredients(mealCard));
-        }else {
+        } else {
             ingredientsAdapter.setIngredientsList(currentMeal.getAllingredient());
         }
         ingredientsAdapter.notifyDataSetChanged();
@@ -143,33 +174,41 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
 
     public void handlingSetonAction() {
         addToPlanButton.setOnClickListener(view -> {
-            Intent intent = new Intent(MealCardActivity.this, ChossePlannedDay.class);
-            intent.putExtra("myObject", currentMeal);
-            startActivity(intent);
+            if (user == null && account == null) {
+                Toast.makeText(MealCardActivity.this, "Login to add to plan ", Toast.LENGTH_SHORT).show();
+            } else {
+                Intent intent = new Intent(MealCardActivity.this, ChossePlannedDay.class);
+                intent.putExtra("myObject", currentMeal);
+                startActivity(intent);
+            }
         });
         favStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Drawable drawable = favStatus.getDrawable();
-//                if (drawable.getColorFilter() == null) {
-                if (isFav) {
-                    isFav = false;
-                    drawable.setColorFilter(null);
-                    favStatus.setImageDrawable(drawable);
-                    currentMeal.setFav(false);
-                    removeFromFav(currentMeal);
-//                    finish();
+                if (user == null && account == null) {
+                    Toast.makeText(MealCardActivity.this, "Login to add to favourite ", Toast.LENGTH_SHORT).show();
                 } else {
-                    drawable.setColorFilter(ContextCompat.getColor(MealCardActivity.this, com.google.android.material.R.color.design_dark_default_color_error), PorterDuff.Mode.SRC_IN);
-                    favStatus.setImageDrawable(drawable);
-                    isFav = true;
-                    currentMeal.setFav(true);
-                    currentMeal.setAllingredient(mealCardPresenterImp.getIngredients(currentMeal));
-                    addToFav(currentMeal);
+                    if (isFav) {
+                        isFav = false;
+                        drawable.setColorFilter(null);
+                        favStatus.setImageDrawable(drawable);
+                        currentMeal.setFav(false);
+                        removeFromFav(currentMeal);
+//                    finish();
+                    } else {
+                        drawable.setColorFilter(ContextCompat.getColor(MealCardActivity.this, com.google.android.material.R.color.design_dark_default_color_error), PorterDuff.Mode.SRC_IN);
+                        favStatus.setImageDrawable(drawable);
+                        isFav = true;
+                        currentMeal.setFav(true);
+                        currentMeal.setAllingredient(mealCardPresenterImp.getIngredients(currentMeal));
+                        addToFav(currentMeal);
+                    }
                 }
             }
         });
     }
+
 
     public void updatefavImageAccordingActullayStatus(String mealId) {
         APPDataBase db = APPDataBase.getInstance(this);
@@ -180,52 +219,25 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(favMealsList -> {
                     for (FavMeals favMeal : favMealsList) {
-
                         Drawable drawable = favStatus.getDrawable();
-                        if (favMeal.getMealId().equals(mealId)) {
-//                        Log.d(TAG, "Found a FavMeals object with the desired name: " + favMeal.getName());
-                            drawable.setColorFilter(ContextCompat.getColor(MealCardActivity.this, com.google.android.material.R.color.design_dark_default_color_error), PorterDuff.Mode.SRC_IN);
-                            favStatus.setImageDrawable(drawable);
-                            isFav = true;
-//                        Log.d("hhhhh", "if " + mealId + "  " + favMeal.getMealId());
+                        if (user == null && account == null) {
+                            Toast.makeText(MealCardActivity.this, "Login to add to favourite ", Toast.LENGTH_SHORT).show();
                         } else {
+
+                            if (favMeal.getMealId().equals(mealId)) {
+                                drawable.setColorFilter(ContextCompat.getColor(MealCardActivity.this, com.google.android.material.R.color.design_dark_default_color_error), PorterDuff.Mode.SRC_IN);
+                                favStatus.setImageDrawable(drawable);
+                                isFav = true;
+                            } else {
 // Remove the color filter (tint)
-                            drawable.setColorFilter(null);
-                            favStatus.setImageDrawable(drawable);
-                            isFav = false;
+                                drawable.setColorFilter(null);
+                                favStatus.setImageDrawable(drawable);
+                                isFav = false;
 //                        Log.d("hhhhh", "else " + mealId + "         " + favMeal.getMealId());
+                            }
                         }
                     }
-
-
                 });
-
-
-//
-//        favourits.observe(this, new Observer<List<FavMeals>>() {
-//            @Override
-//            public void onChanged(List<FavMeals> favMealsList) {
-//                // check using filter stream if any >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.
-//                for (FavMeals favMeal : favMealsList) {
-//
-//                    Drawable drawable = favStatus.getDrawable();
-//                    if (favMeal.getMealId().equals(mealId)) {
-////                        Log.d(TAG, "Found a FavMeals object with the desired name: " + favMeal.getName());
-//                        drawable.setColorFilter(ContextCompat.getColor(MealCardActivity.this, com.google.android.material.R.color.design_dark_default_color_error), PorterDuff.Mode.SRC_IN);
-//                        favStatus.setImageDrawable(drawable);
-//                        isFav = true;
-////                        Log.d("hhhhh", "if " + mealId + "  " + favMeal.getMealId());
-//                    } else {
-//// Remove the color filter (tint)
-//                        drawable.setColorFilter(null);
-//                        favStatus.setImageDrawable(drawable);
-//                        isFav = false;
-////                        Log.d("hhhhh", "else " + mealId + "         " + favMeal.getMealId());
-//                    }
-//                }
-//            }
-//        });
-//    }
     }
 
     @Override

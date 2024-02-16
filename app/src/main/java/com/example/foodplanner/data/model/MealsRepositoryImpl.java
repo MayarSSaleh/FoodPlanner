@@ -8,13 +8,13 @@ import com.example.foodplanner.data.local_db.favMeals.FavMeals;
 import com.example.foodplanner.data.local_db.favMeals.FaviourtLocalDataSource;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedLocalDataSourceImpl;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedMeals;
-import com.example.foodplanner.data.network.NetworkCallback;
 import com.example.foodplanner.data.network.ProductRemoteDataSourceImpl;
 
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Observable;
 
 public class MealsRepositoryImpl implements MealsRepository {
     private static final String TAG = "TAG";
@@ -40,10 +40,7 @@ public class MealsRepositoryImpl implements MealsRepository {
         this.productRemoteDataSource = productRemoteDataSource;
         this.plannedLocalDataSource = plannedLocalDataSource;
     }
-// it impact to live
-//    public LiveData<List<FavMeals>> getStoredProducts() {
-//        return prodcutsLocalDataSource.getStoredFvProduct();
-//    }
+
     public Flowable<List<FavMeals>> getStoredFvProduct() {
         return prodcutsLocalDataSource.getStoredFvProduct();
     }
@@ -52,10 +49,8 @@ public class MealsRepositoryImpl implements MealsRepository {
     public Completable insertinFavTable(FavMeals mealCard) {
         return prodcutsLocalDataSource.insert(mealCard);
     }
-    @Override
-//    public void deleteFromFav(FavMeals favMeals) {
-//        prodcutsLocalDataSource.delete(favMeals);
-//    }
+
+
     public Completable deleteFromFav(FavMeals mealCard) {
         return prodcutsLocalDataSource.delete(mealCard);
     }
@@ -64,19 +59,41 @@ public class MealsRepositoryImpl implements MealsRepository {
     public LiveData<List<PlannedMeals>> getStoredplannedProducts() {
         return plannedLocalDataSource.getStoredPlannedMeals();
     }
+// random meal
+    @Override
+    public Observable<MealsResponse> getAllProducts() {
+        return productRemoteDataSource.makeNetworkCall();
+    }
+
 
     @Override
-    public void getAllInsperMeals(NetworkCallback networkCallback) {
-        productRemoteDataSource.makeNetworkCall(networkCallback);
+    public Observable<CategoryResponse> getAllCategoreis() {
+        return productRemoteDataSource.getCategories();
     }
+    @Override
+    public Observable<MealsResponse> getCatgoryMeals(String categoryName) {
+        return productRemoteDataSource.getMealcategories(categoryName);
+    }
+
+    @Override
+    public Observable<MealsResponse> getMealDetails(String mealName) {
+        Log.d("mmmmmmmmmm", "on meal repos imp name is " +mealName );
+        return productRemoteDataSource.getMealDetails(mealName);
+    }
+
+
+
+    @Override
+    public Observable<AreaResponse> getAreas() {
+        return productRemoteDataSource.getAreas();
+    }
+
 
     @Override
     public void insertintoPlanTable(List<PlannedMeals> meals, PlannedMeals plannedMeal , String day) {
         Log.i(TAG, "plannedMeal meal repos  imp" + day );
-
         plannedLocalDataSource.updateOrInsertMeal(meals,plannedMeal ,day);
     }
-
     @Override
     public void deleteFromPlanTable(PlannedMeals plannedMeal, String day) {
         plannedLocalDataSource.updateOrDeletMeal(plannedMeal, day);

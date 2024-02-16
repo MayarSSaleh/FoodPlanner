@@ -9,9 +9,6 @@ import java.util.List;
 
 public class MealCard implements Serializable {
 
-    //    @SerializedName("idCategory")
-//    @SerializedName("strCategory")
-//    @SerializedName("strCategoryThumb")
 
     @SerializedName("idMeal")
     String mealId;

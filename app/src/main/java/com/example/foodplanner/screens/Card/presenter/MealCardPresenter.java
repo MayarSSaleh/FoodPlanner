@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface MealCardPresenter {
+    void getMealDetailsofThisMeal(String meal);
+
     ArrayList<Ingredient> getIngredients(MealCard meal);
 
     public void addToPlan(List<PlannedMeals> meals, MealCard meal, String day);

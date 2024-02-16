@@ -22,4 +22,7 @@
     <string name="searchbymeal">Search by meal</string>
     <string name="searchByText">You also can see and search by:</string>
     <string name="contAsGuest">Continue as Guest</string>
+    <string name="searchByCategory">search by Category</string>
+    <string name="All_Category_Meals">All Category Meals</string>
+    <string name="searchAboutMealsAcoordingCountry">Country Name</string>
 </resources>

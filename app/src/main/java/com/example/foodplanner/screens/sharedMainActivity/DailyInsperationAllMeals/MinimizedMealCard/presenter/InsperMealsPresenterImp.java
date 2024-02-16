@@ -1,18 +1,17 @@
 package com.example.foodplanner.screens.sharedMainActivity.DailyInsperationAllMeals.MinimizedMealCard.presenter;
 
 import android.util.Log;
-import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
-import com.example.foodplanner.data.model.MealCard;
 import com.example.foodplanner.data.model.MealsRepository;
-import com.example.foodplanner.data.network.NetworkCallback;
-import com.example.foodplanner.screens.sharedMainActivity.DailyInsperationAllMeals.MinimizedMealCard.view.DailyInspFragment;
+import com.example.foodplanner.data.model.MealsResponse;
 import com.example.foodplanner.screens.sharedMainActivity.DailyInsperationAllMeals.MinimizedMealCard.view.InsperMealsView;
-import java.util.List;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.Disposable;
 
-public class InsperMealsPresenterImp implements InsperMealsPresenter, NetworkCallback {
-    private static final String TAG="TAG";
+public class InsperMealsPresenterImp implements InsperMealsPresenter {
+    private static final String TAG = "TAG";
     MealsRepository mealsRepository;
     InsperMealsView allMealsView;
 
@@ -20,18 +19,30 @@ public class InsperMealsPresenterImp implements InsperMealsPresenter, NetworkCal
         this.mealsRepository = mealsRepository;
         this.allMealsView = allMealsView;
     }
+
     @Override
     public void getAllProducts() {
-        mealsRepository.getAllInsperMeals(this);
-    }
-    @Override
-    public void onSuccessResultForRandom(List<MealCard> mealCards) {
-        allMealsView.showData(mealCards.get(0));
- }
+        Observable<MealsResponse> observable = mealsRepository.getAllProducts();
+        observable.observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<MealsResponse>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        Log.d("t", "on onSubscribe");
+                    }
 
-    @Override
-    public void onFailureResult(String errorMsg) {
+                    @Override
+                    public void onNext(@NonNull MealsResponse mealsResponse) {
+                        allMealsView.showData(mealsResponse.meals.get(0));
+                    }
 
-//        Toast.makeText(InsperMealsPresenterImp., "Sorry, Error in Loading, Please check your internet connection", Toast.LENGTH_LONG).show();
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        allMealsView.showErrMsg(e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
     }
 }

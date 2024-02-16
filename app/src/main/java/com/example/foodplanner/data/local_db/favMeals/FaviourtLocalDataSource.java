@@ -24,15 +24,16 @@ public class FaviourtLocalDataSource {
         storedFvProduct = mealDAO.getAllFavProducts();
     }
 
-    public static FaviourtLocalDataSource getInstance(Context context) {
+    public static FaviourtLocalDataSource getInstance(Context context ) {
         if (rep == null) {
-            rep = new FaviourtLocalDataSource(context);
+            rep = new FaviourtLocalDataSource(context );
         }
         return rep;
     }
 
     public Flowable<List<FavMeals>> getStoredFvProduct() {
-        return mealDAO.getAllFavProducts();   }
+        return mealDAO.getAllFavProducts();
+    }
 
     public Completable delete(FavMeals mealCard) {
         return mealDAO.deleteFromFav(mealCard);
@@ -41,24 +42,4 @@ public class FaviourtLocalDataSource {
     public Completable insert(FavMeals mealCard) {
         return mealDAO.insertToFav(mealCard);
     }
-
-//    public void delete(FavMeals mealCard) {
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                Log.i(TAG, "ON delet respoitory");
-//                mealDAO.deleteFromFav(mealCard);
-//            }
-//        }).start();
-//    }
-//
-//    public void insert(FavMeals mealCard) {
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                Log.i(TAG, "ON insert respoitory");
-//                mealDAO.insertToFav(mealCard);
-//            }
-//        }).start();
-//    }
 }

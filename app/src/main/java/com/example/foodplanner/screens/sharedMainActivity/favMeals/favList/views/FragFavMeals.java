@@ -52,16 +52,6 @@ public class FragFavMeals extends Fragment implements FraFavMeals {
         Log.i(TAG, "on creation of fav");
         presenterImp = new FavMealsPresnterImp(repository);
         showFavProdcuts();
-//        APPDataBase db = APPDataBase.getInstance(getContext());
-//        FavMealsDAO dao = db.getFavMealsDAO();
-//        LiveData<List<FavMeals>> Favourits = dao.getAllFavProducts();
-//        Favourits.observe(getViewLifecycleOwner(), new Observer<List<FavMeals>>() {
-//            @Override
-//            public void onChanged(List<FavMeals> products) {
-//                Log.i(TAG, "onChanged: in fav activity");
-//                miniMealsCardAdaptor.setList(products);
-//            }
-//        });
         return rootView;
     }
 

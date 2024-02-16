@@ -16,7 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.foodplanner.R;
-import com.example.foodplanner.screens.sharedMainActivity.MainScreenActivity;
+import com.example.foodplanner.screens.sharedMainActivity.BasicSharedScreen.view.MainScreenActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -59,8 +59,8 @@ public class loginEnterUser extends AppCompatActivity {
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
                 String email, password;
-                email = String.valueOf(tv_email);
-                password = tv_pass.getText().toString();
+                email = tv_email.getText().toString().trim();
+                password = tv_pass.getText().toString().trim();
                 if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
                     Toast.makeText(getApplicationContext(), "Please Chef,Enter your Email and Password", Toast.LENGTH_LONG).show();
                     return;
@@ -72,6 +72,11 @@ public class loginEnterUser extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 progressBar.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
+//                                    SharedPreferences preferences = getPreferences(Context.MODE_PRIVATE);
+//                                    SharedPreferences.Editor editor = preferences.edit();
+//                                    editor.putString("userEmail", email);
+//                                    editor.apply();
+
                                     Intent intent = new Intent(loginEnterUser.this, MainScreenActivity.class);
                                     startActivity(intent);
                                     finish();
