@@ -1,8 +1,11 @@
 package com.example.foodplanner.data.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 public class Ingredient implements Serializable {
+    @SerializedName("idIngredient")
     String name;
     String amount;
 

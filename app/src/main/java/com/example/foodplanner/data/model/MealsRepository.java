@@ -17,6 +17,10 @@ public interface MealsRepository {
 
     Observable<MealsResponse> getMealDetails(String mealName);
 
+    Observable<IngredientResponse> getIngredient();
+
+    Observable<MealsResponse> getMealsByIngredient(String ingName);
+
     Observable<AreaResponse> getAreas();
 
 

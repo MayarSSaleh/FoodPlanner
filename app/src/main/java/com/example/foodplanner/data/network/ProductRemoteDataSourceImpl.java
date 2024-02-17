@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.foodplanner.data.model.AreaResponse;
 import com.example.foodplanner.data.model.CategoryResponse;
+import com.example.foodplanner.data.model.IngredientResponse;
 import com.example.foodplanner.data.model.MealsResponse;
 
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory;
@@ -41,7 +42,6 @@ public class ProductRemoteDataSourceImpl {
     }
 
     public Observable<MealsResponse> getMealDetails(String MealName) {
-        Log.d("mmmmmmmmmm", "remote imp  " +MealName );
         return pService.getMealDetails(MealName)
                 .subscribeOn(Schedulers.io());
     }
@@ -56,6 +56,15 @@ public class ProductRemoteDataSourceImpl {
                 .subscribeOn(Schedulers.io());
     }
 
+    public Observable<IngredientResponse> getIngredient() {
+        return pService.getIngredient()
+                .subscribeOn(Schedulers.io());
+    }
+
+    public Observable<MealsResponse> getMealsByIngredient(String ingName) {
+        return pService.getMealsByIngredient(ingName)
+                .subscribeOn(Schedulers.io());
+    }
 
 
 }

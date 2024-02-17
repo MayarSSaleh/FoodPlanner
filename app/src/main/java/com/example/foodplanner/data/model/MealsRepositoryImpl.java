@@ -57,7 +57,8 @@ public class MealsRepositoryImpl implements MealsRepository {
     public LiveData<List<PlannedMeals>> getStoredplannedProducts() {
         return plannedLocalDataSource.getStoredPlannedMeals();
     }
-// random meal
+
+    // random meal
     @Override
     public Observable<MealsResponse> getAllProducts() {
         return productRemoteDataSource.makeNetworkCall();
@@ -68,6 +69,7 @@ public class MealsRepositoryImpl implements MealsRepository {
     public Observable<CategoryResponse> getAllCategoreis() {
         return productRemoteDataSource.getCategories();
     }
+
     @Override
     public Observable<MealsResponse> getCatgoryMeals(String categoryName) {
         return productRemoteDataSource.getMealcategories(categoryName);
@@ -80,10 +82,19 @@ public class MealsRepositoryImpl implements MealsRepository {
 
     @Override
     public Observable<MealsResponse> getMealDetails(String mealName) {
-//        Log.d("mmmmmmmmmm", "on meal repos imp name is " +mealName );
         return productRemoteDataSource.getMealDetails(mealName);
     }
 
+
+    @Override
+    public Observable<IngredientResponse> getIngredient() {
+        return productRemoteDataSource.getIngredient();
+    }
+
+    @Override
+    public Observable<MealsResponse> getMealsByIngredient(String ingName) {
+        return productRemoteDataSource.getMealsByIngredient(ingName);
+    }
 
 
     @Override
@@ -93,10 +104,11 @@ public class MealsRepositoryImpl implements MealsRepository {
 
 
     @Override
-    public void insertintoPlanTable(List<PlannedMeals> meals, PlannedMeals plannedMeal , String day) {
+    public void insertintoPlanTable(List<PlannedMeals> meals, PlannedMeals plannedMeal, String day) {
 //        Log.i(TAG, "plannedMeal meal repos  imp" + day );
-        plannedLocalDataSource.updateOrInsertMeal(meals,plannedMeal ,day);
+        plannedLocalDataSource.updateOrInsertMeal(meals, plannedMeal, day);
     }
+
     @Override
     public void deleteFromPlanTable(PlannedMeals plannedMeal, String day) {
         plannedLocalDataSource.updateOrDeletMeal(plannedMeal, day);
