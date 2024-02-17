@@ -2,6 +2,7 @@ package com.example.foodplanner.data.model;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.foodplanner.data.firebase.UpdateFirebase;
 import com.example.foodplanner.data.local_db.favMeals.FavMeals;
 import com.example.foodplanner.data.local_db.favMeals.FaviourtLocalDataSource;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedLocalDataSourceImpl;
@@ -39,18 +40,23 @@ public class MealsRepositoryImpl implements MealsRepository {
         this.plannedLocalDataSource = plannedLocalDataSource;
     }
 
+    @Override
     public Flowable<List<FavMeals>> getStoredFvProduct() {
         return prodcutsLocalDataSource.getStoredFvProduct();
     }
 
     @Override
-    public Completable insertinFavTable(FavMeals mealCard) {
-        return prodcutsLocalDataSource.insert(mealCard);
+    public Completable insertinFavTable(FavMeals favmeal, MealCard mealCard) {
+        UpdateFirebase.addMealToFirebase(mealCard);
+
+        return prodcutsLocalDataSource.insert(favmeal);
     }
 
+    @Override
+    public Completable deleteFromFav(FavMeals favMeal, MealCard mealCard) {
+        UpdateFirebase.removeMealFromFirebase(mealCard);
 
-    public Completable deleteFromFav(FavMeals mealCard) {
-        return prodcutsLocalDataSource.delete(mealCard);
+        return prodcutsLocalDataSource.delete(favMeal);
     }
 
     //plllllllllllllllllllllllllllan
@@ -86,10 +92,10 @@ public class MealsRepositoryImpl implements MealsRepository {
     }
 
 
-    @Override
-    public Observable<IngredientResponse> getIngredient() {
-        return productRemoteDataSource.getIngredient();
-    }
+//    @Override
+//    public Observable<IngredientResponse> getIngredient() {
+//        return productRemoteDataSource.getIngredient();
+//    }
 
     @Override
     public Observable<MealsResponse> getMealsByIngredient(String ingName) {

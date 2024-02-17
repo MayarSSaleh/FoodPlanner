@@ -68,7 +68,6 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
     ProductRemoteDataSourceImpl productRemoteDataSource;
     FaviourtLocalDataSource prodcutsLocalDataSource;
     PlannedLocalDataSourceImpl plannedLocalDataSource;
-
     FirebaseAuth auth;
     FirebaseUser user;
     GoogleSignInOptions googleSignInOptions;
@@ -168,7 +167,7 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
 
     @Override
     public void notGetTheMealDetails(String error) {
-        Toast.makeText(MealCardActivity.this, "Sorry, we can not get the meal as  "+ error, Toast.LENGTH_SHORT).show();
+        Toast.makeText(MealCardActivity.this, "Sorry, we can not get the meal as  " + error, Toast.LENGTH_SHORT).show();
 
     }
 
@@ -185,6 +184,7 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
         favStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Drawable drawable = favStatus.getDrawable();
                 if (user == null && account == null) {
                     Toast.makeText(MealCardActivity.this, "Login to add to favourite ", Toast.LENGTH_SHORT).show();
@@ -201,6 +201,7 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
                         favStatus.setImageDrawable(drawable);
                         isFav = true;
                         currentMeal.setFav(true);
+
                         currentMeal.setAllingredient(mealCardPresenterImp.getIngredients(currentMeal));
                         addToFav(currentMeal);
                     }
@@ -211,34 +212,33 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
 
 
     public void updatefavImageAccordingActullayStatus(String mealId) {
-        APPDataBase db = APPDataBase.getInstance(this);
-        FavMealsDAO dao = db.getFavMealsDAO();
-        Flowable<List<FavMeals>> favourits = dao.getAllFavProducts();
-
-        favourits.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(favMealsList -> {
-                    for (FavMeals favMeal : favMealsList) {
-                        Drawable drawable = favStatus.getDrawable();
-                        if (user == null && account == null) {
-                            Toast.makeText(MealCardActivity.this, "Login to add to favourite ", Toast.LENGTH_SHORT).show();
-                        } else {
-
+        if (user == null && account == null) {
+            Toast.makeText(MealCardActivity.this, "Login to add to favourite ", Toast.LENGTH_SHORT).show();
+        } else {
+            APPDataBase db = APPDataBase.getInstance(this);
+            FavMealsDAO dao = db.getFavMealsDAO();
+            Flowable<List<FavMeals>> favourits = dao.getAllFavProducts();
+            favourits.subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(favMealsList -> {
+                        for (FavMeals favMeal : favMealsList) {
+                            Drawable drawable = favStatus.getDrawable();
                             if (favMeal.getMealId().equals(mealId)) {
                                 drawable.setColorFilter(ContextCompat.getColor(MealCardActivity.this, com.google.android.material.R.color.design_dark_default_color_error), PorterDuff.Mode.SRC_IN);
                                 favStatus.setImageDrawable(drawable);
                                 isFav = true;
                             } else {
-// Remove the color filter (tint)
                                 drawable.setColorFilter(null);
                                 favStatus.setImageDrawable(drawable);
                                 isFav = false;
 //                        Log.d("hhhhh", "else " + mealId + "         " + favMeal.getMealId());
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
+
+
 
     @Override
     public void addToFav(MealCard currentMeal) {

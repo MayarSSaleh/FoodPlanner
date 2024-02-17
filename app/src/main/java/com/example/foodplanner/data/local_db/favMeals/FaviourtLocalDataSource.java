@@ -2,6 +2,7 @@ package com.example.foodplanner.data.local_db.favMeals;
 
 import android.content.Context;
 
+import com.example.foodplanner.data.firebase.UpdateFirebase;
 import com.example.foodplanner.data.local_db.APPDataBase;
 
 import java.util.List;

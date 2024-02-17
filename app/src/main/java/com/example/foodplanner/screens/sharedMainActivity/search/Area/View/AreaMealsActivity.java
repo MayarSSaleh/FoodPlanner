@@ -7,6 +7,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,7 +24,6 @@ public class AreaMealsActivity extends AppCompatActivity implements AreaMealsVie
 
     AreaMealsAdapter areaMealsAdapter;
     RecyclerView recyclerView;
-    LinearLayoutManager linearLayoutManager;
     MealsRepositoryImpl mealsRepository;
     ProductRemoteDataSourceImpl prductRemoteDataSource;
     FaviourtLocalDataSource prodcutsLocalDataSource;
@@ -36,7 +36,7 @@ public class AreaMealsActivity extends AppCompatActivity implements AreaMealsVie
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.show_all_area_meals);
-        progressBar=findViewById(R.id.progressBar_areaScreen);
+        progressBar=findViewById(R.id.progressBarInIngredientMeals);
         prductRemoteDataSource = new ProductRemoteDataSourceImpl();
         prodcutsLocalDataSource = new FaviourtLocalDataSource(this);
         plannedLocalDataSource = new PlannedLocalDataSourceImpl(this);
@@ -50,9 +50,8 @@ public class AreaMealsActivity extends AppCompatActivity implements AreaMealsVie
             progressBar.setVisibility(View.VISIBLE);
         }
 
-        recyclerView = findViewById(R.id.recycle_areas_meal);
-        linearLayoutManager = new LinearLayoutManager(this);
-//        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerView = findViewById(R.id.recycle_ing_meal);
+        LinearLayoutManager linearLayoutManager = new GridLayoutManager(this,2);
         recyclerView.setLayoutManager(linearLayoutManager);
     }
 

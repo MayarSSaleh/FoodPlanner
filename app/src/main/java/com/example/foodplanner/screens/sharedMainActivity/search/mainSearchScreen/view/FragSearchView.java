@@ -13,7 +13,7 @@ import com.example.foodplanner.R;
 import com.example.foodplanner.screens.Card.view.MealCardActivity;
 import com.example.foodplanner.screens.sharedMainActivity.search.Area.View.AreaActivity;
 import com.example.foodplanner.screens.sharedMainActivity.search.Categry.View.CategoryListActivity;
-import com.example.foodplanner.screens.sharedMainActivity.search.Ingredients.View.SearchIngretents;
+import com.example.foodplanner.screens.sharedMainActivity.search.Ingredients.View.SearchByIngredient;
 
 public class FragSearchView extends Fragment {
     EditText etSearchByMeal;
@@ -59,7 +59,7 @@ public class FragSearchView extends Fragment {
         searchByIng.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), SearchIngretents.class);
+                Intent intent = new Intent(getContext(), SearchByIngredient.class);
                 getContext().startActivity(intent);
             }
         });

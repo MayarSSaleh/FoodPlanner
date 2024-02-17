@@ -30,7 +30,7 @@ public class AreaMealsAdapter extends RecyclerView.Adapter<AreaMealsAdapter.Area
     @NonNull
     @Override
     public AreaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.area_meals, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.meal_by_search, parent, false);
         return new AreaViewHolder(view);
     }
 
@@ -62,8 +62,8 @@ public class AreaMealsAdapter extends RecyclerView.Adapter<AreaMealsAdapter.Area
 
         public AreaViewHolder(@NonNull View itemView) {
             super(itemView);
-            nameTextView = itemView.findViewById(R.id.tv_area_mealName);
-            imageView = itemView.findViewById(R.id.img_area_meal);
+            nameTextView = itemView.findViewById(R.id.tv_meal_name);
+            imageView = itemView.findViewById(R.id.meal_img);
 
         }
     }

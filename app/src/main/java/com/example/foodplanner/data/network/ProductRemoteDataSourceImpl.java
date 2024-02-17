@@ -55,11 +55,11 @@ public class ProductRemoteDataSourceImpl {
         return pService.getAreaMeals(areaName)
                 .subscribeOn(Schedulers.io());
     }
-
-    public Observable<IngredientResponse> getIngredient() {
-        return pService.getIngredient()
-                .subscribeOn(Schedulers.io());
-    }
+// not require ,his cycle not completed. made in data base only
+//    public Observable<IngredientResponse> getIngredient() {
+//        return pService.getIngredient()
+//                .subscribeOn(Schedulers.io());
+//    }
 
     public Observable<MealsResponse> getMealsByIngredient(String ingName) {
         return pService.getMealsByIngredient(ingName)

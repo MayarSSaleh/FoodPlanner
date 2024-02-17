@@ -4,37 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/areaLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".screens.sharedMainActivity.search.Area.View.SearchAndListArea">
-
-    <!-- TODO: Update blank fragment layout -->
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="156dp"
-        android:layout_height="64dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/berkshire_swash"
         android:gravity="center|center_horizontal"
-        android:text="Areas"
+        android:text="@string/areas"
         android:textSize="48sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.141"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.089" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycle_areas"
-        android:layout_width="353dp"
-        android:layout_height="519dp"
-        android:layout_marginTop="99dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/ed_areaNameinSearch" />
 
     <ProgressBar
         android:id="@+id/progressBar_mainAreaScreen"
@@ -48,9 +42,9 @@
         />
     <EditText
         android:id="@+id/ed_areaNameinSearch"
-        android:layout_width="304dp"
+        android:layout_width="match_parent"
         android:layout_height="42dp"
-        android:layout_marginStart="36dp"
+        android:layout_marginHorizontal="20dp"
         android:layout_marginTop="28dp"
         android:ems="10"
         android:hint="@string/searchAboutMealsAcoordingCountry"
@@ -59,19 +53,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
         app:layout_constraintVertical_bias="0.0" />
-
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/alexFlag"
-        android:layout_width="175dp"
-        android:layout_height="124dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="20dp"
-        android:src="@drawable/alex"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/textView4"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

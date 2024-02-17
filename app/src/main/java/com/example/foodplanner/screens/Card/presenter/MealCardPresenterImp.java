@@ -65,46 +65,51 @@ public class MealCardPresenterImp implements MealCardPresenter {
     @Override
     public ArrayList<Ingredient> getIngredients(MealCard meal) {
         ArrayList<Ingredient> ingredientsList = new ArrayList<>();
-        if (!meal.getIngr1().isEmpty())
+
+        if (meal.getAllingredient().isEmpty()){
+        if (meal.getIngr1() != null && !meal.getIngr1().isEmpty())
             ingredientsList.add(new Ingredient(meal.getIngr1(), meal.getIngr1m()));
-        if (!meal.getIngr2().isEmpty())
+        if (meal.getIngr2() != null && !meal.getIngr2().isEmpty())
             ingredientsList.add(new Ingredient(meal.getIngr2(), meal.getIngr2m()));
-        if (!meal.getIngr3().isEmpty())
+        if (meal.getIngr3() != null&& !meal.getIngr3().isEmpty())
             ingredientsList.add(new Ingredient(meal.getIngr3(), meal.getIngr3m()));
-        if (!meal.getIngr4().isEmpty())
+        if (meal.getIngr4() != null&& !meal.getIngr4().isEmpty())
             ingredientsList.add(new Ingredient(meal.getIngr4(), meal.getIngr4m()));
-        if (meal.getIngr5() != null && !meal.getIngr4().isEmpty())
+        if (meal.getIngr5() != null&& meal.getIngr5() != null && !meal.getIngr4().isEmpty())
             ingredientsList.add(new Ingredient(meal.getIngr5(), meal.getIngr5m()));
-        if (!meal.getIngr6().isEmpty())
+        if (meal.getIngr6() != null&& !meal.getIngr6().isEmpty())
             ingredientsList.add(new Ingredient(meal.getIngr6(), meal.getIngr6m()));
-        if (!meal.getIngr7().isEmpty())
+        if (meal.getIngr7() != null&& !meal.getIngr7().isEmpty())
             ingredientsList.add(new Ingredient(meal.getIngr7(), meal.getIngr7m()));
-        if (!meal.getIngr8().isEmpty())
+        if (meal.getIngr8() != null&& !meal.getIngr8().isEmpty())
             ingredientsList.add(new Ingredient(meal.getIngr8(), meal.getIngr8m()));
-        if (!meal.getIngr9().isEmpty())
+        if (meal.getIngr9() != null&& !meal.getIngr9().isEmpty())
             ingredientsList.add(new Ingredient(meal.getIngr9(), meal.getIngr9m()));
-        if (!meal.getIngr10().isEmpty())
+        if (meal.getIngr10() != null&& !meal.getIngr10().isEmpty())
             ingredientsList.add(new Ingredient(meal.getIngr10(), meal.getIngr10m()));
-        if (!meal.getIngr11().isEmpty())
+        if (meal.getIngr11() != null&& !meal.getIngr11().isEmpty())
             ingredientsList.add(new Ingredient(meal.getIngr11(), meal.getIngr11m()));
-        if (meal.getIngr12() != null && !meal.getIngr12().isEmpty())
+        if (meal.getIngr12() != null&& meal.getIngr12() != null && !meal.getIngr12().isEmpty())
             ingredientsList.add(new Ingredient(meal.getIngr12(), meal.getIngr12m()));
-        if (!meal.getIngr13().isEmpty())
+        if (meal.getIngr13() != null&& !meal.getIngr13().isEmpty())
             ingredientsList.add(new Ingredient(meal.getIngr13(), meal.getIngr13m()));
-        if (!meal.getIngr14().isEmpty())
+        if (meal.getIngr14() != null&& !meal.getIngr14().isEmpty())
             ingredientsList.add(new Ingredient(meal.getIngr14(), meal.getIngr14m()));
-        if (!meal.getIngr15().isEmpty())
+        if (meal.getIngr15() != null&& !meal.getIngr15().isEmpty())
             ingredientsList.add(new Ingredient(meal.getIngr15(), meal.getIngr15m()));
-        if (!meal.getIngr16().isEmpty())
+        if (meal.getIngr16() != null&& !meal.getIngr16().isEmpty())
             ingredientsList.add(new Ingredient(meal.getIngr16(), meal.getIngr16m()));
-        if (!meal.getIngr17().isEmpty())
+        if (meal.getIngr17() != null&& !meal.getIngr17().isEmpty())
             ingredientsList.add(new Ingredient(meal.getIngr17(), meal.getIngr17m()));
-        if (!meal.getIngr18().isEmpty())
+        if (meal.getIngr18() != null&& !meal.getIngr18().isEmpty())
             ingredientsList.add(new Ingredient(meal.getIngr18(), meal.getIngr18m()));
-        if (!meal.getIngr19().isEmpty())
+        if (meal.getIngr19() != null&& !meal.getIngr19().isEmpty())
             ingredientsList.add(new Ingredient(meal.getIngr19(), meal.getIngr19m()));
-        if (!meal.getIngr20().isEmpty()) {
+        if (meal.getIngr20() != null&& !meal.getIngr20().isEmpty()) {
             ingredientsList.add(new Ingredient(meal.getIngr20(), meal.getIngr20m()));
+        }} else {
+
+            ingredientsList.addAll(meal.getAllingredient());
         }
         return ingredientsList;
     }
@@ -153,7 +158,7 @@ public class MealCardPresenterImp implements MealCardPresenter {
         newFavMeal.setAllingredient(mealCard.getAllingredient());
         newFavMeal.setFav(mealCard.isFav());
         newFavMeal.setSteps(mealCard.getSteps());
-        repository.insertinFavTable(newFavMeal)
+        repository.insertinFavTable(newFavMeal , mealCard)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -170,7 +175,7 @@ public class MealCardPresenterImp implements MealCardPresenter {
     public void removeFeomDBfavMeal(MealCard mealCard) {
         FavMeals newFavMeal = new FavMeals();
         newFavMeal.setMealId(mealCard.getMealId());
-        repository.deleteFromFav(newFavMeal)
+        repository.deleteFromFav(newFavMeal , mealCard)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

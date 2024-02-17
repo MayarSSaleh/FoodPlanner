@@ -75,6 +75,15 @@ public class MainScreenActivity extends AppCompatActivity {
         viewPager2.setAdapter(myViewPageAdapter);
         profile = findViewById(R.id.profile);
         tv_userEmail = findViewById(R.id.tv_userEmail);
+
+        setTabsIcons();
+    }
+
+    private void setTabsIcons() {
+        tabLayout.getTabAt(0).setIcon(R.drawable.baseline_home_24);
+        tabLayout.getTabAt(1).setIcon(R.drawable.baseline_manage_search_24);
+        tabLayout.getTabAt(2).setIcon(R.drawable.plan);
+        tabLayout.getTabAt(3).setIcon(R.drawable.fav_icon);
     }
 
     private void handleFragmentChoose() {
@@ -105,40 +114,23 @@ public class MainScreenActivity extends AppCompatActivity {
 
     void youWantlogout() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainScreenActivity.this);
-        builder.setTitle("Alert Dialog")
-                .setMessage("Are you sure you want log out?!!")
+        builder.setTitle("Hi chef")
+                .setMessage("Are you sure you want log out ?!!")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         mainScreenPresenterImp.logOut(googleSignInClient);
-//                        if (user != null) {
-//                            FirebaseAuth.getInstance().signOut();
-//                        }
-//                        if (account != null) {
-//                            googleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                @Override
-//                                public void onComplete(@NonNull Task<Void> task) {
-//                                }
-//                            });
-//                        }
-//
-//                       sharedPreferences = getSharedPreferences(SHARED_PREFS, 0);
-//                       editor = sharedPreferences.edit();
-//                        editor.putString("email", "");
-//                        editor.apply();
-//
                         Intent i = new Intent(getApplicationContext(), loginActivity.class);
                         startActivity(i);
                     }
                 });
         AlertDialog dialog = builder.create();
         dialog.show();
-
     }
 
     void youWantlogIn() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainScreenActivity.this);
-        builder.setTitle("Alert Dialog")
-                .setMessage(" NOW, you are a guest,Do you want to Login?")
+        builder.setTitle("Hi Chef")
+                .setMessage(" Login, let's start cooking")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         Intent i = new Intent(getApplicationContext(), loginActivity.class);

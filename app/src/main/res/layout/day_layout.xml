@@ -12,7 +12,7 @@
         android:layout_marginTop="16dp"
         android:fontFamily="@font/berkshire_swash"
         android:text="Day"
-        android:textSize="34sp"
+        android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.114"
         app:layout_constraintStart_toStartOf="parent"

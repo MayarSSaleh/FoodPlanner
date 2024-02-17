@@ -4,10 +4,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="AppTtitle">You Are The\nCheif</string>
     <string name="login_sligon">"Start Cooking journey "</string>
-    <string name="asking_to_login">Aleardy have an acount?</string>
+    <string name="asking_to_login">Already have an account?</string>
     <string name="login">Log In</string>
     <string name="above_btn_siginUp">Sign Up</string>
-    <string name="Password">Password (least 6 characters)</string>
+    <string name="Password">Password (At least 6 characters)</string>
     <string name="Email">Email ex:Abc@gmail.com </string>
     <string name="btn_loginWhichStartCooking">Start Cooking</string>
     <string name="tv_signUP">Sign Up</string>
@@ -18,7 +18,7 @@
     <string name="planTab">Plan</string>
     <string name="FavoriteTab">Favorite</string>
     <string name="DailyInsperationTitile">Daily Insperation</string>
-    <string name="plan_page_title">My plan:</string>
+    <string name="plan_page_title">My plan</string>
     <string name="weekSaturday">"Saturday "</string>
     <string name="Saturday">Saturday</string>
     <string name="Sunday">Sunday</string>
@@ -30,7 +30,7 @@
     <string name="SearchByIng">Search by Ingredients</string>
     <string name="SearchbyMeals"> Search by Meal Name </string>
     <string name="SearchbyCountery">Search by Countery</string>
-    <string name="title_chooseDay">Choose The Day</string>
+    <string name="title_chooseDay">Add to Day Menu </string>
     <string name="RefreshPage">Refresh page, \nTo get another insper meal</string>
     <string name="searchbymeal">Search by meal</string>
     <string name="searchByText">You also can see and search by:</string>
@@ -43,4 +43,11 @@
     <string name="Country">Country</string>
     <string name="Search">Search</string>
     <string name="All_Area_Meals">All Area Meals</string>
+    <string name="AllMealsByIngredent">All meals by ingredient</string>
+    <string name="searchByIngredient">Ingredient ex chicken breast</string>
+    <string name="category">Category</string>
+    <string name="areas">Areas</string>
+    <string name="search_by">Search by:</string>
+    <string name="see_list_and_search_by">See List and Search by:</string>
+    <string name="skip">Skip</string>
 </resources>

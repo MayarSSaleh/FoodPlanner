@@ -2,7 +2,6 @@ package com.example.foodplanner.screens.sharedMainActivity.search.Categry.View;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +32,7 @@ public class SpecificCategoryMealsAdaptor extends RecyclerView.Adapter<SpecificC
     @NonNull
     @Override
     public CategoryMealViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.category_meals, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.meal_by_search, parent, false);
         return new CategoryMealViewHolder(view);
     }
 
@@ -65,8 +64,8 @@ public class SpecificCategoryMealsAdaptor extends RecyclerView.Adapter<SpecificC
 
         public CategoryMealViewHolder(@NonNull View itemView) {
             super(itemView);
-            nameTextView = itemView.findViewById(R.id.tv_categ_mealName);
-            imageView = itemView.findViewById(R.id.img_categ_meal);
+            nameTextView = itemView.findViewById(R.id.tv_meal_name);
+            imageView = itemView.findViewById(R.id.meal_img);
 
         }
     }

@@ -5,14 +5,13 @@
     android:id="@+id/categ_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.sharedMainActivity.search.Categry.View.FragSearchIngredients">
-
+    android:padding="20dp">
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:text="Category"
+        android:layout_marginTop="20dp"
+        android:text="@string/category"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.444"
@@ -21,7 +20,7 @@
 
     <EditText
         android:id="@+id/et_searchbyCategory"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:ems="10"
@@ -34,9 +33,11 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycle_categ"
-        android:layout_width="339dp"
-        android:layout_height="504dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
+        tools:listitem="@layout/categoies_card"
+        tools:itemCount="2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_searchbyCategory" />

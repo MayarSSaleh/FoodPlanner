@@ -68,6 +68,8 @@ public class DailyInspFragment extends Fragment implements InsperMealsView {
 
     @Override
     public void showData(MealCard mealCard) {
+        if (getActivity() == null) return;
+
         mealName.setText(mealCard.getName());
         dailyInsperationMeal = mealCard;
         Glide.with(DailyInspFragment.this).load(mealCard.getPhotourl()).into(mealImage);

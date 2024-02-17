@@ -4,9 +4,13 @@ import com.example.foodplanner.data.local_db.favMeals.FavMeals;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedMeals;
 import java.util.List;
 import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Observable;
 
 public interface MealsRepository {
+
+    Flowable<List<FavMeals>> getStoredFvProduct();
+
 
     Observable<MealsResponse> getAllProducts();
     Observable<CategoryResponse> getAllCategoreis();
@@ -17,7 +21,7 @@ public interface MealsRepository {
 
     Observable<MealsResponse> getMealDetails(String mealName);
 
-    Observable<IngredientResponse> getIngredient();
+//    Observable<IngredientResponse> getIngredient();
 
     Observable<MealsResponse> getMealsByIngredient(String ingName);
 
@@ -25,9 +29,9 @@ public interface MealsRepository {
 
 
     //>>>>>>>>>>>>>>>>>>>>>>...for fav<<<<<<<<<
+    Completable insertinFavTable(FavMeals favmeal, MealCard mealCard);
 
-    public Completable insertinFavTable(FavMeals mealCard);
-    public  Completable deleteFromFav(FavMeals favMeals);
+    Completable deleteFromFav(FavMeals favMeal, MealCard mealCard);
 
 
     //>>>>>>>>>>>>>>>>>>>>>>...for plan<<<<<<<<<

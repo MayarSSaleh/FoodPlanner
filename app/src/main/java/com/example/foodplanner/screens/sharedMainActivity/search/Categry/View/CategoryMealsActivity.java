@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -63,7 +64,7 @@ public class CategoryMealsActivity extends AppCompatActivity implements Category
         }
 
         recyclerView = findViewById(R.id.all_category_meals);
-        linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager = new GridLayoutManager(this, 2);
 //        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(linearLayoutManager);
     }

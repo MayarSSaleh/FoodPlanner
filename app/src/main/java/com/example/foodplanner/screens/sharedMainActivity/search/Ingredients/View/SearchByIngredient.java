@@ -1,75 +1,73 @@
 package com.example.foodplanner.screens.sharedMainActivity.search.Ingredients.View;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ProgressBar;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.foodplanner.R;
 import com.example.foodplanner.data.local_db.favMeals.FaviourtLocalDataSource;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedLocalDataSourceImpl;
 import com.example.foodplanner.data.model.MealCard;
 import com.example.foodplanner.data.model.MealsRepositoryImpl;
 import com.example.foodplanner.data.network.ProductRemoteDataSourceImpl;
-import com.example.foodplanner.screens.sharedMainActivity.search.Categry.Presenter.CategoryMealsPresenterImp;
-
+import com.example.foodplanner.screens.sharedMainActivity.search.Ingredients.Presenter.IngredientMealsPresenterImp;
 import java.util.ArrayList;
 
-// every screen has itis presenter
-public class IngredientMealsActivity extends AppCompatActivity implements CategoryMealsView {
+public class SearchByIngredient extends AppCompatActivity implements IngredientMealsView {
 
-    SpecificCategoryMealsAdaptor specificCategoryMealsAdaptor;
+    SpecificIngredientMealsAdaptor specificIngredientMealsAdaptor;
     RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
     MealsRepositoryImpl mealsRepository;
     ProductRemoteDataSourceImpl prductRemoteDataSource;
     FaviourtLocalDataSource prodcutsLocalDataSource;
     PlannedLocalDataSourceImpl plannedLocalDataSource;
-    CategoryMealsPresenterImp categoryMealsPresenterImp;
-    CategoryMealsView categoryMealsView;
-    ProgressBar progressBar;
+    IngredientMealsPresenterImp ingredientMealsPresenterImp;
+    EditText searchByIngredient;
+    Button btnSearchByIng;
+    String ingredient;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.show_all_category_meals);
-        progressBar=findViewById(R.id.progressBar);
+        setContentView(R.layout.show_all_meals_of_ingredient);
+        btnSearchByIng= findViewById(R.id.btn_search_in_ing);
+        searchByIngredient=findViewById(R.id.ed_search_by);
+
         prductRemoteDataSource = new ProductRemoteDataSourceImpl();
         prodcutsLocalDataSource = new FaviourtLocalDataSource(this);
         plannedLocalDataSource = new PlannedLocalDataSourceImpl(this);
         mealsRepository = MealsRepositoryImpl.getInstance(prductRemoteDataSource, prodcutsLocalDataSource, plannedLocalDataSource);
-        categoryMealsPresenterImp = new CategoryMealsPresenterImp(mealsRepository, this);
+        ingredientMealsPresenterImp= new IngredientMealsPresenterImp(mealsRepository,this);
 
-        Intent intent = getIntent();
-        if (intent.hasExtra("categoryName")) {
-            String categoryName = intent.getStringExtra("categoryName");
-            categoryMealsPresenterImp.getCategoryMeals(categoryName);
-            progressBar.setVisibility(View.VISIBLE);
-        }
 
-        recyclerView = findViewById(R.id.all_category_meals);
+        btnSearchByIng.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ingredient= searchByIngredient.getText().toString().trim();
+                ingredientMealsPresenterImp.getIngredientMeals(ingredient);
+            }
+        });
+
+        recyclerView = findViewById(R.id.recycle_ing_meal);
         linearLayoutManager = new LinearLayoutManager(this);
-//        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(linearLayoutManager);
     }
 
     @Override
-    public void showData(ArrayList<MealCard> categories) {
-        progressBar.setVisibility(View.GONE);
-        specificCategoryMealsAdaptor = new SpecificCategoryMealsAdaptor(this, categories);
-        recyclerView.setAdapter(specificCategoryMealsAdaptor);
+    public void showData(ArrayList<MealCard> meals) {
+        specificIngredientMealsAdaptor = new SpecificIngredientMealsAdaptor(this, meals);
+        recyclerView.setAdapter(specificIngredientMealsAdaptor);
     }
 
     @Override
     public void showErrMsg(String error) {
-        progressBar.setVisibility(View.GONE);
-        Toast.makeText(this, "check Your internet connection"+ error, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Sorry we can not load it as " + error, Toast.LENGTH_SHORT).show();
     }
 }
 

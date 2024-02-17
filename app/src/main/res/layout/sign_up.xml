@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/conLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingHorizontal="20dp">
 
     <TextView
         android:id="@+id/tv_login"
@@ -21,7 +22,7 @@
 
     <EditText
         android:id="@+id/ed_user_email"
-        android:layout_width="302dp"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="72dp"
         android:ems="10"
@@ -34,7 +35,7 @@
 
     <EditText
         android:id="@+id/ed_user_pass"
-        android:layout_width="305dp"
+        android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginTop="48dp"
         android:ems="10"

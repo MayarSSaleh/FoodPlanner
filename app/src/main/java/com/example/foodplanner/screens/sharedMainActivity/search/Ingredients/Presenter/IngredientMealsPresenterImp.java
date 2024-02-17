@@ -1,8 +1,11 @@
 package com.example.foodplanner.screens.sharedMainActivity.search.Ingredients.Presenter;
 
+import android.util.Log;
+
 import com.example.foodplanner.data.model.MealsRepository;
 import com.example.foodplanner.data.model.MealsResponse;
 import com.example.foodplanner.screens.sharedMainActivity.search.Categry.View.CategoryMealsView;
+import com.example.foodplanner.screens.sharedMainActivity.search.Ingredients.View.IngredientMealsView;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
@@ -12,18 +15,19 @@ import io.reactivex.rxjava3.disposables.Disposable;
 
 public class IngredientMealsPresenterImp implements IngredientMealsPresenter {
     MealsRepository mealsRepository;
-    CategoryMealsView categoryMealsView;
+    IngredientMealsView  ingredientMealsView;
 
 
-    public IngredientMealsPresenterImp(MealsRepository mealsRepository, CategoryMealsView categoryMealsView ) {
+
+    public IngredientMealsPresenterImp(MealsRepository mealsRepository, IngredientMealsView ingredientMealsView ) {
         this.mealsRepository = mealsRepository;
-        this.categoryMealsView = categoryMealsView;
+        this.ingredientMealsView = ingredientMealsView;
     }
 
 
     @Override
-    public void getIngredientMeals(String categoryName) {
-        Observable<MealsResponse> observable = mealsRepository.getCatgoryMeals(categoryName);
+    public void getIngredientMeals(String ingName) {
+        Observable<MealsResponse> observable = mealsRepository.getMealsByIngredient(ingName);
         observable.observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<MealsResponse>() {
                     @Override
@@ -32,12 +36,19 @@ public class IngredientMealsPresenterImp implements IngredientMealsPresenter {
 
                     @Override
                     public void onNext(@NonNull MealsResponse mealsResponse) {
-//                        Log.d("daaaaaaaaa",":::  "  + mealsResponse.meals.size());
-                        categoryMealsView.showData(mealsResponse.meals);
+                        if (mealsResponse.meals != null) {
+                            ingredientMealsView.showData(mealsResponse.meals);
+                        } else {
+                            ingredientMealsView.showErrMsg("Sorry , there is no meals by this ingredient");
+                        }
                     }
+
+
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        categoryMealsView.showErrMsg(e.getMessage());
+                        Log.d("d",":::  "  +e.getMessage());
+
+                        ingredientMealsView.showErrMsg(e.getMessage());
 
                     }
                     @Override
