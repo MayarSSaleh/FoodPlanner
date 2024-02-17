@@ -3,7 +3,9 @@ package com.example.foodplanner.screens.sharedMainActivity.search.Area.View;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +34,8 @@ public class AreaActivity extends AppCompatActivity implements AreaView {
     PlannedLocalDataSourceImpl plannedLocalDataSource;
     AreaPresenterImp areaPresenterImp;
     ArrayList<Area> orignialArea;
+    ProgressBar progressBar;
+
 
     public AreaActivity() {
     }
@@ -39,12 +43,15 @@ public class AreaActivity extends AppCompatActivity implements AreaView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_and_list_area);
+        progressBar= findViewById(R.id.progressBar_mainAreaScreen);
+
         productRemoteDataSource = new ProductRemoteDataSourceImpl();
         plannedLocalDataSource = new PlannedLocalDataSourceImpl(this);
         productRemoteDataSource = new ProductRemoteDataSourceImpl();
         mealsRepository = MealsRepositoryImpl.getInstance(productRemoteDataSource, prodcutsLocalDataSource, plannedLocalDataSource);
         areaPresenterImp = new AreaPresenterImp(mealsRepository, this);
         areaPresenterImp.getAreas();
+        progressBar.setVisibility( View.VISIBLE);
 
         recyclerView = findViewById(R.id.recycle_areas);
         selectByAreaName = findViewById(R.id.ed_areaNameinSearch);
@@ -86,6 +93,7 @@ public class AreaActivity extends AppCompatActivity implements AreaView {
 
     @Override
     public void showData(ArrayList<Area> areaArrayList) {
+        progressBar.setVisibility( View.GONE);
         orignialArea= new ArrayList<>(areaArrayList);
         areaAdapter = new AreaAdapter(this, areaArrayList);
         recyclerView.setAdapter(areaAdapter);

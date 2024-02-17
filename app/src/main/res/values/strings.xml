@@ -28,7 +28,7 @@
     <string name="Thursday">Thursday</string>
     <string name="Friday">Friday</string>
     <string name="SearchByIng">Search by Ingredients</string>
-    <string name="SearchbyMeals">Search by Meals</string>
+    <string name="SearchbyMeals"> Search by Meal Name </string>
     <string name="SearchbyCountery">Search by Countery</string>
     <string name="title_chooseDay">Choose The Day</string>
     <string name="RefreshPage">Refresh page, \nTo get another insper meal</string>
@@ -38,4 +38,9 @@
     <string name="searchByCategory">search by Category</string>
     <string name="All_Category_Meals">All Category Meals</string>
     <string name="searchAboutMealsAcoordingCountry">Country Name</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="Category">Category</string>
+    <string name="Country">Country</string>
+    <string name="Search">Search</string>
+    <string name="All_Area_Meals">All Area Meals</string>
 </resources>

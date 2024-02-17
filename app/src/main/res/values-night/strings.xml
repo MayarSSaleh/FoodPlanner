@@ -25,4 +25,6 @@
     <string name="searchByCategory">search by Category</string>
     <string name="All_Category_Meals">All Category Meals</string>
     <string name="searchAboutMealsAcoordingCountry">Country Name</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="All_Area_Meals">All Area Meals</string>
 </resources>

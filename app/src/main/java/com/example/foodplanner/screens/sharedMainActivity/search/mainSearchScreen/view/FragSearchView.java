@@ -6,9 +6,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import com.example.foodplanner.R;
+import com.example.foodplanner.screens.Card.view.MealCardActivity;
 import com.example.foodplanner.screens.sharedMainActivity.search.Area.View.AreaActivity;
 import com.example.foodplanner.screens.sharedMainActivity.search.Categry.View.CategoryListActivity;
 import com.example.foodplanner.screens.sharedMainActivity.search.Ingredients.View.SearchIngretents;
@@ -16,6 +18,8 @@ import com.example.foodplanner.screens.sharedMainActivity.search.Ingredients.Vie
 public class FragSearchView extends Fragment {
     EditText etSearchByMeal;
     ImageView searchByAre, searchByCateg, searchByIng;
+    Button searchByName;
+    String mealName;
 
     public FragSearchView() {
     }
@@ -35,11 +39,23 @@ public class FragSearchView extends Fragment {
         searchByIng = view.findViewById(R.id.img_ingr);
         searchByCateg = view.findViewById(R.id.img_Categories);
         searchByAre = view.findViewById(R.id.img_countery);
+        searchByName = view.findViewById(R.id.btn_search);
         hanlingSetOnClick();
         return view;
     }
 
     private void hanlingSetOnClick() {
+        searchByName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mealName=  etSearchByMeal.getText().toString().trim();
+                Intent intent = new Intent(getContext(), MealCardActivity.class);
+                intent.putExtra("mealName", mealName);
+                startActivity(intent);
+            }
+        });
+
+
         searchByIng.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

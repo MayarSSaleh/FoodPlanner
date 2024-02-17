@@ -17,38 +17,23 @@
 
         <activity android:name=".screens.sharedMainActivity.BasicSharedScreen.view.MainScreenActivity"></activity>
         <activity android:name=".screens.sharedMainActivity.search.Ingredients.View.SearchIngretents"></activity>
-        <activity android:name=".screens.sharedMainActivity.search.Area.View.AreaActivity">
-            <!--            android:exported="true">-->
-
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
-            <!--            >-->
-
-        </activity>
-        <activity android:name=".screens.sharedMainActivity.search.Categry.View.CategoryListActivity">
-            <!--            android:exported="true">-->
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
-            <!--            >-->
-        </activity>
-        <activity android:name=".screens.sharedMainActivity.search.Categry.View.CategoryMealsActivity"></activity>
-        <activity android:name=".screens.logIn.view.loginActivity"></activity>
-        <activity android:name=".screens.logIn.view.loginEnterUser"></activity>
-        <activity android:name=".screens.signUp.view.signUPActivity"></activity>
-        <activity android:name=".screens.sharedMainActivity.BasicSharedScreen.presenter.MainScreenPresenterImp"></activity>
+       <activity android:name=".screens.sharedMainActivity.search.Area.View.AreaMealsActivity"></activity>
         <activity
-            android:name=".SplashScreenActivity"
+            android:name=".screens.sharedMainActivity.search.Area.View.AreaActivity"
             android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
+            >
         </activity>
+        <activity android:name=".screens.sharedMainActivity.search.Categry.View.CategoryListActivity"></activity>
+        <activity android:name=".screens.sharedMainActivity.search.Categry.View.CategoryMealsActivity"></activity>
+        <activity android:name=".screens.logIn.view.loginActivity"></activity>
+        <activity android:name=".screens.logIn.view.loginEnterUser"></activity>
+        <activity android:name=".screens.signUp.view.signUPActivity"></activity>
+        <activity android:name=".SplashScreenActivity"></activity>
         <activity android:name=".screens.Card.view.ChossePlannedDay"></activity>
         <activity android:name=".screens.Card.view.MealCardActivity"></activity>
 

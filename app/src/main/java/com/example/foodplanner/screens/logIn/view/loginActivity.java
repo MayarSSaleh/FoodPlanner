@@ -20,7 +20,6 @@ import com.google.android.gms.tasks.Task;
 
 public class loginActivity extends AppCompatActivity {
 
-    ImageView imageView;
     Button btnSignUp;
     Button btnGoogle;
     TextView tvLogin, tv_cont_as_guest;
@@ -36,6 +35,7 @@ public class loginActivity extends AppCompatActivity {
         btnSignUp = findViewById(R.id.btn_signUp);
         tvLogin = findViewById(R.id.tv_login);
         tv_cont_as_guest = findViewById(R.id.tv_cont_as_guest);
+
         googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         googleSignInClient = GoogleSignIn.getClient(loginActivity.this, googleSignInOptions);
         googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
@@ -46,8 +46,7 @@ public class loginActivity extends AppCompatActivity {
         tv_cont_as_guest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "as GUEST you can not add to favouirt or make a plan",
-                        Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "as GUEST you can not add to favourite or make a plan",  Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(loginActivity.this, MainScreenActivity.class);
                 startActivity(intent);
             }
@@ -70,16 +69,12 @@ public class loginActivity extends AppCompatActivity {
         btnGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signIn();
+                Intent signInTntent = googleSignInClient.getSignInIntent();
+                startActivityForResult(signInTntent, 1000);
 
             }
         });
 
-    }
-
-    void signIn() {
-        Intent signInTntent = googleSignInClient.getSignInIntent();
-        startActivityForResult(signInTntent, 1000);
     }
 
     @Override
@@ -88,17 +83,12 @@ public class loginActivity extends AppCompatActivity {
         if (requestCode == 1000) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
-                task.getResult(ApiException.class);// signin successful
-//                SharedPreferences preferences = getPreferences(Context.MODE_PRIVATE);
-//                SharedPreferences.Editor editor = preferences.edit();
-//                editor.putString("userEmail", account.getEmail());
-//                editor.apply();
-
+                task.getResult(ApiException.class);
                 Intent intent = new Intent(loginActivity.this, MainScreenActivity.class);
                 startActivity(intent);
                 finish();
             } catch (ApiException e) {
-                e.printStackTrace();
+//                e.printStackTrace();
                 Toast.makeText(loginActivity.this, "Sorry can not sign in, there are something wrong", Toast.LENGTH_SHORT);
             }
         }

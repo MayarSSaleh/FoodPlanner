@@ -72,11 +72,6 @@ public class loginEnterUser extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 progressBar.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
-//                                    SharedPreferences preferences = getPreferences(Context.MODE_PRIVATE);
-//                                    SharedPreferences.Editor editor = preferences.edit();
-//                                    editor.putString("userEmail", email);
-//                                    editor.apply();
-
                                     Intent intent = new Intent(loginEnterUser.this, MainScreenActivity.class);
                                     startActivity(intent);
                                     finish();
@@ -87,9 +82,8 @@ public class loginEnterUser extends AppCompatActivity {
                                         Toast.makeText(getApplicationContext(), "Authentication failed as " + errorMessage,
                                                 Toast.LENGTH_SHORT).show();
                                         Log.d("TAG", "Authentication failed: " + errorMessage);
-                                    } else {  // If sign in fails, display a message to the user.
-                                        Toast.makeText(getApplicationContext(), "Authentication failed",
-                                                Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(getApplicationContext(), "Authentication failed",Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             }

@@ -61,6 +61,7 @@ public class signUPActivity extends AppCompatActivity {
                 String email, password;
                 email= tv_email.getText().toString();
                 password=tv_pass.getText().toString();
+
                 if (TextUtils.isEmpty(email) ||TextUtils.isEmpty(password) ) {
                     Toast.makeText(getApplicationContext(), "Please Chef,Enter Email and Password", Toast.LENGTH_LONG).show();
                     return;
@@ -85,9 +86,8 @@ public class signUPActivity extends AppCompatActivity {
                                                 Toast.LENGTH_SHORT).show();
                                         Log.d("TAG", "Authentication failed: " + errorMessage);
                                     }
-                                    else {  // If sign in fails, display a message to the user.
-                                        Toast.makeText(getApplicationContext(), "Authentication failed",
-                                                Toast.LENGTH_SHORT).show();}
+                                    else {
+                                        Toast.makeText(getApplicationContext(), "Authentication failed", Toast.LENGTH_SHORT).show();}
                                 }
                             }
                         });

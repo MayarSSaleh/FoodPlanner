@@ -11,18 +11,18 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="300dp"
-        android:layout_height="55dp"
+        android:layout_width="156dp"
+        android:layout_height="64dp"
+        android:fontFamily="@font/berkshire_swash"
         android:gravity="center|center_horizontal"
         android:text="Areas"
-        android:fontFamily="@font/berkshire_swash"
         android:textSize="48sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.27"
+        app:layout_constraintHorizontal_bias="0.141"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.069" />
+        app:layout_constraintVertical_bias="0.089" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycle_areas"
@@ -36,10 +36,20 @@
         app:layout_constraintTop_toBottomOf="@+id/textView4"
         app:layout_constraintVertical_bias="0.0" />
 
-    <EditText
-        android:id="@+id/ed_areaNameinSearch"
+    <ProgressBar
+        android:id="@+id/progressBar_mainAreaScreen"
+        style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <EditText
+        android:id="@+id/ed_areaNameinSearch"
+        android:layout_width="304dp"
+        android:layout_height="42dp"
         android:layout_marginStart="36dp"
         android:layout_marginTop="28dp"
         android:ems="10"
@@ -49,5 +59,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
         app:layout_constraintVertical_bias="0.0" />
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/alexFlag"
+        android:layout_width="175dp"
+        android:layout_height="124dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/alex"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

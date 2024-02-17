@@ -15,17 +15,7 @@ public class PlannedLocalDataSourceImpl {
     private static final String TAG = "team";
     private Context context;
     private PlannedMealsDAO mealDAO;
-    private LiveData<List<PlannedMeals>> storedStaPlannedMeals;
-    private LiveData<List<PlannedMeals>> storedSunPlannedMeals;
-    private LiveData<List<PlannedMeals>> storedMonPlannedMeals;
     private LiveData<List<PlannedMeals>> storedPlannedMeals;
-    boolean Saturday, Monday, Tuesday, Wednesday, Thursday, Sunday, Friday;
-
-//    private LiveData<List<PlannedMeals>> storedPlannedMeals;
-//    private LiveData<List<PlannedMeals>> storedPlannedMeals;
-//    private LiveData<List<PlannedMeals>> storedPlannedMeals;
-//    private LiveData<List<PlannedMeals>> storedPlannedMeals;
-
     private static FaviourtLocalDataSource rep = null;
 
     public PlannedLocalDataSourceImpl(Context context) {
@@ -46,25 +36,6 @@ public class PlannedLocalDataSourceImpl {
     public LiveData<List<PlannedMeals>> getStoredPlannedMeals() {
         return storedPlannedMeals;
     }
-
-
-
-//    public LiveData<List<PlannedMeals>> getSaturdayPlannedMeals() {
-//    }
-//
-//    public LiveData<List<PlannedMeals>> getSaturdayPlannedMeals() {
-//        public LiveData<List<PlannedMeals>> getSundayPlannedMeals {
-//        }
-//        public LiveData<List<PlannedMeals>> getMondayPlannedMeals {
-//        }
-//        public LiveData<List<PlannedMeals>> getTuesdayPlannedMeals {
-//        }
-//        public LiveData<List<PlannedMeals>> getWednesdayPlannedMeals {
-//        }
-//        public LiveData<List<PlannedMeals>> getThursdayPlannedMeals {
-//        }
-//        public LiveData<List<PlannedMeals>> getFridayPlannedMeals {
-//        }
 
     public void updateOrInsertMeal(List<PlannedMeals> meals, PlannedMeals storeMealAtPlan, String day) {
         new Thread(new Runnable() {

@@ -64,6 +64,9 @@ dependencies {
     implementation 'androidx.room:room-rxjava3:2.4.1'
     implementation 'androidx.room:room-runtime:2.4.1'
 
+// cirecle photo
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
 
     //LiveDataReactiveStreams
 //    implementation "androidx.lifecycle:lifecycle-reactivestreams:2.3.1"

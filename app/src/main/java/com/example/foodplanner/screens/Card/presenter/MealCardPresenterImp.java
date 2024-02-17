@@ -45,15 +45,15 @@ public class MealCardPresenterImp implements MealCardPresenter {
 
                     @Override
                     public void onNext(@NonNull MealsResponse mealsResponse) {
-                        Log.d("daaaaaaaaa",":::  "  + mealsResponse.meals.size());
-                        Log.d("daaaaaaaaa",":::  "  + mealsResponse.meals.get(0).getName());
+//                        Log.d("daaaaaaaaa",":::  "  + mealsResponse.meals.size());
+//                        Log.d("daaaaaaaaa",":::  "  + mealsResponse.meals.get(0).getName());
 
                         mealCardView.setThisMealAtCard(mealsResponse.meals.get(0));
                     }
                     @Override
                     public void onError(@NonNull Throwable e) {
 
-
+                        mealCardView.notGetTheMealDetails(e.getMessage());
                     }
                     @Override
                     public void onComplete() {
@@ -137,7 +137,7 @@ public class MealCardPresenterImp implements MealCardPresenter {
         } else if (day.equals("Friday")) {
             newMeal.setFriday(true);
         }
-        Log.i(TAG, "in meal card presenter imp ");
+//        Log.i(TAG, "in meal card presenter imp ");
         repository.insertintoPlanTable(meals, newMeal, day);
     }
 

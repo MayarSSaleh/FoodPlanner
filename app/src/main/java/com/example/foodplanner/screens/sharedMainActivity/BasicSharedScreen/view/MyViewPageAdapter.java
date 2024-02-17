@@ -22,6 +22,7 @@ public class MyViewPageAdapter extends FragmentStateAdapter {
         this.context = context;
     }
 
+
     @NonNull
     @Override
     public Fragment createFragment(int position) {

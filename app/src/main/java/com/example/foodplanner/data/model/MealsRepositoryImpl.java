@@ -1,7 +1,5 @@
 package com.example.foodplanner.data.model;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 
 import com.example.foodplanner.data.local_db.favMeals.FavMeals;
@@ -76,8 +74,13 @@ public class MealsRepositoryImpl implements MealsRepository {
     }
 
     @Override
+    public Observable<MealsResponse> getAreaMeals(String areaName) {
+        return productRemoteDataSource.getAreaMeals(areaName);
+    }
+
+    @Override
     public Observable<MealsResponse> getMealDetails(String mealName) {
-        Log.d("mmmmmmmmmm", "on meal repos imp name is " +mealName );
+//        Log.d("mmmmmmmmmm", "on meal repos imp name is " +mealName );
         return productRemoteDataSource.getMealDetails(mealName);
     }
 
@@ -91,7 +94,7 @@ public class MealsRepositoryImpl implements MealsRepository {
 
     @Override
     public void insertintoPlanTable(List<PlannedMeals> meals, PlannedMeals plannedMeal , String day) {
-        Log.i(TAG, "plannedMeal meal repos  imp" + day );
+//        Log.i(TAG, "plannedMeal meal repos  imp" + day );
         plannedLocalDataSource.updateOrInsertMeal(meals,plannedMeal ,day);
     }
     @Override

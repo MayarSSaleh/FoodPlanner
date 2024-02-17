@@ -1,6 +1,7 @@
 package com.example.foodplanner.screens.sharedMainActivity.search.Area.View;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodplanner.R;
 import com.example.foodplanner.data.model.Area;
+import com.example.foodplanner.screens.sharedMainActivity.search.Categry.View.CategoryMealsActivity;
 
 import java.util.List;
 
@@ -42,10 +44,14 @@ public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.CategoryViewHo
     public void onBindViewHolder(@NonNull AreaAdapter.CategoryViewHolder holder, int position) {
         Area current = areaList.get(position);
         holder.tv_areaName.setText(current.getStrArea());
+
         holder.tv_areaName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // go to country meals
+
+                Intent intent = new Intent(context, AreaMealsActivity.class);
+                intent.putExtra("areaName", current.getStrArea());
+                context.startActivity(intent);
             }
         });
     }

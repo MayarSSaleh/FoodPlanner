@@ -26,8 +26,6 @@ public interface MealsService {
 
 
 
-
-
     @GET("list.php?a=list")
     Observable<AreaResponse> getAreas();
 

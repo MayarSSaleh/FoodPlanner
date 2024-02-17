@@ -47,15 +47,12 @@ public class MainScreenPresenterImp implements MainScreenPresenter {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("email", "true");
-        Log.d("keep", "inside is save acount fun  email = " + sharedPreferences.getString("email", ""));
-
+//        Log.d("keep", "inside is save acount fun  email = " + sharedPreferences.getString("email", ""));
         editor.apply();
-
     }
 
     @Override
     public void logOut(GoogleSignInClient googleSignInClient) {
-
         if (user != null) {
             FirebaseAuth.getInstance().signOut();
         }

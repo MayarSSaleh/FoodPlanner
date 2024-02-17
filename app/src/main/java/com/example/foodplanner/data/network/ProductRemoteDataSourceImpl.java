@@ -51,5 +51,12 @@ public class ProductRemoteDataSourceImpl {
                 .subscribeOn(Schedulers.io());
     }
 
+    public Observable<MealsResponse> getAreaMeals(String areaName) {
+        return pService.getAreaMeals(areaName)
+                .subscribeOn(Schedulers.io());
+    }
+
+
+
 }
 

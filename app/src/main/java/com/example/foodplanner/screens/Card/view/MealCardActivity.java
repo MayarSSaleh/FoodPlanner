@@ -74,6 +74,7 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
     GoogleSignInOptions googleSignInOptions;
     GoogleSignInClient googleSignInClient;
     GoogleSignInAccount account;
+    Intent intent;
 
 
     @Override
@@ -86,21 +87,21 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-
-
-        UI();
-        ingredientsAdapter = new IngredientsAdapter(this);
-        /////to get from fav
-        Intent intent = getIntent();
-        Log.i(TAG, "intent" + intent.hasExtra(FAV_OBJECT));
-        FavMeals current = (FavMeals) intent.getSerializableExtra(FAV_OBJECT);
-        Log.i(TAG, "on card" + current);
         productRemoteDataSource = new ProductRemoteDataSourceImpl();
         prodcutsLocalDataSource = new FaviourtLocalDataSource(this);
         plannedLocalDataSource = new PlannedLocalDataSourceImpl(this);
         mealsRepository = MealsRepositoryImpl.getInstance(productRemoteDataSource, prodcutsLocalDataSource, plannedLocalDataSource);
 
+        UI();
+        ingredientsAdapter = new IngredientsAdapter(this);
+        intent = getIntent();
         mealCardPresenterImp = new MealCardPresenterImp(this, mealsRepository, getBaseContext());
+        linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+
+        /////to get from fav
+//        Log.i(TAG, "intent" + intent.hasExtra(FAV_OBJECT));
+        FavMeals current = (FavMeals) intent.getSerializableExtra(FAV_OBJECT);
+//        Log.i(TAG, "on card" + current);
         if (current != null) {
             mealCardPresenterImp.showThisFavMeal(current);
         }
@@ -110,22 +111,15 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
         if (plannedMeal != null) {
             mealCardPresenterImp.showThisPlannedMeal(plannedMeal);
         }
-
-
-        linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-
-        //to get object from daily insper
-        Intent intent1 = getIntent();
-        MealCard inspMeal = (MealCard) intent1.getSerializableExtra("object");
+//to get object from daily insper
+        MealCard inspMeal = (MealCard) intent.getSerializableExtra("object");
         if (inspMeal != null) {
             setThisMealAtCard(inspMeal);
         }
-
-        Intent comeFromList = getIntent();
-        MealCard mealComeFromList = (MealCard) intent1.getSerializableExtra("mealComeFromList");
+// come from list or search by name
+        String mealComeFromList = intent.getStringExtra("mealName");
         if (mealComeFromList != null) {
-            mealCardPresenterImp.getMealDetailsofThisMeal(mealComeFromList.getName());
-            Toast.makeText(this, "Getting your meals", Toast.LENGTH_SHORT).show();
+            mealCardPresenterImp.getMealDetailsofThisMeal(mealComeFromList);
         }
 
         handlingSetonAction();
@@ -170,6 +164,12 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient());
         webView.loadUrl(mealCard.getVideoUrl());
+    }
+
+    @Override
+    public void notGetTheMealDetails(String error) {
+        Toast.makeText(MealCardActivity.this, "Sorry, we can not get the meal as  "+ error, Toast.LENGTH_SHORT).show();
+
     }
 
     public void handlingSetonAction() {
