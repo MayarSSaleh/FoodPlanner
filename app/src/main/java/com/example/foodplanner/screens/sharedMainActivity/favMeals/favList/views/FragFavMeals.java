@@ -1,13 +1,16 @@
 package com.example.foodplanner.screens.sharedMainActivity.favMeals.favList.views;
 
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.example.foodplanner.R;
 import com.example.foodplanner.data.local_db.favMeals.FavMeals;
 import com.example.foodplanner.data.local_db.favMeals.FaviourtLocalDataSource;
@@ -15,8 +18,10 @@ import com.example.foodplanner.data.local_db.plannedMeals.PlannedLocalDataSource
 import com.example.foodplanner.data.model.MealsRepositoryImpl;
 import com.example.foodplanner.data.network.ProductRemoteDataSourceImpl;
 import com.example.foodplanner.screens.sharedMainActivity.favMeals.favList.presenter.FavMealsPresnterImp;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -56,12 +61,20 @@ public class FragFavMeals extends Fragment implements FraFavMeals {
     }
 
     @Override
-    public void showFavProdcuts(){
+    public void showFavProdcuts() {
+        Log.d("keep", "in show fav pro");
+//        miniMealsCardAdaptor.setList(test);
+        Log.d("keep", "after mini");
         Flowable<List<FavMeals>> theFav = presenterImp.getStoredFvProduct();
         theFav.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(meals ->{
-                    miniMealsCardAdaptor.setList(meals);
+                .subscribe(meals -> {
+                    if (!meals.isEmpty()) {
+                        Log.d("keep", "after mini" + meals.get(0).getName() + "    " + meals.size());
+                        miniMealsCardAdaptor.setList(meals);
+                    } else {
+                        Log.d("keep", "meals list is empty");
+                    }
                 });
     }
 }

@@ -1,6 +1,7 @@
 package com.example.foodplanner.data.local_db.favMeals;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.foodplanner.data.firebase.UpdateFirebase;
 import com.example.foodplanner.data.local_db.APPDataBase;
@@ -40,7 +41,13 @@ public class FaviourtLocalDataSource {
         return mealDAO.deleteFromFav(mealCard);
     }
 
+    public Completable deleteAll() {
+        return mealDAO.deleteAll();
+    }
+
     public Completable insert(FavMeals mealCard) {
+        Log.d("keep", "insert method to conform the inserrrrrrrrrtiion");
         return mealDAO.insertToFav(mealCard);
     }
+
 }

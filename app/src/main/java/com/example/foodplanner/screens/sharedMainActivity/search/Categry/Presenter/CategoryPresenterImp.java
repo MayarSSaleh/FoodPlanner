@@ -1,11 +1,7 @@
 package com.example.foodplanner.screens.sharedMainActivity.search.Categry.Presenter;
 
-import android.util.Log;
-
 import com.example.foodplanner.data.model.CategoryResponse;
 import com.example.foodplanner.data.model.MealsRepository;
-import com.example.foodplanner.data.model.MealsResponse;
-import com.example.foodplanner.screens.sharedMainActivity.search.Categry.View.CategoryMealsView;
 import com.example.foodplanner.screens.sharedMainActivity.search.Categry.View.CategoryView;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -28,7 +24,7 @@ public class CategoryPresenterImp  implements  CategoryPresenter{
 
     @Override
         public void getAllCategories() {
-        Observable<CategoryResponse> observable = mealsRepository.getAllCategoreis();
+        Observable<CategoryResponse> observable = mealsRepository.getAllCategories();
         observable.observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<CategoryResponse>() {
                     @Override

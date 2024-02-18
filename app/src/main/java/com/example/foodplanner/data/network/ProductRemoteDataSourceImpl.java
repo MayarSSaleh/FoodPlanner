@@ -1,12 +1,8 @@
 package com.example.foodplanner.data.network;
 
-import android.util.Log;
-
 import com.example.foodplanner.data.model.AreaResponse;
 import com.example.foodplanner.data.model.CategoryResponse;
-import com.example.foodplanner.data.model.IngredientResponse;
 import com.example.foodplanner.data.model.MealsResponse;
-
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -26,7 +22,7 @@ public class ProductRemoteDataSourceImpl {
         pService = retrofit.create(MealsService.class);
     }
 
-    public Observable<MealsResponse> makeNetworkCall() {
+    public Observable<MealsResponse> getRandomMeal() {
         return pService.getMeal()
                 .subscribeOn(Schedulers.io());
     }
@@ -55,16 +51,16 @@ public class ProductRemoteDataSourceImpl {
         return pService.getAreaMeals(areaName)
                 .subscribeOn(Schedulers.io());
     }
-// not require ,his cycle not completed. made in data base only
-//    public Observable<IngredientResponse> getIngredient() {
-//        return pService.getIngredient()
-//                .subscribeOn(Schedulers.io());
-//    }
 
     public Observable<MealsResponse> getMealsByIngredient(String ingName) {
         return pService.getMealsByIngredient(ingName)
                 .subscribeOn(Schedulers.io());
     }
+// not require ,his cycle not completed. made in data base only
+//    public Observable<IngredientResponse> getIngredient() {
+//        return pService.getIngredient()
+//                .subscribeOn(Schedulers.io());
+//    }
 
 
 }

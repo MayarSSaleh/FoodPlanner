@@ -1,5 +1,8 @@
 package com.example.foodplanner.data.model;
 
+import android.content.Context;
+import android.widget.Toast;
+
 import androidx.lifecycle.LiveData;
 
 import com.example.foodplanner.data.firebase.UpdateFirebase;
@@ -8,6 +11,7 @@ import com.example.foodplanner.data.local_db.favMeals.FaviourtLocalDataSource;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedLocalDataSourceImpl;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedMeals;
 import com.example.foodplanner.data.network.ProductRemoteDataSourceImpl;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
 
@@ -46,18 +50,24 @@ public class MealsRepositoryImpl implements MealsRepository {
     }
 
     @Override
-    public Completable insertinFavTable(FavMeals favmeal, MealCard mealCard) {
-        UpdateFirebase.addMealToFirebase(mealCard);
-
+    public Completable insertinFavTable(FavMeals favmeal, MealCard mealCard, Context c) {
+        UpdateFirebase.addMealToFirebase(mealCard, c);
         return prodcutsLocalDataSource.insert(favmeal);
     }
 
     @Override
-    public Completable deleteFromFav(FavMeals favMeal, MealCard mealCard) {
-        UpdateFirebase.removeMealFromFirebase(mealCard);
-
+    public Completable deleteFromFav(FavMeals favMeal, MealCard mealCard, Context context) {
+        UpdateFirebase.removeMealFromFirebase(mealCard, context);
         return prodcutsLocalDataSource.delete(favMeal);
     }
+
+
+    @Override
+    public Completable deleteAllFav() {
+        return prodcutsLocalDataSource.deleteAll();
+    }
+
+
 
     //plllllllllllllllllllllllllllan
     public LiveData<List<PlannedMeals>> getStoredplannedProducts() {
@@ -66,18 +76,18 @@ public class MealsRepositoryImpl implements MealsRepository {
 
     // random meal
     @Override
-    public Observable<MealsResponse> getAllProducts() {
-        return productRemoteDataSource.makeNetworkCall();
+    public Observable<MealsResponse> getRandomMeal() {
+        return productRemoteDataSource.getRandomMeal();
     }
 
 
     @Override
-    public Observable<CategoryResponse> getAllCategoreis() {
+    public Observable<CategoryResponse> getAllCategories() {
         return productRemoteDataSource.getCategories();
     }
 
     @Override
-    public Observable<MealsResponse> getCatgoryMeals(String categoryName) {
+    public Observable<MealsResponse> getCategoryMeals(String categoryName) {
         return productRemoteDataSource.getMealcategories(categoryName);
     }
 
@@ -118,6 +128,12 @@ public class MealsRepositoryImpl implements MealsRepository {
     @Override
     public void deleteFromPlanTable(PlannedMeals plannedMeal, String day) {
         plannedLocalDataSource.updateOrDeletMeal(plannedMeal, day);
+    }
+
+    public void getUserData(Context context){
+//        Toast.makeText(context, "get user data to gire base", Toast.LENGTH_SHORT).show();
+
+        UpdateFirebase.getFav(context);
     }
 }
 

@@ -120,7 +120,6 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
         if (mealComeFromList != null) {
             mealCardPresenterImp.getMealDetailsofThisMeal(mealComeFromList);
         }
-
         handlingSetonAction();
     }
 
@@ -139,15 +138,15 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
 
     @Override
     public void setThisMealAtCard(MealCard mealCard) {
-        Log.d(TAG, "First: " + mealCard.getName());
+//        Log.d(TAG, "First: " + mealCard.getName());
         currentMeal = mealCard;
-        Log.d(TAG, "second: " + currentMeal.getName());
+//        Log.d(TAG, "second: " + currentMeal.getName());
         mealName.setText(mealCard.getName());
         country.setText(mealCard.getCountry());
         ingS_recyclerView.setLayoutManager(new LinearLayoutManager(this));
         if (!mealCard.isFav()) {
-            Log.d(TAG, "getIngr1: " + mealCard.getIngr1() + currentMeal);
-            Log.d(TAG, "mealCard: " + mealCard.getIngr1() + mealCard);
+//            Log.d(TAG, "getIngr1: " + mealCard.getIngr1() + currentMeal);
+//            Log.d(TAG, "mealCard: " + mealCard.getIngr1() + mealCard);
 
             currentMeal.setAllingredient(mealCardPresenterImp.getIngredients(mealCard));
             ingredientsAdapter.setIngredientsList(mealCardPresenterImp.getIngredients(mealCard));
@@ -159,7 +158,9 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
         allSteps.setText(mealCard.getSteps());
         Glide.with(MealCardActivity.this).load(mealCard.getPhotourl()).into(mealImage);
 //        Log.d(TAG, "VIDEO URL: " + mealCard.getVideoUrl());
-        updatefavImageAccordingActullayStatus(mealCard.getMealId());
+//        updatefavImageAccordingActullayStatus(mealCard.getMealId());
+        updatefavImageAccordingActullayStatus(mealCard);
+
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient());
         webView.loadUrl(mealCard.getVideoUrl());
@@ -209,36 +210,26 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
             }
         });
     }
+//|| ! mealCard.isFav()
 
-
-    public void updatefavImageAccordingActullayStatus(String mealId) {
+    public void updatefavImageAccordingActullayStatus(MealCard mealCard) {
+        Drawable drawable = favStatus.getDrawable();
         if (user == null && account == null) {
-            Toast.makeText(MealCardActivity.this, "Login to add to favourite ", Toast.LENGTH_SHORT).show();
+            drawable.setColorFilter(null);
+            favStatus.setImageDrawable(drawable);
+            isFav = false;
         } else {
-            APPDataBase db = APPDataBase.getInstance(this);
-            FavMealsDAO dao = db.getFavMealsDAO();
-            Flowable<List<FavMeals>> favourits = dao.getAllFavProducts();
-            favourits.subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(favMealsList -> {
-                        for (FavMeals favMeal : favMealsList) {
-                            Drawable drawable = favStatus.getDrawable();
-                            if (favMeal.getMealId().equals(mealId)) {
-                                drawable.setColorFilter(ContextCompat.getColor(MealCardActivity.this, com.google.android.material.R.color.design_dark_default_color_error), PorterDuff.Mode.SRC_IN);
-                                favStatus.setImageDrawable(drawable);
-                                isFav = true;
-                            } else {
-                                drawable.setColorFilter(null);
-                                favStatus.setImageDrawable(drawable);
-                                isFav = false;
-//                        Log.d("hhhhh", "else " + mealId + "         " + favMeal.getMealId());
-                            }
-                        }
-                    });
+            if (mealCard.isFav()) {
+                drawable.setColorFilter(ContextCompat.getColor(MealCardActivity.this, com.google.android.material.R.color.design_dark_default_color_error), PorterDuff.Mode.SRC_IN);
+                favStatus.setImageDrawable(drawable);
+                isFav = true;
+            } else {
+                drawable.setColorFilter(null);
+                favStatus.setImageDrawable(drawable);
+                isFav = false;
+            }
         }
     }
-
-
 
     @Override
     public void addToFav(MealCard currentMeal) {

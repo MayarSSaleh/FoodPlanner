@@ -28,9 +28,7 @@ import com.example.foodplanner.screens.sharedMainActivity.DailyInsperationAllMea
 
 
 public class DailyInspFragment extends Fragment implements InsperMealsView {
-    //
-    TextView dailyInspi;
-    RecyclerView recyclerView;
+
     private static final String TAG = "team";
     LinearLayoutManager linearLayoutManager;
     InsperMealsPresenterImp insperMealsPresenter;
@@ -69,7 +67,6 @@ public class DailyInspFragment extends Fragment implements InsperMealsView {
     @Override
     public void showData(MealCard mealCard) {
         if (getActivity() == null) return;
-
         mealName.setText(mealCard.getName());
         dailyInsperationMeal = mealCard;
         Glide.with(DailyInspFragment.this).load(mealCard.getPhotourl()).into(mealImage);

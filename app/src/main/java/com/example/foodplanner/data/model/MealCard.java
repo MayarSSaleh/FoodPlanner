@@ -492,9 +492,7 @@ public class MealCard implements Serializable {
         return fav;
     }
 
-    public void setFav(boolean fav) {
-        this.fav = fav;
-    }
+    public void setFav(boolean fav) { this.fav = fav; }
 
     public boolean isPlan() {
         return plan;

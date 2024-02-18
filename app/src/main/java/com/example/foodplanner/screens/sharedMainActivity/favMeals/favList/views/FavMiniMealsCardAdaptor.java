@@ -52,8 +52,8 @@ public class FavMiniMealsCardAdaptor extends RecyclerView.Adapter<FavMiniMealsCa
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(TAG, "on binding" + current);
-                Log.i(TAG, "on bindingwith" + current.getName());
+//                Log.i(TAG, "on binding" + current);
+//                Log.i(TAG, "on bindingwith" + current.getName());
                 Intent intent = new Intent(context, MealCardActivity.class);
                 intent.putExtra(FAV_OBJECT, current);
                 context.startActivity(intent);

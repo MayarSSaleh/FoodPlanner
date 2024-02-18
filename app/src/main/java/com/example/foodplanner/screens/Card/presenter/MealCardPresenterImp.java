@@ -156,9 +156,9 @@ public class MealCardPresenterImp implements MealCardPresenter {
         newFavMeal.setPhotourl(mealCard.getPhotourl());
         newFavMeal.setVideoUrl(mealCard.getVideoUrl());
         newFavMeal.setAllingredient(mealCard.getAllingredient());
-        newFavMeal.setFav(mealCard.isFav());
+        newFavMeal.setFav(true);
         newFavMeal.setSteps(mealCard.getSteps());
-        repository.insertinFavTable(newFavMeal , mealCard)
+        repository.insertinFavTable(newFavMeal , mealCard, context)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -175,7 +175,7 @@ public class MealCardPresenterImp implements MealCardPresenter {
     public void removeFeomDBfavMeal(MealCard mealCard) {
         FavMeals newFavMeal = new FavMeals();
         newFavMeal.setMealId(mealCard.getMealId());
-        repository.deleteFromFav(newFavMeal , mealCard)
+        repository.deleteFromFav(newFavMeal , mealCard, context)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -200,7 +200,7 @@ public class MealCardPresenterImp implements MealCardPresenter {
         mealCard.setSteps(favMeal.getSteps());
 //        Log.i(TAG, "mealCard " + mealCard.getSteps());
 
-        mealCard.setFav(favMeal.isFav());
+        mealCard.setFav(true);
         mealCard.setPhotourl(favMeal.getPhotourl());
         mealCard.setVideoUrl(favMeal.getVideoUrl());
         mealCardView.setThisMealAtCard(mealCard);

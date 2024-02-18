@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,7 +38,7 @@ public class MainScreenActivity extends AppCompatActivity {
     GoogleSignInClient googleSignInClient;
     GoogleSignInAccount account;
     MainScreenPresenterImp mainScreenPresenterImp;
-    boolean isGuestInActivity;
+    boolean isGuestInMainScreenActivty;
 
 
     @Override
@@ -50,8 +51,9 @@ public class MainScreenActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+//        Log.d("now", "test"+ account + "             "+user);
         mainScreenPresenterImp = new MainScreenPresenterImp(MainScreenActivity.this, user, account);
-        isGuestInActivity = mainScreenPresenterImp.isguest();
+        isGuestInMainScreenActivty = mainScreenPresenterImp.isguest();
         ui();
         handleFragmentChoose();
         profile.setOnClickListener(new View.OnClickListener() {
@@ -69,8 +71,7 @@ public class MainScreenActivity extends AppCompatActivity {
     private void ui() {
         tabLayout = findViewById(R.id.tab_layout);
         viewPager2 = findViewById(R.id.view_pager);
-//        >>>>>>>>>>>>>>>>>>>>>>.... it not work correctly
-        myViewPageAdapter = new MyViewPageAdapter(this, isGuestInActivity, MainScreenActivity.this);
+        myViewPageAdapter = new MyViewPageAdapter(this, isGuestInMainScreenActivty, MainScreenActivity.this);
 
         viewPager2.setAdapter(myViewPageAdapter);
         profile = findViewById(R.id.profile);

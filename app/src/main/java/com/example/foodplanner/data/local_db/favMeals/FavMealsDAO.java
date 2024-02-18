@@ -21,6 +21,13 @@ public interface FavMealsDAO {
 //    public void deleteFromFav(FavMeals favMeals);
     Completable deleteFromFav(FavMeals favMeals);
 
+    @Query("DELETE FROM favMeals_table")
+    Completable deleteAll();
+
     @Query("SELECT * FROM favMeals_table ")
     Flowable<List<FavMeals>> getAllFavProducts();
+    // test
+    @Query("SELECT * FROM favMeals_table")
+    List<FavMeals> getAllFavProductsSync();
+
 }

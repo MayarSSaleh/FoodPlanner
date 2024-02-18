@@ -23,7 +23,7 @@ public class CategoryMealsPresenterImp implements  CategoryMealsPresenter{
 
     @Override
     public void getCategoryMeals(String categoryName) {
-        Observable<MealsResponse> observable = mealsRepository.getCatgoryMeals(categoryName);
+        Observable<MealsResponse> observable = mealsRepository.getCategoryMeals(categoryName);
         observable.observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<MealsResponse>() {
                     @Override

@@ -40,11 +40,12 @@ public class FragSearchView extends Fragment {
         searchByCateg = view.findViewById(R.id.img_Categories);
         searchByAre = view.findViewById(R.id.img_countery);
         searchByName = view.findViewById(R.id.btn_search);
-        hanlingSetOnClick();
+        handlingSetOnClick();
         return view;
     }
 
-    private void hanlingSetOnClick() {
+    private void handlingSetOnClick() {
+
         searchByName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

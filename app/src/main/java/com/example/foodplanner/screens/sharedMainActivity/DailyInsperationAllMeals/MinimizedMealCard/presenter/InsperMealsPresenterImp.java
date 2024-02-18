@@ -22,7 +22,7 @@ public class InsperMealsPresenterImp implements InsperMealsPresenter {
 
     @Override
     public void getAllProducts() {
-        Observable<MealsResponse> observable = mealsRepository.getAllProducts();
+        Observable<MealsResponse> observable = mealsRepository.getRandomMeal();
         observable.observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<MealsResponse>() {
                     @Override
