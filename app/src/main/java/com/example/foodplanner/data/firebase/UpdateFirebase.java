@@ -118,10 +118,10 @@ public class UpdateFirebase {
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .subscribe(
                                         () -> {
-                                            Toast.makeText(context, "The meal in your Favourites now", Toast.LENGTH_SHORT).show();
+//                                            Toast.makeText(context, "The meal in your Favourites now", Toast.LENGTH_SHORT).show();
                                         },
                                         error -> {
-                                            Toast.makeText(context, "Sorry, could not add it. Please try again later", Toast.LENGTH_SHORT).show();
+//                                            Toast.makeText(context, "Sorry, could not add it. Please try again later", Toast.LENGTH_SHORT).show();
                                         }
                                 );
 //                        Log.d("keep", "  in get fav : " + meal.getName());
