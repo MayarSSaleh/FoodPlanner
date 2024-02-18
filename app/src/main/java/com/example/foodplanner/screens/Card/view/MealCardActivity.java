@@ -1,10 +1,11 @@
 package com.example.foodplanner.screens.Card.view;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -20,9 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.R;
-import com.example.foodplanner.data.local_db.APPDataBase;
 import com.example.foodplanner.data.local_db.favMeals.FavMeals;
-import com.example.foodplanner.data.local_db.favMeals.FavMealsDAO;
 import com.example.foodplanner.data.local_db.favMeals.FaviourtLocalDataSource;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedLocalDataSourceImpl;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedMeals;
@@ -30,18 +29,13 @@ import com.example.foodplanner.data.model.MealCard;
 import com.example.foodplanner.data.model.MealsRepositoryImpl;
 import com.example.foodplanner.data.network.ProductRemoteDataSourceImpl;
 import com.example.foodplanner.screens.Card.presenter.MealCardPresenterImp;
+import com.example.foodplanner.screens.logIn.view.loginActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import java.util.List;
-
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.core.Flowable;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MealCardActivity extends AppCompatActivity implements MealCardView, OnAddORrmoveFavClickListener {
     //    String videoUrl = "https://www.example.com/your_video.mp4";
@@ -175,6 +169,7 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
     public void handlingSetonAction() {
         addToPlanButton.setOnClickListener(view -> {
             if (user == null && account == null) {
+                youWantTologIn();
                 Toast.makeText(MealCardActivity.this, "Login to add to plan ", Toast.LENGTH_SHORT).show();
             } else {
                 Intent intent = new Intent(MealCardActivity.this, ChossePlannedDay.class);
@@ -185,9 +180,9 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
         favStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Drawable drawable = favStatus.getDrawable();
                 if (user == null && account == null) {
+                    youWantTologIn();
                     Toast.makeText(MealCardActivity.this, "Login to add to favourite ", Toast.LENGTH_SHORT).show();
                 } else {
                     if (isFav) {
@@ -239,6 +234,20 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
     @Override
     public void removeFromFav(MealCard currentMeal) {
         mealCardPresenterImp.removeFeomDBfavMeal(currentMeal);
+    }
+    void youWantTologIn() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MealCardActivity.this);
+        builder.setTitle("Hi Chef")
+                .setMessage("            let's Login to start cooking?")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent i = new Intent(getApplicationContext(), loginActivity.class);
+                        startActivity(i);
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
     }
 
 }

@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:contentInsetStart="0dp">
+        app:contentInsetStart="0dp"
+        app:titleTextColor="#F18A8A">
 
         <ImageView
             android:id="@+id/profile"
@@ -22,23 +23,16 @@
             android:paddingEnd="16dp"
             android:src="@drawable/person_fill0_wght400_grad0_opsz24" />
 
-
         <TextView
             android:id="@+id/tv_userEmail"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/toolbar"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="259dp"
-            android:layout_marginBottom="21dp"
-            android:text="@string/hint_email"
-            android:textColorHint="#6A5E5E"
-            android:textSize="34sp"
-            app:layout_constraintStart_toEndOf="@+id/profile" />
-
+            tools:text="Mayar saleh"
+            android:layout_marginVertical="5dp"
+            android:layout_marginEnd="10dp"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            />
     </androidx.appcompat.widget.Toolbar>
 
 
@@ -68,47 +62,45 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/planTab"
-            />
+            android:text="@string/planTab" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/FavoriteTab"
-     />
+            android:text="@string/FavoriteTab" />
     </com.google.android.material.tabs.TabLayout>
 
     <!--    -->
-<!--    <com.google.android.material.tabs.TabLayout-->
-<!--        android:id="@+id/tab_layout"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_alignParentBottom="true">-->
+    <!--    <com.google.android.material.tabs.TabLayout-->
+    <!--        android:id="@+id/tab_layout"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_alignParentBottom="true">-->
 
-<!--        <com.google.android.material.tabs.TabItem-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="bottom"-->
-<!--            app:icon="@drawable/baseline_home_24" />-->
+    <!--        <com.google.android.material.tabs.TabItem-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_gravity="bottom"-->
+    <!--            app:icon="@drawable/baseline_home_24" />-->
 
-<!--        <com.google.android.material.tabs.TabItem-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="bottom"-->
-<!--            app:icon="@drawable/baseline_manage_search_24" />-->
+    <!--        <com.google.android.material.tabs.TabItem-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_gravity="bottom"-->
+    <!--            app:icon="@drawable/baseline_manage_search_24" />-->
 
-<!--        <com.google.android.material.tabs.TabItem-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="bottom"-->
-<!--            app:icon="@drawable/plan" />-->
+    <!--        <com.google.android.material.tabs.TabItem-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_gravity="bottom"-->
+    <!--            app:icon="@drawable/plan" />-->
 
-<!--        <com.google.android.material.tabs.TabItem-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="bottom"-->
-<!--            app:icon="@drawable/fav" />-->
+    <!--        <com.google.android.material.tabs.TabItem-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_gravity="bottom"-->
+    <!--            app:icon="@drawable/fav" />-->
 
-<!--    </com.google.android.material.tabs.TabLayout>-->
+    <!--    </com.google.android.material.tabs.TabLayout>-->
 
 </RelativeLayout>

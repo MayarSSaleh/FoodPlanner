@@ -7,15 +7,14 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycle_ing_meal"
-        android:layout_width="330dp"
-        android:layout_height="452dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.469"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_search_in_ing"
-        app:layout_constraintVertical_bias="0.454" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_search_in_ing" />
 
     <TextView
         android:id="@+id/textView5"

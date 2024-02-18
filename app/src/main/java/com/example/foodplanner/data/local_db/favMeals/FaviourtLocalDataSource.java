@@ -46,7 +46,7 @@ public class FaviourtLocalDataSource {
     }
 
     public Completable insert(FavMeals mealCard) {
-        Log.d("keep", "insert method to conform the inserrrrrrrrrtiion");
+//        Log.d("keep", "insert method to conform the inserrrrrrrrrtiion");
         return mealDAO.insertToFav(mealCard);
     }
 

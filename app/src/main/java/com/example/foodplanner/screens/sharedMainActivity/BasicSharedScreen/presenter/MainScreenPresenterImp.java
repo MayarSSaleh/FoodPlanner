@@ -33,7 +33,6 @@ public class MainScreenPresenterImp implements MainScreenPresenter {
     boolean isGuest;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-    String currentUser;
     MealsRepositoryImpl repository;
 
 

@@ -32,7 +32,7 @@
     <string name="SearchbyCountery">Search by Countery</string>
     <string name="title_chooseDay">Add to Day Menu </string>
     <string name="RefreshPage">Refresh page, \nTo get another insper meal</string>
-    <string name="searchbymeal">Search by meal</string>
+    <string name="searchbymeal">Search by meal name </string>
     <string name="searchByText">You also can see and search by:</string>
     <string name="contAsGuest">Guest</string>
     <string name="searchByCategory">search by Category</string>
@@ -50,4 +50,5 @@
     <string name="search_by">Search by:</string>
     <string name="see_list_and_search_by">See List and Search by:</string>
     <string name="skip">Skip</string>
+    <string name="user_email">user email</string>
 </resources>

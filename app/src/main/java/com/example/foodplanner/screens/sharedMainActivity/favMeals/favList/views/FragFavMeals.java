@@ -62,18 +62,18 @@ public class FragFavMeals extends Fragment implements FraFavMeals {
 
     @Override
     public void showFavProdcuts() {
-        Log.d("keep", "in show fav pro");
+//        Log.d("keep", "in show fav pro");
 //        miniMealsCardAdaptor.setList(test);
-        Log.d("keep", "after mini");
+//        Log.d("keep", "after mini");
         Flowable<List<FavMeals>> theFav = presenterImp.getStoredFvProduct();
         theFav.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(meals -> {
                     if (!meals.isEmpty()) {
-                        Log.d("keep", "after mini" + meals.get(0).getName() + "    " + meals.size());
+//                        Log.d("keep", "after mini" + meals.get(0).getName() + "    " + meals.size());
                         miniMealsCardAdaptor.setList(meals);
                     } else {
-                        Log.d("keep", "meals list is empty");
+//                        Log.d("keep", "meals list is empty");
                     }
                 });
     }

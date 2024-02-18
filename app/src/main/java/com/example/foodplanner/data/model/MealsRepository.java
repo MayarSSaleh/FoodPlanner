@@ -13,23 +13,9 @@ import io.reactivex.rxjava3.core.Observable;
 public interface MealsRepository {
     String TAG = "TAG";
 
-    static void insertAllFavMeals(MealCard meal, Context context) {
-        Log.d("keep", "inside is login so get the data fun " + meal.getName());
+     Completable insertFromFirbaseToLocal(FavMeals favmeal);
 
-        FaviourtLocalDataSource productsLocalDataSource = new FaviourtLocalDataSource(context);
-        FavMeals newFavMeal = new FavMeals();
-        newFavMeal.setName(meal.getName());
-        newFavMeal.setMealId(meal.getMealId());
-        newFavMeal.setCountry(meal.getCountry());
-        newFavMeal.setPhotourl(meal.getPhotourl());
-        newFavMeal.setVideoUrl(meal.getVideoUrl());
-        newFavMeal.setAllingredient(meal.getAllingredient());
-        newFavMeal.setFav(true);
-        newFavMeal.setSteps(meal.getSteps());
-        productsLocalDataSource.insert(newFavMeal);
-    }
-
-    Flowable<List<FavMeals>> getStoredFvProduct();
+     Flowable<List<FavMeals>> getStoredFvProduct();
 
     Completable deleteAllFav();
 

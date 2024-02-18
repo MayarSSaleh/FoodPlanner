@@ -32,7 +32,7 @@ public class SpecificIngredientMealsAdaptor extends RecyclerView.Adapter<Specifi
     @NonNull
     @Override
     public IngredientMealViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.ingredient_meal, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.meal_by_search, parent, false);
         return new IngredientMealViewHolder(view);
     }
 
@@ -64,9 +64,8 @@ public class SpecificIngredientMealsAdaptor extends RecyclerView.Adapter<Specifi
 
         public IngredientMealViewHolder(@NonNull View itemView) {
             super(itemView);
-            nameTextView = itemView.findViewById(R.id.tv_ing_mealName);
-            imageView = itemView.findViewById(R.id.img_ing_meal);
-
+            nameTextView = itemView.findViewById(R.id.tv_meal_name);
+            imageView = itemView.findViewById(R.id.meal_img);
         }
     }
 

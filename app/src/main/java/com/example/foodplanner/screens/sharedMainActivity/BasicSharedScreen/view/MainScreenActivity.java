@@ -48,35 +48,26 @@ public class MainScreenActivity extends AppCompatActivity {
         googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
         account = GoogleSignIn.getLastSignedInAccount(this);
-
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-//        Log.d("now", "test"+ account + "             "+user);
         mainScreenPresenterImp = new MainScreenPresenterImp(MainScreenActivity.this, user, account);
         isGuestInMainScreenActivty = mainScreenPresenterImp.isguest();
         ui();
+        if (!isGuestInMainScreenActivty){
+            if(user!= null){tv_userEmail.setText(user.getEmail()); }
+            else  tv_userEmail.setText(account.getDisplayName());
+        }
         handleFragmentChoose();
-        profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (user != null || account != null) {
-                    youWantlogout();
-                } else {
-                    youWantlogIn();
-                }
-            }
-        });
+        setOnAction();
     }
 
     private void ui() {
         tabLayout = findViewById(R.id.tab_layout);
         viewPager2 = findViewById(R.id.view_pager);
         myViewPageAdapter = new MyViewPageAdapter(this, isGuestInMainScreenActivty, MainScreenActivity.this);
-
         viewPager2.setAdapter(myViewPageAdapter);
         profile = findViewById(R.id.profile);
         tv_userEmail = findViewById(R.id.tv_userEmail);
-
         setTabsIcons();
     }
 
@@ -113,6 +104,19 @@ public class MainScreenActivity extends AppCompatActivity {
         });
     }
 
+    void setOnAction(){
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (user != null || account != null) {
+                    youWantlogout();
+                } else {
+                    youWantlogIn();
+                }
+            }
+        });
+
+    }
     void youWantlogout() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainScreenActivity.this);
         builder.setTitle("Hi chef")
@@ -131,7 +135,7 @@ public class MainScreenActivity extends AppCompatActivity {
     void youWantlogIn() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainScreenActivity.this);
         builder.setTitle("Hi Chef")
-                .setMessage(" Login, let's start cooking")
+                .setMessage("          let's Login to start cooking")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         Intent i = new Intent(getApplicationContext(), loginActivity.class);

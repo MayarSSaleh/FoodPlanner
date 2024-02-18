@@ -56,6 +56,11 @@ public class MealsRepositoryImpl implements MealsRepository {
     }
 
     @Override
+    public Completable insertFromFirbaseToLocal(FavMeals favmeal) {
+        return prodcutsLocalDataSource.insert(favmeal);
+    }
+
+    @Override
     public Completable deleteFromFav(FavMeals favMeal, MealCard mealCard, Context context) {
         UpdateFirebase.removeMealFromFirebase(mealCard, context);
         return prodcutsLocalDataSource.delete(favMeal);

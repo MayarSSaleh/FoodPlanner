@@ -6,6 +6,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,6 +18,7 @@ import com.example.foodplanner.data.local_db.plannedMeals.PlannedLocalDataSource
 import com.example.foodplanner.data.model.Category;
 import com.example.foodplanner.data.model.MealsRepositoryImpl;
 import com.example.foodplanner.data.network.ProductRemoteDataSourceImpl;
+import com.example.foodplanner.screens.sharedMainActivity.search.Area.View.AreaActivity;
 import com.example.foodplanner.screens.sharedMainActivity.search.Categry.Presenter.CategoryPresenterImp;
 
 import java.util.ArrayList;
@@ -87,6 +89,8 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryV
 
     @Override
     public void showErrMsg(String error) {
+        Toast.makeText(this, "Sorry,we can not load for you this page as: " + error, Toast.LENGTH_SHORT).show();
+
         progressBar.setVisibility(View.GONE);
     }
 
