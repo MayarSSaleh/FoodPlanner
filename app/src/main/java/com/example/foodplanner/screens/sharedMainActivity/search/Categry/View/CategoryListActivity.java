@@ -35,7 +35,6 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryV
     FaviourtLocalDataSource prodcutsLocalDataSource;
     PlannedLocalDataSourceImpl plannedLocalDataSource;
     EditText et_searchbyCategory;
-    List<Category> originalCategories;
     ProgressBar progressBar;
 
 
@@ -67,9 +66,9 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryV
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                List<Category> filteredCategories = filterCategories(s.toString());
-                categoryAdapter.setList(filteredCategories);
-                categoryAdapter.notifyDataSetChanged();
+                if (categoryAdapter != null) {
+                    categoryAdapter.getFilter().filter(s.toString());
+                }
             }
 
             @Override
@@ -81,7 +80,6 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryV
     @Override
     public void showData(ArrayList<Category> categories) {
         progressBar.setVisibility(View.GONE);
-        originalCategories = new ArrayList<>(categories);
         categoryAdapter = new CategoryAdapter(this, categories);
         recyclerView.setAdapter(categoryAdapter);
     }
@@ -89,19 +87,7 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryV
 
     @Override
     public void showErrMsg(String error) {
-        Toast.makeText(this, "Sorry,we can not load for you this page as: " + error, Toast.LENGTH_SHORT).show();
-
         progressBar.setVisibility(View.GONE);
+        Toast.makeText(this, "Sorry,we can not load for you this page as: " + error, Toast.LENGTH_SHORT).show();
     }
-
-    private List<Category> filterCategories(String letter) {
-        List<Category> filteredCategories = new ArrayList<>();
-        for (Category category : originalCategories) {
-            if (category.getStrCategory().toLowerCase().contains(letter.toLowerCase())) {
-                filteredCategories.add(category);
-            }
-        }
-        return filteredCategories;
-    }
-
 }

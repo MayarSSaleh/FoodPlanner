@@ -13,16 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodplanner.R;
 import com.example.foodplanner.data.model.Area;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.CategoryViewHolder> implements Filterable {
+public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.AreaViewHolder> implements Filterable {
 
     private Context context;
     private List<Area> areaList;
-    private List<Area> allAreaList;
+    private List<Area> allAreaList;// as original
 
     public AreaAdapter(Context context, List<Area> areaList) {
         this.context = context;
@@ -30,20 +29,16 @@ public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.CategoryViewHo
         this.allAreaList = new ArrayList<>(areaList);
     }
 
-    void setList(List<Area> areaList) {
-        this.areaList = areaList;
-        this.allAreaList = new ArrayList<>(areaList); // Update allAreaList when setting new list
-    }
-
     @NonNull
     @Override
-    public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public AreaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.area_name, parent, false);
-        return new CategoryViewHolder(view);
+        return new AreaViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AreaViewHolder holder, int position) {
+
         Area current = areaList.get(position);
         holder.tv_areaName.setText(current.getStrArea());
         holder.tv_areaName.setOnClickListener(v -> {
@@ -58,10 +53,10 @@ public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.CategoryViewHo
         return areaList.size();
     }
 
-    static class CategoryViewHolder extends RecyclerView.ViewHolder {
+    static class AreaViewHolder extends RecyclerView.ViewHolder {
         TextView tv_areaName;
 
-        public CategoryViewHolder(@NonNull View itemView) {
+        public AreaViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_areaName = itemView.findViewById(R.id.tv_areaName);
         }
@@ -76,6 +71,7 @@ public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.CategoryViewHo
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             List<Area> filteredList = allAreaList.stream()
+//                     area.getStrArea()
                     .filter(area -> constraint.toString().isEmpty() ||
                             area.getStrArea().toLowerCase().contains(constraint.toString().toLowerCase()))
                     .collect(Collectors.toList());

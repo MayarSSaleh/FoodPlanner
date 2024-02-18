@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.example.foodplanner.R;
 import com.example.foodplanner.data.local_db.favMeals.FaviourtLocalDataSource;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedLocalDataSourceImpl;
+import com.example.foodplanner.data.model.Area;
 import com.example.foodplanner.data.model.Category;
 import com.example.foodplanner.data.model.MealsRepositoryImpl;
 import com.example.foodplanner.data.network.ProductRemoteDataSourceImpl;
@@ -24,36 +27,32 @@ import com.example.foodplanner.screens.sharedMainActivity.search.Categry.Present
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
+public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> implements Filterable {
     String TAG = "TAG";
 
     private Context context;
     private List<Category> categoryList;
-    private List<String> writenCategory;
-    CategoryPresenterImp categoryPresenterImp;
+    private List<Category> allcategoryList; // as original
 
 
     public CategoryAdapter(Context context, List<Category> categoryList) {
         this.context = context;
         this.categoryList = categoryList;
-    }
-
-    void setList(List<Category> newcategoryList) {
-        categoryList = newcategoryList;
-        notifyDataSetChanged();
+        allcategoryList =  new ArrayList<>(categoryList);// new to make new one as original
     }
 
     @NonNull
     @Override
-    public CategoryAdapter.CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(context).inflate(R.layout.categoies_card, parent, false);
         return new CategoryViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CategoryAdapter.CategoryViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
         Category current = categoryList.get(position);
         Log.i(TAG, "on binding" + current.getStrCategory());
         holder.nameTextView.setText(current.getStrCategory());
@@ -73,6 +72,32 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         return categoryList.size();
     }
 
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+    Filter filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Category> filteredList = allcategoryList.stream()
+                    .filter(category -> constraint.toString().isEmpty() ||
+                            category.getStrCategory().toLowerCase().contains(constraint.toString().toLowerCase()))
+                    .collect(Collectors.toList());
+            FilterResults filterResults = new FilterResults();
+            filterResults.values = filteredList;
+            return filterResults;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            categoryList.clear();
+            categoryList.addAll((List<Category>) results.values);
+            notifyDataSetChanged();
+        }
+    };
+
+
     static class CategoryViewHolder extends RecyclerView.ViewHolder {
         TextView nameTextView;
         ImageView imageView;
@@ -84,5 +109,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
         }
     }
-
+//
+//    private List<Category> filterCategories(String letter) {
+//        List<Category> filteredCategories = new ArrayList<>();
+//        for (Category category : originalCategories) {
+//            if (category.getStrCategory().toLowerCase().contains(letter.toLowerCase())) {
+//                filteredCategories.add(category);
+//            }
+//        }
+//        return filteredCategories;
+//    }
 }

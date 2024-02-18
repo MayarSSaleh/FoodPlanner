@@ -23,12 +23,13 @@ import com.example.foodplanner.screens.sharedMainActivity.search.Area.Presenter.
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Observable;
+
 public class AreaActivity extends AppCompatActivity implements AreaView {
     private AreaAdapter areaAdapter;
     private RecyclerView recyclerView;
     private EditText selectByAreaName;
     private ProgressBar progressBar;
-    private ArrayList<Area> originalArea;
     MealsRepositoryImpl mealsRepository;
 
     @Override
@@ -48,6 +49,9 @@ public class AreaActivity extends AppCompatActivity implements AreaView {
         recyclerView.setLayoutManager(linearLayoutManager);
         progressBar.setVisibility(View.VISIBLE);
 
+//        Observable<List<Area>> observable = Observable.fromArray(areaArrayList);
+//        observable.subscribe(list -> {
+
         selectByAreaName.addTextChangedListener(new TextWatcher() {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -63,11 +67,10 @@ public class AreaActivity extends AppCompatActivity implements AreaView {
             public void afterTextChanged(Editable s) {
             }
         });
+//    });
     }
-
     @Override
     public void showData(ArrayList<Area> areaArrayList) {
-        originalArea = new ArrayList<>(areaArrayList);
         areaAdapter = new AreaAdapter(this, areaArrayList);
         recyclerView.setAdapter(areaAdapter);
         progressBar.setVisibility(View.GONE);
