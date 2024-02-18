@@ -27,11 +27,13 @@
             android:id="@+id/tv_userEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Mayar saleh"
-            android:layout_marginVertical="5dp"
+            tools:text="@string/mayar_saleh"
+            android:layout_marginVertical="10dp"
             android:layout_marginEnd="10dp"
             android:textColor="@color/black"
+            android:textStyle="bold"
             android:textSize="24sp"
+
             />
     </androidx.appcompat.widget.Toolbar>
 

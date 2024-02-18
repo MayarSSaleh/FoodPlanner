@@ -62,11 +62,10 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            ingName = itemView.findViewById(R.id.tv_ing_amount);
-            ingAmount = itemView.findViewById(R.id.tv_ingName);
+            ingName = itemView.findViewById(R.id.tv_ingName);
+            ingAmount = itemView.findViewById(R.id.tv_ing_amount);
             ingImag = itemView.findViewById(R.id.ingImag);
         }
     }
-
 }
 
