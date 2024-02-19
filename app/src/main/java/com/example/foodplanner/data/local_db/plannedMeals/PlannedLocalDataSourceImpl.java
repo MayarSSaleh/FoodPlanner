@@ -131,7 +131,7 @@ public class PlannedLocalDataSourceImpl {
 
     public void mealStoredAtAnyDay(PlannedMeals plannedMeal) {
         if (!plannedMeal.isFriday() && !plannedMeal.isThursday() && !plannedMeal.isSaturday() && !plannedMeal.isSunday() && !plannedMeal.isWednesday()
-                && !plannedMeal.isTuesday() && ! plannedMeal.isMonday()) {
+                && !plannedMeal.isTuesday() && !plannedMeal.isMonday()) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -140,4 +140,25 @@ public class PlannedLocalDataSourceImpl {
             }).start();
         }
     }
+
+    public void insertToPlan(PlannedMeals meal) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mealDAO.insert(meal);
+            }
+        }).start();
+    }
+    public void deleteAll() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mealDAO.deleteAll();
+            }
+        }).start();
+    }
+
+
+
 }
+

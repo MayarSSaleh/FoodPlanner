@@ -1,9 +1,10 @@
 package com.example.foodplanner.data.model;
 
 import android.content.Context;
-import android.util.Log;
+
+import androidx.lifecycle.LifecycleOwner;
+
 import com.example.foodplanner.data.local_db.favMeals.FavMeals;
-import com.example.foodplanner.data.local_db.favMeals.FaviourtLocalDataSource;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedMeals;
 import java.util.List;
 import io.reactivex.rxjava3.core.Completable;
@@ -13,7 +14,10 @@ import io.reactivex.rxjava3.core.Observable;
 public interface MealsRepository {
     String TAG = "TAG";
 
-     Completable insertFromFirbaseToLocal(FavMeals favmeal);
+
+    void addPlannedMealToFirebaseRepo(LifecycleOwner lifecycleOwner, Context context);
+
+    Completable insertFromFirbaseToLocalFavTable(FavMeals favmeal);
 
      Flowable<List<FavMeals>> getStoredFvProduct();
 

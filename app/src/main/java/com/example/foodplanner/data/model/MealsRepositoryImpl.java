@@ -1,9 +1,11 @@
 package com.example.foodplanner.data.model;
 
 import android.content.Context;
-import android.widget.Toast;
+import android.util.Log;
 
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 
 import com.example.foodplanner.data.firebase.UpdateFirebase;
 import com.example.foodplanner.data.local_db.favMeals.FavMeals;
@@ -11,7 +13,6 @@ import com.example.foodplanner.data.local_db.favMeals.FaviourtLocalDataSource;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedLocalDataSourceImpl;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedMeals;
 import com.example.foodplanner.data.network.ProductRemoteDataSourceImpl;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
 
@@ -56,7 +57,31 @@ public class MealsRepositoryImpl implements MealsRepository {
     }
 
     @Override
-    public Completable insertFromFirbaseToLocal(FavMeals favmeal) {
+    public void addPlannedMealToFirebaseRepo(LifecycleOwner lifecycleOwner, Context context) {
+        LiveData<List<PlannedMeals>> savedMeals = plannedLocalDataSource.getStoredPlannedMeals();
+        savedMeals.observe(lifecycleOwner, new Observer<List<PlannedMeals>>() {
+            @Override
+            public void onChanged(List<PlannedMeals> lifeSavedMeals) {
+                if (savedMeals != null) {
+                    for (PlannedMeals meal : lifeSavedMeals) {
+//                        Log.d("keep", "in repo" + meal.getName());
+                        UpdateFirebase.addPlannedMealToFirebase(meal, context);
+                    }
+                }
+            }
+        });
+    }
+
+    public void removeAllPlannedMeals() {
+        plannedLocalDataSource.deleteAll();
+    }
+
+    public void insertFromFirebaseToLocalPlanTable(PlannedMeals meal) {
+        plannedLocalDataSource.insertToPlan(meal);
+    }
+
+    @Override
+    public Completable insertFromFirbaseToLocalFavTable(FavMeals favmeal) {
         return prodcutsLocalDataSource.insert(favmeal);
     }
 
@@ -73,8 +98,6 @@ public class MealsRepositoryImpl implements MealsRepository {
     }
 
 
-
-    //plllllllllllllllllllllllllllan
     public LiveData<List<PlannedMeals>> getStoredplannedProducts() {
         return plannedLocalDataSource.getStoredPlannedMeals();
     }
@@ -135,10 +158,10 @@ public class MealsRepositoryImpl implements MealsRepository {
         plannedLocalDataSource.updateOrDeletMeal(plannedMeal, day);
     }
 
-    public void getUserData(Context context){
+    public void getUserData(Context context) {
 //        Toast.makeText(context, "get user data to gire base", Toast.LENGTH_SHORT).show();
 
-        UpdateFirebase.getFav(context);
+        UpdateFirebase.getAllUserDataFromFirebase(context);
     }
 }
 

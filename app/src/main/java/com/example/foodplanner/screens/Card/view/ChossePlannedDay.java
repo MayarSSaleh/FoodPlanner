@@ -34,7 +34,6 @@ public class ChossePlannedDay extends AppCompatActivity {
     ProductRemoteDataSourceImpl productRemoteDataSource;
     FaviourtLocalDataSource prodcutsLocalDataSource;
     PlannedLocalDataSourceImpl plannedLocalDataSource;
-    String choosedDay;
     List<PlannedMeals> allPlannedmeals;
 
     @Override
@@ -64,13 +63,6 @@ public class ChossePlannedDay extends AppCompatActivity {
         });
     }
 
-
-
-
-
-
-
-
     private void userInterface(){
         sta = findViewById(R.id.tv_saturday);
         sun = findViewById(R.id.tv_suunday);
@@ -87,7 +79,7 @@ public class ChossePlannedDay extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mealCardPresenterImp.addToPlan(allPlannedmeals, planeThisMeal, "Saturday");
-                Toast.makeText(ChossePlannedDay.this, "The meal added to the plan", Toast.LENGTH_LONG).show();
+                Toast.makeText(ChossePlannedDay.this, "The meal added to the plan", Toast.LENGTH_SHORT).show();
                 finish();
                 Log.i(TAG, "onClick: of Saturday choose planed day ");
             }
@@ -97,7 +89,7 @@ public class ChossePlannedDay extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mealCardPresenterImp.addToPlan(allPlannedmeals, planeThisMeal, "Sunday");
-                Toast.makeText(ChossePlannedDay.this, "The meal added to the plan", Toast.LENGTH_LONG).show();
+                Toast.makeText(ChossePlannedDay.this, "The meal added to the plan", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
@@ -106,7 +98,7 @@ public class ChossePlannedDay extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mealCardPresenterImp.addToPlan(allPlannedmeals, planeThisMeal, "Monday");
-                Toast.makeText(ChossePlannedDay.this, "The meal added to the plan", Toast.LENGTH_LONG).show();
+                Toast.makeText(ChossePlannedDay.this, "The meal added to the plan", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
@@ -114,7 +106,7 @@ public class ChossePlannedDay extends AppCompatActivity {
         tues.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ChossePlannedDay.this, "The meal added to the plan", Toast.LENGTH_LONG).show();
+                Toast.makeText(ChossePlannedDay.this, "The meal added to the plan", Toast.LENGTH_SHORT).show();
                 mealCardPresenterImp.addToPlan(allPlannedmeals, planeThisMeal, "Tuesday");
                 finish();
             }
@@ -124,7 +116,7 @@ public class ChossePlannedDay extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mealCardPresenterImp.addToPlan(allPlannedmeals, planeThisMeal, "Wednesday");
-                Toast.makeText(ChossePlannedDay.this, "The meal added to the plan", Toast.LENGTH_LONG).show();
+                Toast.makeText(ChossePlannedDay.this, "The meal added to the plan", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
@@ -133,7 +125,7 @@ public class ChossePlannedDay extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mealCardPresenterImp.addToPlan(allPlannedmeals, planeThisMeal, "Thursday");
-                Toast.makeText(ChossePlannedDay.this, "The meal added to the plan", Toast.LENGTH_LONG).show();
+                Toast.makeText(ChossePlannedDay.this, "The meal added to the plan", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
@@ -142,7 +134,7 @@ public class ChossePlannedDay extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mealCardPresenterImp.addToPlan(allPlannedmeals, planeThisMeal, friday.getText().toString());
-                Toast.makeText(ChossePlannedDay.this, "The meal added to the plan", Toast.LENGTH_LONG).show();
+                Toast.makeText(ChossePlannedDay.this, "The meal added to the plan", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });

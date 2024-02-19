@@ -11,12 +11,6 @@ import java.util.List;
 @Dao
 public interface PlannedMealsDAO {
 
-
-
-
-
-
-
     @Query("SELECT * From plannedMeals_table")
     public LiveData<List<PlannedMeals>> getAllPlannedMeals();
 
@@ -67,5 +61,8 @@ public interface PlannedMealsDAO {
 
     @Delete
     public void delete(PlannedMeals plannedMeals);
+
+    @Query("DELETE FROM plannedMeals_table")
+    public  void deleteAll();
 
 }

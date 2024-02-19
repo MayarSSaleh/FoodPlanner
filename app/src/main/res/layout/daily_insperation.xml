@@ -57,6 +57,8 @@
             android:layout_marginBottom="10dp"
             android:fontFamily="cursive"
             android:textSize="50dp"
+            android:ellipsize="end"
+            android:maxLines="2"
             tools:ignore="mealName" />
     </androidx.cardview.widget.CardView>
 

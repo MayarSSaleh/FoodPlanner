@@ -50,7 +50,7 @@ public class MainScreenActivity extends AppCompatActivity {
         account = GoogleSignIn.getLastSignedInAccount(this);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-        mainScreenPresenterImp = new MainScreenPresenterImp(MainScreenActivity.this, user, account);
+        mainScreenPresenterImp = new MainScreenPresenterImp(MainScreenActivity.this, user, account, this);
         isGuestInMainScreenActivty = mainScreenPresenterImp.isguest();
         ui();
         if (!isGuestInMainScreenActivty){

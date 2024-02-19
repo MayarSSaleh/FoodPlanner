@@ -7,8 +7,8 @@ import android.widget.Toast;
 import com.example.foodplanner.data.local_db.favMeals.FavMeals;
 import com.example.foodplanner.data.local_db.favMeals.FaviourtLocalDataSource;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedLocalDataSourceImpl;
+import com.example.foodplanner.data.local_db.plannedMeals.PlannedMeals;
 import com.example.foodplanner.data.model.MealCard;
-import com.example.foodplanner.data.model.MealsRepository;
 import com.example.foodplanner.data.model.MealsRepositoryImpl;
 import com.example.foodplanner.data.network.ProductRemoteDataSourceImpl;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -30,11 +30,33 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class UpdateFirebase {
 
     static final String TAG = "TAG";
-    static DatabaseReference favoRef;
+    static DatabaseReference planDB;
     static String currentUserId;
 
 
     public static void addMealToFirebase(MealCard meal, Context context) {
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(context);
+        if (account != null) { currentUserId = account.getId(); }
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) { currentUserId = user.getUid(); }
+
+        if (currentUserId != null) {
+            String mealId = meal.getMealId();
+            planDB = FirebaseDatabase.getInstance().getReference()
+                    .child("users")
+                    .child(currentUserId)
+                    .child("favorites")
+                    .child(mealId);
+
+            planDB.setValue(meal)
+                    .addOnSuccessListener(aVoid -> {
+//                        Log.i(TAG, "Meal added to favorites");
+                    })
+                    .addOnFailureListener(e -> {
+                    });
+        }
+    }
+    public static void addPlannedMealToFirebase(PlannedMeals meal, Context context) {
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(context);
         if (account != null) {
             currentUserId = account.getId();
@@ -45,18 +67,18 @@ public class UpdateFirebase {
         }
         if (currentUserId != null) {
             String mealId = meal.getMealId();
-            favoRef = FirebaseDatabase.getInstance().getReference()
+            planDB = FirebaseDatabase.getInstance().getReference()
                     .child("users")
                     .child(currentUserId)
-                    .child("favorites")
+                    .child("plan")
                     .child(mealId);
 
-            favoRef.setValue(meal)
+            planDB.setValue(meal)
                     .addOnSuccessListener(aVoid -> {
-//                        Log.i(TAG, "Meal added to favorites");
+//                        Log.i(TAG, "Meal added to plan");
                     })
                     .addOnFailureListener(e -> {
-//                        Log.i(TAG, "Meal added to faiulrer");
+//                        Log.i(TAG, "Meal added to plan ");
                     });
         }
     }
@@ -90,7 +112,7 @@ public class UpdateFirebase {
         }
     }
 
-    public static void getFav(Context context) {
+    public static void getAllUserDataFromFirebase(Context context) {
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(context);
         if (account != null) {
             currentUserId = account.getId();
@@ -99,41 +121,65 @@ public class UpdateFirebase {
         if (user != null) {
             currentUserId = user.getUid();
         }
+        if (currentUserId != null) {
+            MealsRepositoryImpl mealsRepository = MealsRepositoryImpl.getInstance(new ProductRemoteDataSourceImpl(),
+                    new FaviourtLocalDataSource(context), new PlannedLocalDataSourceImpl(context));
+//            With the user ID obtained, take a reference to the "favorites" node under the "users" node
+//            in the Firebase Realtime Database.
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
+                    .child("users").child(currentUserId).child("favorites");
+// addListenerForSingleValueEvent to this reference to retrieve the data once.
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-        ProductRemoteDataSourceImpl productRemoteDataSource = new ProductRemoteDataSourceImpl();
-        FaviourtLocalDataSource prodcutsLocalDataSource = new FaviourtLocalDataSource(context);
-        PlannedLocalDataSourceImpl plannedLocalDataSource = new PlannedLocalDataSourceImpl(context);
-        MealsRepositoryImpl mealsRepository = MealsRepositoryImpl.getInstance(productRemoteDataSource, prodcutsLocalDataSource, plannedLocalDataSource);
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
-                .child("users").child(currentUserId).child("favorites");
-// to get all data once
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    MealCard meal = dataSnapshot.getValue(MealCard.class);
-                    if (meal != null) {
-                        mealsRepository.insertFromFirbaseToLocal(mapMealCardToFavMeal(meal))
-                                .subscribeOn(Schedulers.io())
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe(
-                                        () -> {
+//   When the data is available (onDataChange), it iterates through the children of the "favorites" node,
+//   which represent individual meal cards. For each child, it deserializes the data into a MealCard object.
+
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        MealCard meal = dataSnapshot.getValue(MealCard.class);
+                        if (meal != null) {
+                            mealsRepository.insertFromFirbaseToLocalFavTable(mapMealCardToFavMeal(meal))
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe(
+                                            () -> {
 //                                            Toast.makeText(context, "The meal in your Favourites now", Toast.LENGTH_SHORT).show();
-                                        },
-                                        error -> {
+                                            },
+                                            error -> {
 //                                            Toast.makeText(context, "Sorry, could not add it. Please try again later", Toast.LENGTH_SHORT).show();
-                                        }
-                                );
-//                        Log.d("keep", "  in get fav : " + meal.getName());
+                                            }
+                                    );
+                        }
                     }
                 }
-            }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+//                    If the database operation is canceled (onCancelled), it logs an error message.
+                    Log.d("keep", " get from Database error: " + error.getMessage());
+                }
+            });
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.e(TAG, "Database error: " + error.getMessage());
-            }
-        });
+
+            DatabaseReference planDataBaseReference = FirebaseDatabase.getInstance().getReference()
+                    .child("users").child(currentUserId).child("plan");
+// to get all data once
+            planDataBaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        PlannedMeals meal = dataSnapshot.getValue(PlannedMeals.class);
+                        if (meal != null) {
+                            mealsRepository.insertFromFirebaseToLocalPlanTable(meal);
+                        }
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.d("keep", " get from Database error: " + error.getMessage());
+                }
+            });
+        }
     }
 
     static private FavMeals mapMealCardToFavMeal(MealCard meal) {
