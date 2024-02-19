@@ -32,7 +32,7 @@ public class ProductRemoteDataSourceImpl {
                 .subscribeOn(Schedulers.io());
     }
 
-    public Observable<MealsResponse> getMealcategories(String categoryName) {
+    public Observable<MealsResponse> getCategoryMeals(String categoryName) {
         return pService.getCategoryMeals(categoryName)
                 .subscribeOn(Schedulers.io());
     }

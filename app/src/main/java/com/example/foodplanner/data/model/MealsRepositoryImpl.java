@@ -1,7 +1,6 @@
 package com.example.foodplanner.data.model;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
@@ -72,10 +71,11 @@ public class MealsRepositoryImpl implements MealsRepository {
         });
     }
 
+    @Override
     public void removeAllPlannedMeals() {
         plannedLocalDataSource.deleteAll();
     }
-
+    @Override
     public void insertFromFirebaseToLocalPlanTable(PlannedMeals meal) {
         plannedLocalDataSource.insertToPlan(meal);
     }
@@ -116,7 +116,7 @@ public class MealsRepositoryImpl implements MealsRepository {
 
     @Override
     public Observable<MealsResponse> getCategoryMeals(String categoryName) {
-        return productRemoteDataSource.getMealcategories(categoryName);
+        return productRemoteDataSource.getCategoryMeals(categoryName);
     }
 
     @Override
@@ -157,10 +157,8 @@ public class MealsRepositoryImpl implements MealsRepository {
     public void deleteFromPlanTable(PlannedMeals plannedMeal, String day) {
         plannedLocalDataSource.updateOrDeletMeal(plannedMeal, day);
     }
-
+    @Override
     public void getUserData(Context context) {
-//        Toast.makeText(context, "get user data to gire base", Toast.LENGTH_SHORT).show();
-
         UpdateFirebase.getAllUserDataFromFirebase(context);
     }
 }

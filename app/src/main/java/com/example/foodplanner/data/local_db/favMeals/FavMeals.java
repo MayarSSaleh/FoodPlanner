@@ -26,7 +26,7 @@ public class FavMeals implements Serializable {
     List<Ingredient> allingredient = new ArrayList<>();
     String steps;
     boolean isFav;
-    boolean isinplan;    //if click add to plan button make value = true and opposite
+    boolean isinplan;
 
     public String getMealId() {
         return mealId;

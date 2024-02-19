@@ -5,20 +5,19 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+
 import java.util.List;
+
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
 
 @Dao
 public interface FavMealsDAO {
-    //    @Query("SELECT * From favMeals_table")
-//    Flowable<List<FavMeals>> getAllFavProducts();
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     Completable insertToFav(FavMeals favMeals);
 
     @Delete
-//    public void deleteFromFav(FavMeals favMeals);
     Completable deleteFromFav(FavMeals favMeals);
 
     @Query("DELETE FROM favMeals_table")
@@ -26,8 +25,5 @@ public interface FavMealsDAO {
 
     @Query("SELECT * FROM favMeals_table ")
     Flowable<List<FavMeals>> getAllFavProducts();
-    // test
-    @Query("SELECT * FROM favMeals_table")
-    List<FavMeals> getAllFavProductsSync();
 
 }

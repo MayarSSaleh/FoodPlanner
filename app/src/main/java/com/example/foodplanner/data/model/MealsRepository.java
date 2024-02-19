@@ -17,6 +17,10 @@ public interface MealsRepository {
 
     void addPlannedMealToFirebaseRepo(LifecycleOwner lifecycleOwner, Context context);
 
+    void removeAllPlannedMeals();
+
+    void insertFromFirebaseToLocalPlanTable(PlannedMeals meal);
+
     Completable insertFromFirbaseToLocalFavTable(FavMeals favmeal);
 
      Flowable<List<FavMeals>> getStoredFvProduct();
@@ -50,5 +54,6 @@ public interface MealsRepository {
 
     void deleteFromPlanTable(PlannedMeals plannedMeal, String day);
 
+    void getUserData(Context context);
 }
 

@@ -38,7 +38,6 @@ public class CategoryMealsPresenterImp implements  CategoryMealsPresenter{
                     @Override
                     public void onError(@NonNull Throwable e) {
                         categoryMealsView.showErrMsg(e.getMessage());
-
                     }
                     @Override
                     public void onComplete() {

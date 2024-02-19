@@ -162,15 +162,15 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
 
     @Override
     public void notGetTheMealDetails(String error) {
-        Toast.makeText(MealCardActivity.this, "Sorry, we can not get the meal as  " + error, Toast.LENGTH_SHORT).show();
-
+        Toast.makeText(MealCardActivity.this, "Sorry, we can not get the meal,check your internet connection and try another meal " , Toast.LENGTH_LONG).show();
+    finish();
     }
 
     public void handlingSetonAction() {
         addToPlanButton.setOnClickListener(view -> {
             if (user == null && account == null) {
                 youWantTologIn();
-                Toast.makeText(MealCardActivity.this, "Login to add to plan ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MealCardActivity.this, "Login to add to plan ", Toast.LENGTH_LONG).show();
             } else {
                 Intent intent = new Intent(MealCardActivity.this, ChossePlannedDay.class);
                 intent.putExtra("myObject", currentMeal);

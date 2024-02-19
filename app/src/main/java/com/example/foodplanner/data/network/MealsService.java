@@ -26,6 +26,6 @@ public interface MealsService {
     @GET("list.php?i=list")
     Observable<IngredientResponse> getIngredient();
     @GET("filter.php")
-     Observable<MealsResponse>getMealsByIngredient(@Query("i") String i);
+    Observable<MealsResponse>getMealsByIngredient(@Query("i") String i);
 
 }
