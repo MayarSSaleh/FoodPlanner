@@ -30,10 +30,8 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class Firebase {
 
-    static final String TAG = "TAG";
     static DatabaseReference planDB;
     static String currentUserId;
-
 
     public static void addFavMealToFirebase(Meal meal, Context context) {
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(context);
@@ -54,7 +52,6 @@ public class Firebase {
                     .child(mealId);
             planDB.setValue(meal)
                     .addOnSuccessListener(aVoid -> {
-                        Log.i(TAG, "Meal added to favorites");
                     })
                     .addOnFailureListener(e -> {
                     });
@@ -207,7 +204,7 @@ public class Firebase {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-           }
+            }
         });
 
 

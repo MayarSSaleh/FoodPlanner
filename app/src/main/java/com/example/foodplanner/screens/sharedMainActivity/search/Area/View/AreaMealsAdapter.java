@@ -20,7 +20,6 @@ public class AreaMealsAdapter extends RecyclerView.Adapter<AreaMealsAdapter.Area
 
     private Context context;
     private List<Meal> mealCards;
-    String TAG = "TAG";
 
     public AreaMealsAdapter(Context context, List<Meal> mealCards) {
         this.context = context;
@@ -37,13 +36,11 @@ public class AreaMealsAdapter extends RecyclerView.Adapter<AreaMealsAdapter.Area
     @Override
     public void onBindViewHolder(@NonNull AreaMealsAdapter.AreaViewHolder holder, int position) {
         Meal current = mealCards.get(position);
-//        Log.i(TAG, "on binding" + current.getName());
         holder.nameTextView.setText(current.getName());
         Glide.with(context).load(current.getPhotourl()).into(holder.imageView);
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Log.i(TAG, "on bindingggggggggggggggggggggg ing 1" + current.getIngr1());
                 Intent intent = new Intent(context, MealCardActivity.class);
                 intent.putExtra("mealName", current.getName());
                 context.startActivity(intent);

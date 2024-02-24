@@ -11,10 +11,7 @@ import com.example.foodplanner.data.local_db.favMeals.FavouriteLocalDataSource;
 
 import java.util.List;
 
-
-// i write imp after the name of calss as we can make interface , but for now we didinot
 public class PlannedLocalDataSourceImpl {
-    private static final String TAG = "team";
     private Context context;
     private PlannedMealsDAO mealDAO;
     private LiveData<List<PlannedMeals>> storedPlannedMeals;
@@ -25,7 +22,6 @@ public class PlannedLocalDataSourceImpl {
         APPDataBase db = APPDataBase.getInstance(context);
         mealDAO = db.getPlannedMealsDAO();
         storedPlannedMeals = mealDAO.getAllPlannedMeals();
-
     }
 
     public static FavouriteLocalDataSource getInstance(Context context) {
@@ -46,9 +42,7 @@ public class PlannedLocalDataSourceImpl {
                 if (meals != null && !meals.isEmpty()) {
                     PlannedMeals savedMeal =
                             meals.stream().filter(meal -> storeMealAtPlan.getMealId().equals(meal.getMealId())).findAny().orElse(null);
-//                    Log.i(TAG, "inside first stored Planed");
                     if (savedMeal != null) {
-//                        Log.i(TAG, "inside 2 stored Planed found the  meal");
                         switch (day) {
                             case "Saturday":
                                 mealDAO.updateSaturday(storeMealAtPlan.getMealId(), true);
@@ -80,14 +74,11 @@ public class PlannedLocalDataSourceImpl {
                                 break;
                         }
                     } else {
-//                        Log.d("keep", " on first else: " + storeMealAtPlan.getPlannedMeal().getName());
                         mealDAO.insert(storeMealAtPlan);
                         Firebase.addPlannedMealToFirebase(storeMealAtPlan, context);
                     }
                 } else {
-//                    Log.d("keep", " on second else: " + storeMealAtPlan.getPlannedMeal().getName());
                     mealDAO.insert(storeMealAtPlan);
-
                     Firebase.addPlannedMealToFirebase(storeMealAtPlan, context);
 
                 }
@@ -101,46 +92,45 @@ public class PlannedLocalDataSourceImpl {
             public void run() {
                 switch (day) {
                     case "Saturday":
-//                      Log.i(TAG, "inside sat");
                         removeMealFromDay.setSaturday(false);
                         mealDAO.updateSaturday(removeMealFromDay.getMealId(), false);
-                        Firebase.updatePlannedMealFridayInFirebase(removeMealFromDay.getMealId(),"Saturday", false, context);
+                        Firebase.updatePlannedMealFridayInFirebase(removeMealFromDay.getMealId(), "Saturday", false, context);
                         mealStoredAtAnyDay(removeMealFromDay);
                         break;
                     case "Sunday":
                         mealDAO.updateSunday(removeMealFromDay.getMealId(), false);
                         removeMealFromDay.setSunday(false);
-                        Firebase.updatePlannedMealFridayInFirebase(removeMealFromDay.getMealId(),"Sunday", false, context);
+                        Firebase.updatePlannedMealFridayInFirebase(removeMealFromDay.getMealId(), "Sunday", false, context);
                         mealStoredAtAnyDay(removeMealFromDay);
                         break;
                     case "Monday":
                         mealDAO.updateMonday(removeMealFromDay.getMealId(), false);
                         removeMealFromDay.setMonday(false);
-                        Firebase.updatePlannedMealFridayInFirebase(removeMealFromDay.getMealId(),"Monday", false, context);
+                        Firebase.updatePlannedMealFridayInFirebase(removeMealFromDay.getMealId(), "Monday", false, context);
                         mealStoredAtAnyDay(removeMealFromDay);
                         break;
                     case "Tuesday":
                         mealDAO.updateTuesday(removeMealFromDay.getMealId(), false);
                         removeMealFromDay.setTuesday(false);
-                        Firebase.updatePlannedMealFridayInFirebase(removeMealFromDay.getMealId(),"Tuesday", false, context);
+                        Firebase.updatePlannedMealFridayInFirebase(removeMealFromDay.getMealId(), "Tuesday", false, context);
                         mealStoredAtAnyDay(removeMealFromDay);
                         break;
                     case "Wednesday":
                         mealDAO.updateWednesday(removeMealFromDay.getMealId(), false);
                         removeMealFromDay.setWednesday(false);
-                        Firebase.updatePlannedMealFridayInFirebase(removeMealFromDay.getMealId(),"Wednesday", false, context);
+                        Firebase.updatePlannedMealFridayInFirebase(removeMealFromDay.getMealId(), "Wednesday", false, context);
                         mealStoredAtAnyDay(removeMealFromDay);
                         break;
                     case "Thursday":
                         mealDAO.updateThursday(removeMealFromDay.getMealId(), false);
                         removeMealFromDay.setThursday(false);
-                        Firebase.updatePlannedMealFridayInFirebase(removeMealFromDay.getMealId(),"Thursday", false, context);
+                        Firebase.updatePlannedMealFridayInFirebase(removeMealFromDay.getMealId(), "Thursday", false, context);
                         mealStoredAtAnyDay(removeMealFromDay);
                         break;
                     case "Friday":
                         mealDAO.updateFriday(removeMealFromDay.getMealId(), false);
                         removeMealFromDay.setFriday(false);
-                        Firebase.updatePlannedMealFridayInFirebase(removeMealFromDay.getMealId(),"Friday", false, context);
+                        Firebase.updatePlannedMealFridayInFirebase(removeMealFromDay.getMealId(), "Friday", false, context);
                         mealStoredAtAnyDay(removeMealFromDay);
                         break;
                 }
@@ -156,7 +146,6 @@ public class PlannedLocalDataSourceImpl {
                 public void run() {
                     mealDAO.delete(plannedMeal);
                     Firebase.removePlannedMealFromFirebase(plannedMeal, context);
-
                 }
             }).start();
         }

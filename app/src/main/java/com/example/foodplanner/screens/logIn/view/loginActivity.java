@@ -8,7 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.foodplanner.R;
-import com.example.foodplanner.screens.sharedMainActivity.BasicSharedScreen.view.MainScreenActivity;
+import com.example.foodplanner.screens.sharedMainActivity.basicSharedScreen.view.MainScreenActivity;
 import com.example.foodplanner.screens.signUp.view.signUPActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;

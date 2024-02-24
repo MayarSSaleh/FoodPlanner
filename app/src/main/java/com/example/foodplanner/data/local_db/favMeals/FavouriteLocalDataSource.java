@@ -11,7 +11,7 @@ import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
 
 public class FavouriteLocalDataSource {
-    private static final String TAG = "team";
+
     private Context context;
     private FavMealsDAO mealDAO;
     private Flowable<List<Meal>> storedFvProduct;
@@ -24,9 +24,9 @@ public class FavouriteLocalDataSource {
         storedFvProduct = mealDAO.getAllFavProducts();
     }
 
-    public static FavouriteLocalDataSource getInstance(Context context ) {
+    public static FavouriteLocalDataSource getInstance(Context context) {
         if (rep == null) {
-            rep = new FavouriteLocalDataSource(context );
+            rep = new FavouriteLocalDataSource(context);
         }
         return rep;
     }

@@ -1,9 +1,9 @@
-package com.example.foodplanner.screens.sharedMainActivity.DailyInsperationAllMeals.MinimizedMealCard.presenter;
+package com.example.foodplanner.screens.sharedMainActivity.dailyInspirationMeals.presenter;
 
-import android.util.Log;
 import com.example.foodplanner.data.model.MealsRepository;
 import com.example.foodplanner.data.model.MealsResponse;
-import com.example.foodplanner.screens.sharedMainActivity.DailyInsperationAllMeals.MinimizedMealCard.view.InsperMealsView;
+import com.example.foodplanner.screens.sharedMainActivity.dailyInspirationMeals.view.InsperMealsView;
+
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observable;
@@ -11,7 +11,6 @@ import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 
 public class InsperMealsPresenterImp implements InsperMealsPresenter {
-    private static final String TAG = "TAG";
     MealsRepository mealsRepository;
     InsperMealsView allMealsView;
 
@@ -27,7 +26,6 @@ public class InsperMealsPresenterImp implements InsperMealsPresenter {
                 .subscribe(new Observer<MealsResponse>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
-                        Log.d("t", "on onSubscribe");
                     }
 
                     @Override

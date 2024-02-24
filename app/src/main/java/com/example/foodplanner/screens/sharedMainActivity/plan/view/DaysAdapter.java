@@ -21,17 +21,15 @@ import java.util.List;
 
 public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.DaysViewHolder> {
     Context context;
-    List<PlannedMeals> plannedMealsforAday;
+    List<PlannedMeals> plannedMealsForA_Day;
     String day;
-    String TAG = "a";
     public static final String PLANNED_MEAL = "planned_meal";
 
 
     public DaysAdapter(Context context, List<PlannedMeals> plannedMealsforAday, String day) {
         this.context = context;
-        this.plannedMealsforAday = plannedMealsforAday;
+        this.plannedMealsForA_Day = plannedMealsforAday;
         this.day = day;
-//        Log.i(TAG, "plannedMealsforAday.size(): "+ plannedMealsforAday.size());
     }
 
     @NonNull
@@ -43,7 +41,7 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.DaysViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull DaysAdapter.DaysViewHolder holder, int position) {
-        PlannedMeals current = plannedMealsforAday.get(position);
+        PlannedMeals current = plannedMealsForA_Day.get(position);
          holder.mealName.setText(current.getPlannedMeal().getName());
         Glide.with(context).load(current.getPlannedMeal().getPhotourl()).into(holder.mealImage);
         holder.mealImage.setOnClickListener(new View.OnClickListener() {
@@ -57,7 +55,6 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.DaysViewHolder
         holder.removeFromPlan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(TAG, "onClick: remove");
                 new PlanMealsPresenterImp().removeFromPlan(current, day, context);
             }
         }
@@ -66,7 +63,7 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.DaysViewHolder
 
     @Override
     public int getItemCount() {
-        return plannedMealsforAday.size();
+        return plannedMealsForA_Day.size();
     }
 
     static class DaysViewHolder extends RecyclerView.ViewHolder {

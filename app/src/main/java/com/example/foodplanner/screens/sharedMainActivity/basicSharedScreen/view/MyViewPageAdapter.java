@@ -1,4 +1,4 @@
-package com.example.foodplanner.screens.sharedMainActivity.BasicSharedScreen.view;
+package com.example.foodplanner.screens.sharedMainActivity.basicSharedScreen.view;
 
 import android.content.Context;
 
@@ -7,18 +7,18 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.foodplanner.screens.sharedMainActivity.DailyInsperationAllMeals.MinimizedMealCard.view.DailyInspFragment;
-import com.example.foodplanner.screens.sharedMainActivity.favMeals.views.FragFavMeals;
+import com.example.foodplanner.screens.sharedMainActivity.dailyInspirationMeals.view.DailyInspFragment;
+import com.example.foodplanner.screens.sharedMainActivity.favMeals.views.FragmentFavMeals;
 import com.example.foodplanner.screens.sharedMainActivity.plan.view.PlanFragment;
 import com.example.foodplanner.screens.sharedMainActivity.search.mainSearchScreen.view.FragSearchView;
 
 public class MyViewPageAdapter extends FragmentStateAdapter {
-    boolean isguest;
+    boolean isA_Guest;
     Context context;
 
     public MyViewPageAdapter(@NonNull FragmentActivity fragmentActivity, boolean isguest, Context context) {
         super(fragmentActivity);
-        this.isguest = isguest;
+        this.isA_Guest = isguest;
         this.context = context;
     }
 
@@ -32,14 +32,14 @@ public class MyViewPageAdapter extends FragmentStateAdapter {
             case 1:
                 return new FragSearchView();
             case 2:
-                if (isguest) {
+                if (isA_Guest) {
                 } else {
                     return new PlanFragment();
                 }
             case 3:
-                if (isguest) {
+                if (isA_Guest) {
                 } else {
-                    return new FragFavMeals();
+                    return new FragmentFavMeals();
                 }
             default:
                 return new DailyInspFragment();

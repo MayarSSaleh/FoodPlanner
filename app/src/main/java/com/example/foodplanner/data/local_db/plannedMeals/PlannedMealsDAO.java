@@ -43,6 +43,6 @@ public interface PlannedMealsDAO {
     public void delete(PlannedMeals plannedMeals);
 
     @Query("DELETE FROM plannedMeals_table")
-    public  void deleteAll();
+    public void deleteAll();
 
 }

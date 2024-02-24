@@ -4,8 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
+
 import com.example.foodplanner.data.local_db.ConvertMeal;
 import com.example.foodplanner.data.model.Meal;
+
 import java.io.Serializable;
 
 @Entity(tableName = "plannedMeals_table")
@@ -15,7 +17,6 @@ public class PlannedMeals implements Serializable {
     @PrimaryKey
     @NonNull
     String mealId;
-
     Meal plannedMeal;
     boolean Saturday, Monday, Tuesday, Wednesday, Thursday, Sunday, Friday;
 

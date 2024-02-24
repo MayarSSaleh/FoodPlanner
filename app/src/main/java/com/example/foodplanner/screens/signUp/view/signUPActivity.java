@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.foodplanner.R;
 import com.example.foodplanner.screens.logIn.view.loginEnterUser;
-import com.example.foodplanner.screens.sharedMainActivity.BasicSharedScreen.view.MainScreenActivity;
+import com.example.foodplanner.screens.sharedMainActivity.basicSharedScreen.view.MainScreenActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

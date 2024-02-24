@@ -1,4 +1,4 @@
-package com.example.foodplanner.screens.sharedMainActivity.BasicSharedScreen.presenter;
+package com.example.foodplanner.screens.sharedMainActivity.basicSharedScreen.presenter;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -50,7 +50,7 @@ public class MainScreenPresenterImp implements MainScreenPresenter {
     }
 
     @Override
-    public boolean isguest() {
+    public boolean isGuest() {
         if (user == null && account == null)
             isGuest = true;
         else {
@@ -61,7 +61,6 @@ public class MainScreenPresenterImp implements MainScreenPresenter {
         return isGuest;
     }
 
-    @Override
     public void saveAcount() {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -69,11 +68,9 @@ public class MainScreenPresenterImp implements MainScreenPresenter {
         editor.apply();
     }
 
-    void logInSoGetTheData(Context context) {
+    public void logInSoGetTheData(Context context) {
         repository.getUserData(context);
     }
-
-
     @Override
     public boolean logOut(GoogleSignInClient googleSignInClient) {
         if (isNetworkConnected()) {

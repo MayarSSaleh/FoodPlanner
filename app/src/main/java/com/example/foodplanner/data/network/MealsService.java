@@ -13,19 +13,26 @@ public interface MealsService {
 
     @GET("random.php")
     Observable<MealsResponse> getMeal();
+
     @GET("categories.php")
     Observable<CategoryResponse> getCategories();
+
     @GET("filter.php?")
     Observable<MealsResponse> getCategoryMeals(@Query("c") String categoryName);
+
     @GET("search.php?s=")
     Observable<MealsResponse> getMealDetails(@Query("s") String mealName);
+
     @GET("list.php?a=list")
     Observable<AreaResponse> getAreas();
+
     @GET("filter.php?a=")
     Observable<MealsResponse> getAreaMeals(@Query("a") String areaName);
+
     @GET("list.php?i=list")
     Observable<IngredientResponse> getIngredient();
+
     @GET("filter.php")
-    Observable<MealsResponse>getMealsByIngredient(@Query("i") String i);
+    Observable<MealsResponse> getMealsByIngredient(@Query("i") String i);
 
 }

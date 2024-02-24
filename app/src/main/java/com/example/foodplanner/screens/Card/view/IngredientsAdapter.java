@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,12 +18,10 @@ import java.util.Collections;
 import java.util.List;
 
 public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.ViewHolder> {
-
-    private static final String TAG = "team";
     Context context;
     List<Ingredient> ingredientList = Collections.emptyList();
-    private String base ="https://www.themealdb.com/images/ingredients/";
-    private  String remainAccordingIng =".png";
+    private String base = "https://www.themealdb.com/images/ingredients/";
+    private String remainAccordingIng = ".png";
 
     public IngredientsAdapter(Context context) {
         this.context = context;
@@ -46,12 +45,11 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
         Ingredient current = ingredientList.get(position);
         holder.ingName.setText(current.getName());
         holder.ingAmount.setText(current.getAmount());
-        Glide.with(context).load(base+current.getName()+remainAccordingIng).into(holder.ingImag);
+        Glide.with(context).load(base + current.getName() + remainAccordingIng).into(holder.ingImag);
     }
 
     @Override
-    public int getItemCount()
-    {
+    public int getItemCount() {
         return ingredientList.size();
     }
 
@@ -68,4 +66,3 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
         }
     }
 }
-

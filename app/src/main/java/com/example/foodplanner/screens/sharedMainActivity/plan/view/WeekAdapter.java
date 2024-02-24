@@ -34,8 +34,6 @@ public class WeekAdapter extends RecyclerView.Adapter<WeekAdapter.DaysViewHolder
     public void onBindViewHolder(@NonNull DaysViewHolder holder, int position) {
         DayMeals current = dayMeals.get(position);
         holder.day.setText(current.getDay());
-//        Log.i(TAG, "WeekAdapter: " + current.getListOfMeals()+ current.getDay() );
-
         daysAdapter = new DaysAdapter(context, current.getListOfMeals(), current.getDay());
         holder.recyclerView.setAdapter(daysAdapter);
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));

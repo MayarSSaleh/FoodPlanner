@@ -1,19 +1,17 @@
 package com.example.foodplanner;
 
-import static com.example.foodplanner.screens.sharedMainActivity.BasicSharedScreen.presenter.MainScreenPresenterImp.SHARED_PREFS;
+import static com.example.foodplanner.screens.sharedMainActivity.basicSharedScreen.presenter.MainScreenPresenterImp.SHARED_PREFS;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.foodplanner.screens.logIn.view.loginActivity;
-import com.example.foodplanner.screens.sharedMainActivity.BasicSharedScreen.view.MainScreenActivity;
+import com.example.foodplanner.screens.sharedMainActivity.basicSharedScreen.view.MainScreenActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;

@@ -15,7 +15,6 @@ import java.util.List;
 
 @Entity(tableName = "favMeals_table")
 @TypeConverters(ConvertersIngredientsList.class)
-
 public class Meal implements Serializable {
 
     @PrimaryKey

@@ -1,4 +1,4 @@
-package com.example.foodplanner.screens.sharedMainActivity.DailyInsperationAllMeals.MinimizedMealCard.view;
+package com.example.foodplanner.screens.sharedMainActivity.dailyInspirationMeals.view;
 
 import com.example.foodplanner.data.model.Meal;
 

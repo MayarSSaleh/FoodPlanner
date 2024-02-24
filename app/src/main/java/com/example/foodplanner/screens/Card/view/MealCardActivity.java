@@ -40,7 +40,6 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
     public static final String FAV_OBJECT = "FavObject";
     public static final String PLANNED_MEAL = "planned_meal";
     Meal currentMeal = new Meal();
-    String TAG = "TAG";
     private ImageView mealImage;
     private ImageView favStatus;
     private TextView mealName;
@@ -56,9 +55,6 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
     MealCardPresenterImp mealCardPresenterImp;
     Drawable drawable;
     MealsRepositoryImpl mealsRepository;
-    ProductRemoteDataSourceImpl productRemoteDataSource;
-    FavouriteLocalDataSource prodcutsLocalDataSource;
-    PlannedLocalDataSourceImpl plannedLocalDataSource;
     FirebaseAuth auth;
     FirebaseUser user;
     GoogleSignInOptions googleSignInOptions;
@@ -76,22 +72,35 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
         account = GoogleSignIn.getLastSignedInAccount(this);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-        productRemoteDataSource = new ProductRemoteDataSourceImpl();
-        prodcutsLocalDataSource = new FavouriteLocalDataSource(this);
-        plannedLocalDataSource = new PlannedLocalDataSourceImpl(this);
-        mealsRepository = MealsRepositoryImpl.getInstance(productRemoteDataSource, prodcutsLocalDataSource, plannedLocalDataSource);
-        UI();
+        mealsRepository = MealsRepositoryImpl.getInstance(new ProductRemoteDataSourceImpl(),
+                new FavouriteLocalDataSource(this), new PlannedLocalDataSourceImpl(this));
+        userInterface();
         ingredientsAdapter = new IngredientsAdapter(this);
         intent = getIntent();
         mealCardPresenterImp = new MealCardPresenterImp(this, mealsRepository, getBaseContext());
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        receiveIntentFromAnotherScreens();
+        handlingSetonAction();
+    }
 
+    public void userInterface() {
+        webView = findViewById(R.id.web_view);
+        mealImage = findViewById(R.id.img_meal);
+        mealName = findViewById(R.id.tv_mealName);
+        country = findViewById(R.id.tv_country);
+        ingS_recyclerView = findViewById(R.id.recyclerView_ing);
+        allSteps = findViewById(R.id.steps);
+        favStatus = findViewById(R.id.img_fav);
+        drawable = favStatus.getDrawable();
+        addToPlanButton = findViewById(R.id.btn_add_to_plan);
+    }
+
+    public void receiveIntentFromAnotherScreens() {
         /////to get from fav
         Meal current = (Meal) intent.getSerializableExtra(FAV_OBJECT);
         if (current != null) {
             setThisMealAtCard(current);
         }
-
 // get from planned
         PlannedMeals plannedMeal = (PlannedMeals) intent.getSerializableExtra(PLANNED_MEAL);
         if (plannedMeal != null) {
@@ -106,20 +115,8 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
         String mealComeFromList = intent.getStringExtra("mealName");
         if (mealComeFromList != null) {
             mealCardPresenterImp.getMealDetailsOfThisMeal(mealComeFromList);
-        }
-        handlingSetonAction();
-    }
 
-    public void UI() {
-        webView = findViewById(R.id.web_view);
-        mealImage = findViewById(R.id.img_meal);
-        mealName = findViewById(R.id.tv_mealName);
-        country = findViewById(R.id.tv_country);
-        ingS_recyclerView = findViewById(R.id.recyclerView_ing);
-        allSteps = findViewById(R.id.steps);
-        favStatus = findViewById(R.id.img_fav);
-        drawable = favStatus.getDrawable();
-        addToPlanButton = findViewById(R.id.btn_add_to_plan);
+        }
     }
 
     @Override
@@ -139,7 +136,6 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
         allSteps.setText(mealCard.getSteps());
         Glide.with(MealCardActivity.this).load(mealCard.getPhotourl()).into(mealImage);
         updateFavImageAccordingActuallyStatus(mealCard);
-
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient());
         webView.loadUrl(mealCard.getVideoUrl());
@@ -208,17 +204,7 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
         }
     }
 
-    @Override
-    public void addToFav(Meal currentMeal) {
-        mealCardPresenterImp.addToDataBaseFavMeal(currentMeal);
-    }
-
-    @Override
-    public void removeFromFav(Meal currentMeal) {
-        mealCardPresenterImp.removeFromDBFavMeal(currentMeal);
-    }
-
-    void youWantTologin() {
+    public void youWantTologin() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MealCardActivity.this);
         builder.setTitle("Hi Chef")
                 .setMessage("            let's Login to start cooking?")
@@ -231,4 +217,15 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
         AlertDialog dialog = builder.create();
         dialog.show();
     }
+
+    @Override
+    public void addToFav(Meal currentMeal) {
+        mealCardPresenterImp.addToDataBaseFavMeal(currentMeal);
+    }
+
+    @Override
+    public void removeFromFav(Meal currentMeal) {
+        mealCardPresenterImp.removeFromDBFavMeal(currentMeal);
+    }
+
 }

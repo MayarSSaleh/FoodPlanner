@@ -1,7 +1,6 @@
 package com.example.foodplanner.data.model;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
@@ -24,51 +23,36 @@ public class MealsRepositoryImpl implements MealsRepository {
     private static final String TAG = "TAG";
 
     ProductRemoteDataSourceImpl productRemoteDataSource;
-    FavouriteLocalDataSource prodcutsLocalDataSource;
+    FavouriteLocalDataSource favouriteLocalDataSource;
     PlannedLocalDataSourceImpl plannedLocalDataSource;
     private static MealsRepositoryImpl repo = null;
 
     public static MealsRepositoryImpl getInstance(ProductRemoteDataSourceImpl productRemoteDataSource,
-                                                  FavouriteLocalDataSource prodcutsLocalDataSource,
+                                                  FavouriteLocalDataSource favouriteLocalDataSource,
                                                   PlannedLocalDataSourceImpl plannedLocalDataSource) {
         if (repo == null) {
-            repo = new MealsRepositoryImpl(productRemoteDataSource, prodcutsLocalDataSource, plannedLocalDataSource);
+            repo = new MealsRepositoryImpl(productRemoteDataSource, favouriteLocalDataSource, plannedLocalDataSource);
         }
         return repo;
     }
 
     private MealsRepositoryImpl(ProductRemoteDataSourceImpl productRemoteDataSource,
-                                FavouriteLocalDataSource prodcutsLocalDataSource,
+                                FavouriteLocalDataSource favouriteLocalDataSource,
                                 PlannedLocalDataSourceImpl plannedLocalDataSource) {
-        this.prodcutsLocalDataSource = prodcutsLocalDataSource;
+        this.favouriteLocalDataSource = favouriteLocalDataSource;
         this.productRemoteDataSource = productRemoteDataSource;
         this.plannedLocalDataSource = plannedLocalDataSource;
     }
 
     @Override
     public Flowable<List<Meal>> getStoredFvProduct() {
-        return prodcutsLocalDataSource.getStoredFvProduct();
+        return favouriteLocalDataSource.getStoredFvProduct();
     }
 
     @Override
     public Completable insertInFavTable(Meal mealCard, Context c) {
         Firebase.addFavMealToFirebase(mealCard, c);
-        return prodcutsLocalDataSource.insert(mealCard);
-    }
-
-    @Override
-    public void addPlannedMealToFirebaseRepoThenRemoveLocal(LifecycleOwner lifecycleOwner, Context context) {
-        LiveData<List<PlannedMeals>> savedMeals = plannedLocalDataSource.getStoredPlannedMeals();
-        savedMeals.observe(lifecycleOwner, new Observer<List<PlannedMeals>>() {
-            @Override
-            public void onChanged(List<PlannedMeals> lifeSavedMeals) {
-                if (savedMeals != null) {
-                    for (PlannedMeals meal : lifeSavedMeals) {
-                        Firebase.addPlannedMealToFirebase(meal, context);
-                    }
-                }
-            }
-        });
+        return favouriteLocalDataSource.insert(mealCard);
     }
 
     @Override
@@ -83,28 +67,25 @@ public class MealsRepositoryImpl implements MealsRepository {
 
     @Override
     public Completable insertFromFirbaseToLocalFavTable(Meal favmeal) {
-        return prodcutsLocalDataSource.insert(favmeal);
+        return favouriteLocalDataSource.insert(favmeal);
     }
 
     @Override
     public Completable deleteFromFav(Meal mealCard, Context context) {
         Firebase.removeFavMealFromFirebase(mealCard, context);
-        return prodcutsLocalDataSource.delete(mealCard);
+        return favouriteLocalDataSource.delete(mealCard);
     }
 
 
     @Override
     public Completable deleteAllFav() {
-        Log.i(TAG, "deleteAllFav: ");
-        return prodcutsLocalDataSource.deleteAll();
+        return favouriteLocalDataSource.deleteAll();
     }
-
-
+    @Override
     public LiveData<List<PlannedMeals>> getStoredplannedProducts() {
         return plannedLocalDataSource.getStoredPlannedMeals();
     }
 
-    // random meal
     @Override
     public Observable<MealsResponse> getRandomMeal() {
         return productRemoteDataSource.getRandomMeal();
@@ -145,7 +126,6 @@ public class MealsRepositoryImpl implements MealsRepository {
     public void insertInToPlanTable(List<PlannedMeals> meals, PlannedMeals plannedMeal, String day, Context context) {
 //       instead of make the add here then separated local plan and firebase check if the meal is already store, i will put the firebase in the local plan
 //        Firebase.addPlannedMealToFirebase(plannedMeal, context);
-
         plannedLocalDataSource.updateOrInsertMeal(meals, plannedMeal, day);
     }
 

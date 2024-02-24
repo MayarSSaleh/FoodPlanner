@@ -1,4 +1,4 @@
-package com.example.foodplanner.screens.sharedMainActivity.BasicSharedScreen.view;
+package com.example.foodplanner.screens.sharedMainActivity.basicSharedScreen.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
@@ -7,7 +7,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,7 +14,7 @@ import android.widget.Toast;
 
 import com.example.foodplanner.R;
 import com.example.foodplanner.screens.logIn.view.loginActivity;
-import com.example.foodplanner.screens.sharedMainActivity.BasicSharedScreen.presenter.MainScreenPresenterImp;
+import com.example.foodplanner.screens.sharedMainActivity.basicSharedScreen.presenter.MainScreenPresenterImp;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -41,7 +40,6 @@ public class MainScreenActivity extends AppCompatActivity {
     MainScreenPresenterImp mainScreenPresenterImp;
     boolean isGuestInMainScreenActivty;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,11 +50,12 @@ public class MainScreenActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         mainScreenPresenterImp = new MainScreenPresenterImp(MainScreenActivity.this, user, account, this);
-        isGuestInMainScreenActivty = mainScreenPresenterImp.isguest();
+        isGuestInMainScreenActivty = mainScreenPresenterImp.isGuest();
         ui();
-        if (!isGuestInMainScreenActivty){
-            if(user!= null){tv_userEmail.setText(user.getEmail()); }
-            else  tv_userEmail.setText(account.getDisplayName());
+        if (!isGuestInMainScreenActivty) {
+            if (user != null) {
+                tv_userEmail.setText(user.getEmail());
+            } else tv_userEmail.setText(account.getDisplayName());
         }
         handleFragmentChoose();
         setOnAction();
@@ -94,8 +93,6 @@ public class MainScreenActivity extends AppCompatActivity {
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });
-
-        // to connect the tablayout in the body view with the taps
         viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
@@ -105,7 +102,7 @@ public class MainScreenActivity extends AppCompatActivity {
         });
     }
 
-    void setOnAction(){
+    private void setOnAction() {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,26 +115,27 @@ public class MainScreenActivity extends AppCompatActivity {
         });
 
     }
-    void youWantlogout() {
+
+    private void youWantlogout() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainScreenActivity.this);
         builder.setTitle("Hi chef")
                 .setMessage("Are you sure you want log out ?!!")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                       boolean succeed= mainScreenPresenterImp.logOut(googleSignInClient);
-                       if (succeed)
-                       { Intent i = new Intent(getApplicationContext(), loginActivity.class);
-                        startActivity(i);
-                    }else {
-                           Toast.makeText(MainScreenActivity.this, "Please connect with internet first , Then make logout to keep your data save", Toast.LENGTH_LONG).show();
-                       }
+                        boolean succeed = mainScreenPresenterImp.logOut(googleSignInClient);
+                        if (succeed) {
+                            Intent i = new Intent(getApplicationContext(), loginActivity.class);
+                            startActivity(i);
+                        } else {
+                            Toast.makeText(MainScreenActivity.this, "Please connect with internet first , Then make logout to keep your data save", Toast.LENGTH_LONG).show();
+                        }
                     }
                 });
         AlertDialog dialog = builder.create();
         dialog.show();
     }
 
-    void youWantlogIn() {
+    private void youWantlogIn() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainScreenActivity.this);
         builder.setTitle("Hi Chef")
                 .setMessage("          let's Login to start cooking")

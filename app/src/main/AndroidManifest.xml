@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodPlanner">
 
-        <activity android:name=".screens.sharedMainActivity.BasicSharedScreen.view.MainScreenActivity"
+        <activity android:name=".screens.sharedMainActivity.basicSharedScreen.view.MainScreenActivity"
             ></activity>
         <activity android:name=".screens.sharedMainActivity.search.Ingredients.View.SearchByIngredient"></activity>
         <activity android:name=".screens.sharedMainActivity.search.Area.View.AreaMealsActivity"></activity>

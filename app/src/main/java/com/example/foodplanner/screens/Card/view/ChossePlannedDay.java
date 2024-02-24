@@ -2,7 +2,6 @@ package com.example.foodplanner.screens.Card.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,7 +23,7 @@ import com.example.foodplanner.screens.Card.presenter.MealCardPresenterImp;
 
 import java.util.List;
 
-public class ChossePlannedDay extends AppCompatActivity {
+public class ChossePlannedDay extends AppCompatActivity implements OnAddToPlanClickListener {
     private static final String TAG = "TAG";
     TextView saturday, sunday, monday, tuesday, wednesday, thursday, friday;
     MealCardPresenterImp mealCardPresenterImp;
@@ -32,9 +31,9 @@ public class ChossePlannedDay extends AppCompatActivity {
     MealCardView mealCardView;
     MealsRepositoryImpl repository;
     ProductRemoteDataSourceImpl productRemoteDataSource;
-    FavouriteLocalDataSource prodcutsLocalDataSource;
+    FavouriteLocalDataSource favouriteLocalDataSource;
     PlannedLocalDataSourceImpl plannedLocalDataSource;
-    List<PlannedMeals> allPlannedmeals;
+    List<PlannedMeals> allPlannedMeals;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +42,9 @@ public class ChossePlannedDay extends AppCompatActivity {
         userInterface();
         setOnClickListenersForDays();
         productRemoteDataSource = new ProductRemoteDataSourceImpl();
-        prodcutsLocalDataSource = new FavouriteLocalDataSource(this);
+        favouriteLocalDataSource = new FavouriteLocalDataSource(this);
         plannedLocalDataSource = new PlannedLocalDataSourceImpl(this);
-        repository = MealsRepositoryImpl.getInstance(productRemoteDataSource, prodcutsLocalDataSource, plannedLocalDataSource);
+        repository = MealsRepositoryImpl.getInstance(productRemoteDataSource, favouriteLocalDataSource, plannedLocalDataSource);
         mealCardPresenterImp = new MealCardPresenterImp(mealCardView, repository, ChossePlannedDay.this);
 
         Intent intent = getIntent();
@@ -57,12 +56,12 @@ public class ChossePlannedDay extends AppCompatActivity {
         savedMeals.observe(this, new Observer<List<PlannedMeals>>() {
             @Override
             public void onChanged(List<PlannedMeals> lifeSavedMeals) {
-                allPlannedmeals = lifeSavedMeals;
+                allPlannedMeals = lifeSavedMeals;
             }
         });
     }
 
-    private void userInterface(){
+    private void userInterface() {
         saturday = findViewById(R.id.tv_saturday);
         sunday = findViewById(R.id.tv_sunday);
         monday = findViewById(R.id.tv_monday);
@@ -72,68 +71,61 @@ public class ChossePlannedDay extends AppCompatActivity {
         friday = findViewById(R.id.tv_friday);
     }
 
-    private void setOnClickListenersForDays(){
+    private void setOnClickListenersForDays() {
         saturday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mealCardPresenterImp.addToPlan(allPlannedmeals, planeThisMeal, "Saturday");
-                Toast.makeText(ChossePlannedDay.this, "The meal added to the plan", Toast.LENGTH_SHORT).show();
-                finish();
+                addToPlan(allPlannedMeals, planeThisMeal, "Saturday");
             }
         });
 
         sunday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mealCardPresenterImp.addToPlan(allPlannedmeals, planeThisMeal, "Sunday");
-                Toast.makeText(ChossePlannedDay.this, "The meal added to the plan", Toast.LENGTH_SHORT).show();
-                finish();
+                addToPlan(allPlannedMeals, planeThisMeal, "Sunday");
             }
         });
 
         monday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mealCardPresenterImp.addToPlan(allPlannedmeals, planeThisMeal, "Monday");
-                Toast.makeText(ChossePlannedDay.this, "The meal added to the plan", Toast.LENGTH_SHORT).show();
-                finish();
+                addToPlan(allPlannedMeals, planeThisMeal, "Monday");
             }
         });
 
         tuesday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ChossePlannedDay.this, "The meal added to the plan", Toast.LENGTH_SHORT).show();
-                mealCardPresenterImp.addToPlan(allPlannedmeals, planeThisMeal, "Tuesday");
-                finish();
+                addToPlan(allPlannedMeals, planeThisMeal, "Tuesday");
             }
         });
 
         wednesday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mealCardPresenterImp.addToPlan(allPlannedmeals, planeThisMeal, "Wednesday");
-                Toast.makeText(ChossePlannedDay.this, "The meal added to the plan", Toast.LENGTH_SHORT).show();
-                finish();
+                addToPlan(allPlannedMeals, planeThisMeal, "Wednesday");
             }
         });
 
         thursday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mealCardPresenterImp.addToPlan(allPlannedmeals, planeThisMeal, "Thursday");
-                Toast.makeText(ChossePlannedDay.this, "The meal added to the plan", Toast.LENGTH_SHORT).show();
-                finish();
+                addToPlan(allPlannedMeals, planeThisMeal, "Thursday");
             }
         });
 
         friday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mealCardPresenterImp.addToPlan(allPlannedmeals, planeThisMeal, friday.getText().toString());
-                Toast.makeText(ChossePlannedDay.this, "The meal added to the plan", Toast.LENGTH_SHORT).show();
-                finish();
+                addToPlan(allPlannedMeals, planeThisMeal, "Friday");
             }
         });
+    }
+
+    @Override
+    public void addToPlan(List<PlannedMeals> allPlannedMeals, Meal planeThisMeal, String day) {
+        mealCardPresenterImp.addToPlan(allPlannedMeals, planeThisMeal, day);
+        Toast.makeText(ChossePlannedDay.this, "The meal added to the plan", Toast.LENGTH_SHORT).show();
+        finish();
     }
 }

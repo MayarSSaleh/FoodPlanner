@@ -1,20 +1,17 @@
-package com.example.foodplanner.screens.sharedMainActivity.DailyInsperationAllMeals.MinimizedMealCard.view;
+package com.example.foodplanner.screens.sharedMainActivity.dailyInspirationMeals.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.R;
 import com.example.foodplanner.data.local_db.favMeals.FavouriteLocalDataSource;
@@ -23,12 +20,9 @@ import com.example.foodplanner.data.model.Meal;
 import com.example.foodplanner.data.model.MealsRepositoryImpl;
 import com.example.foodplanner.data.network.ProductRemoteDataSourceImpl;
 import com.example.foodplanner.screens.Card.view.MealCardActivity;
-import com.example.foodplanner.screens.sharedMainActivity.DailyInsperationAllMeals.MinimizedMealCard.presenter.InsperMealsPresenterImp;
-
+import com.example.foodplanner.screens.sharedMainActivity.dailyInspirationMeals.presenter.InsperMealsPresenterImp;
 
 public class DailyInspFragment extends Fragment implements InsperMealsView {
-
-    private static final String TAG = "team";
     LinearLayoutManager linearLayoutManager;
     InsperMealsPresenterImp insperMealsPresenter;
     TextView mealName;

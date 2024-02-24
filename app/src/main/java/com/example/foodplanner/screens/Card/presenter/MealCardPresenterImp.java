@@ -9,8 +9,10 @@ import com.example.foodplanner.data.model.Meal;
 import com.example.foodplanner.data.model.MealsRepositoryImpl;
 import com.example.foodplanner.data.model.MealsResponse;
 import com.example.foodplanner.screens.Card.view.MealCardView;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observable;
@@ -22,7 +24,6 @@ public class MealCardPresenterImp implements MealCardPresenter {
     MealCardView mealCardView;
     MealsRepositoryImpl repository;
     Context context;
-    String TAG = "TAG";
 
     public MealCardPresenterImp(MealCardView mealCardView, MealsRepositoryImpl repository, Context context) {
         this.mealCardView = mealCardView;
@@ -36,25 +37,27 @@ public class MealCardPresenterImp implements MealCardPresenter {
         observable.observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<MealsResponse>() {
                     @Override
-                    public void onSubscribe(@NonNull Disposable d) {}
+                    public void onSubscribe(@NonNull Disposable d) {
+                    }
 
                     @Override
                     public void onNext(@NonNull MealsResponse mealsResponse) {
-                       if (mealsResponse.meals != null && !mealsResponse.meals.isEmpty()) {
+                        if (mealsResponse.meals != null && !mealsResponse.meals.isEmpty()) {
                             mealCardView.setThisMealAtCard(mealsResponse.meals.get(0));
                         } else
                             mealCardView.notGetTheMealDetails("we try to get your meal ,but not found, try another meal");
                     }
+
                     @Override
                     public void onError(@NonNull Throwable e) {
                         mealCardView.notGetTheMealDetails(e.getMessage());
                     }
 
                     @Override
-                    public void onComplete() {}
+                    public void onComplete() {
+                    }
                 });
     }
-
 
     @Override
     public ArrayList<Ingredient> getIngredients(Meal meal) {

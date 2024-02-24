@@ -26,8 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class AreaActivity extends AppCompatActivity implements AreaView , Filterable {
-    // it is better to make the filter in the activity and adopter responiblity as only show
+public class AreaActivity extends AppCompatActivity implements AreaView, Filterable {
+
     private AreaAdapter areaAdapter;
     private RecyclerView recyclerView;
     private EditText selectByAreaName;
@@ -53,9 +53,6 @@ public class AreaActivity extends AppCompatActivity implements AreaView , Filter
         recyclerView.setLayoutManager(linearLayoutManager);
         progressBar.setVisibility(View.VISIBLE);
 
-//        Observable<List<Area>> observable = Observable.fromArray(areaArrayList);
-//        observable.subscribe(list -> {
-
         selectByAreaName.addTextChangedListener(new TextWatcher() {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -71,16 +68,16 @@ public class AreaActivity extends AppCompatActivity implements AreaView , Filter
             public void afterTextChanged(Editable s) {
             }
         });
-//    });
     }
 
     @Override
     public void showData(ArrayList<Area> areaArrayList) {
         areaAdapter = new AreaAdapter(this, areaArrayList);
-        allAreaList= new ArrayList<>(areaArrayList);
+        allAreaList = new ArrayList<>(areaArrayList);
         recyclerView.setAdapter(areaAdapter);
         progressBar.setVisibility(View.GONE);
     }
+
     @Override
     public Filter getFilter() {
         return filter;
@@ -90,7 +87,6 @@ public class AreaActivity extends AppCompatActivity implements AreaView , Filter
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             List<Area> filteredList = allAreaList.stream()
-//                     area.getStrArea()
                     .filter(area -> constraint.toString().isEmpty() ||
                             area.getStrArea().toLowerCase().contains(constraint.toString().toLowerCase()))
                     .collect(Collectors.toList());
@@ -101,7 +97,7 @@ public class AreaActivity extends AppCompatActivity implements AreaView , Filter
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-           areaAdapter.setAreaList((List<Area>) results.values);
+            areaAdapter.setAreaList((List<Area>) results.values);
             areaAdapter.notifyDataSetChanged();
         }
     };

@@ -3,6 +3,7 @@ package com.example.foodplanner.data.network;
 import com.example.foodplanner.data.model.AreaResponse;
 import com.example.foodplanner.data.model.CategoryResponse;
 import com.example.foodplanner.data.model.MealsResponse;
+
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -10,7 +11,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ProductRemoteDataSourceImpl {
-    private static final String TAG = "team";
     private static final String BASE_URL = "https://www.themealdb.com/api/json/v1/1/";
     MealsService pService;
 
@@ -56,12 +56,5 @@ public class ProductRemoteDataSourceImpl {
         return pService.getMealsByIngredient(ingName)
                 .subscribeOn(Schedulers.io());
     }
-// not require ,his cycle not completed. made in data base only
-//    public Observable<IngredientResponse> getIngredient() {
-//        return pService.getIngredient()
-//                .subscribeOn(Schedulers.io());
-//    }
-
-
 }
 
