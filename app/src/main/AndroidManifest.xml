@@ -17,11 +17,6 @@
         android:theme="@style/Theme.FoodPlanner">
 
         <activity android:name=".screens.sharedMainActivity.BasicSharedScreen.view.MainScreenActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
             ></activity>
         <activity android:name=".screens.sharedMainActivity.search.Ingredients.View.SearchByIngredient"></activity>
         <activity android:name=".screens.sharedMainActivity.search.Area.View.AreaMealsActivity"></activity>
@@ -31,7 +26,13 @@
         <activity android:name=".screens.logIn.view.loginActivity"></activity>
         <activity android:name=".screens.logIn.view.loginEnterUser"></activity>
         <activity android:name=".screens.signUp.view.signUPActivity"></activity>
-        <activity android:name=".SplashScreenActivity"> </activity>
+        <activity android:name=".SplashScreenActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            > </activity>
         <activity android:name=".screens.Card.view.ChossePlannedDay"></activity>
         <activity android:name=".screens.Card.view.MealCardActivity"></activity>
 
