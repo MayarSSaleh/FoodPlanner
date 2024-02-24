@@ -154,7 +154,6 @@ public class PlannedLocalDataSourceImpl {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-
                     mealDAO.delete(plannedMeal);
                     Firebase.removePlannedMealFromFirebase(plannedMeal, context);
 
@@ -167,8 +166,6 @@ public class PlannedLocalDataSourceImpl {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Log.d("keep", " on insert to plan: " + meal.getPlannedMeal().getName());
-
                 mealDAO.insert(meal);
             }
         }).start();

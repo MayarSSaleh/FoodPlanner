@@ -32,19 +32,14 @@ public class SplashScreenActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Log.d("d","d2");
                 if ((check.equals("true"))) {
                     Intent intent = new Intent(SplashScreenActivity.this, MainScreenActivity.class);
                     startActivity(intent);
                     finish();
-                    Log.d("d","d3");
-
                 } else {
                     Intent intent = new Intent(SplashScreenActivity.this, loginActivity.class);
                     startActivity(intent);
                     finish();
-                    Log.d("d","d4");
-
                 }
             }
         }, 3000);

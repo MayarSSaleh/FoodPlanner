@@ -81,7 +81,6 @@ public class loginEnterUser extends AppCompatActivity {
                                         String errorMessage = exception.getMessage();
                                         Toast.makeText(getApplicationContext(), "Authentication failed as " + errorMessage,
                                                 Toast.LENGTH_SHORT).show();
-                                        Log.d("TAG", "Authentication failed: " + errorMessage);
                                     } else {
                                         Toast.makeText(getApplicationContext(), "Authentication failed",Toast.LENGTH_SHORT).show();
                                     }
