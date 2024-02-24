@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.foodplanner.R;
 import com.example.foodplanner.screens.logIn.view.loginActivity;
@@ -123,9 +124,13 @@ public class MainScreenActivity extends AppCompatActivity {
                 .setMessage("Are you sure you want log out ?!!")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        mainScreenPresenterImp.logOut(googleSignInClient);
-                        Intent i = new Intent(getApplicationContext(), loginActivity.class);
+                       boolean succeed= mainScreenPresenterImp.logOut(googleSignInClient);
+                       if (succeed)
+                       { Intent i = new Intent(getApplicationContext(), loginActivity.class);
                         startActivity(i);
+                    }else {
+                           Toast.makeText(MainScreenActivity.this, "Please connect with internet first , Then make logout to keep your data save", Toast.LENGTH_LONG).show();
+                       }
                     }
                 });
         AlertDialog dialog = builder.create();

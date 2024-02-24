@@ -36,7 +36,7 @@ public class FragSearchView extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.search, container, false);
         etSearchByMeal = view.findViewById(R.id.et_searchByMeal);
-        searchByIng = view.findViewById(R.id.img_ingr);
+        searchByIng = view.findViewById(R.id.img_ing);
         searchByCateg = view.findViewById(R.id.img_Categories);
         searchByAre = view.findViewById(R.id.img_countery);
         searchByName = view.findViewById(R.id.btn_search);
@@ -55,7 +55,6 @@ public class FragSearchView extends Fragment {
                 startActivity(intent);
             }
         });
-
 
         searchByIng.setOnClickListener(new View.OnClickListener() {
             @Override

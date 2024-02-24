@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodplanner.R;
-import com.example.foodplanner.data.local_db.favMeals.FaviourtLocalDataSource;
+import com.example.foodplanner.data.local_db.favMeals.FavouriteLocalDataSource;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedLocalDataSourceImpl;
-import com.example.foodplanner.data.model.MealCard;
+import com.example.foodplanner.data.model.Meal;
 import com.example.foodplanner.data.model.MealsRepositoryImpl;
 import com.example.foodplanner.data.network.ProductRemoteDataSourceImpl;
 import com.example.foodplanner.screens.sharedMainActivity.search.Area.Presenter.AreaMealsPresenterImp;
@@ -26,7 +26,7 @@ public class AreaMealsActivity extends AppCompatActivity implements AreaMealsVie
     RecyclerView recyclerView;
     MealsRepositoryImpl mealsRepository;
     ProductRemoteDataSourceImpl prductRemoteDataSource;
-    FaviourtLocalDataSource prodcutsLocalDataSource;
+    FavouriteLocalDataSource prodcutsLocalDataSource;
     PlannedLocalDataSourceImpl plannedLocalDataSource;
     AreaMealsPresenterImp areaMealsPresenterImp;
     ProgressBar progressBar;
@@ -38,7 +38,7 @@ public class AreaMealsActivity extends AppCompatActivity implements AreaMealsVie
         setContentView(R.layout.show_all_area_meals);
         progressBar=findViewById(R.id.progressBarInIngredientMeals);
         prductRemoteDataSource = new ProductRemoteDataSourceImpl();
-        prodcutsLocalDataSource = new FaviourtLocalDataSource(this);
+        prodcutsLocalDataSource = new FavouriteLocalDataSource(this);
         plannedLocalDataSource = new PlannedLocalDataSourceImpl(this);
         mealsRepository = MealsRepositoryImpl.getInstance(prductRemoteDataSource, prodcutsLocalDataSource, plannedLocalDataSource);
         areaMealsPresenterImp = new AreaMealsPresenterImp(mealsRepository, this);
@@ -56,7 +56,7 @@ public class AreaMealsActivity extends AppCompatActivity implements AreaMealsVie
     }
 
     @Override
-    public void showData(ArrayList<MealCard> categories) {
+    public void showData(ArrayList<Meal> categories) {
         progressBar.setVisibility(View.GONE);
         areaMealsAdapter = new AreaMealsAdapter(this, categories);
         recyclerView.setAdapter(areaMealsAdapter);

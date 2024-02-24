@@ -9,9 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodplanner.R;
-import com.example.foodplanner.data.local_db.favMeals.FaviourtLocalDataSource;
+import com.example.foodplanner.data.local_db.favMeals.FavouriteLocalDataSource;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedLocalDataSourceImpl;
-import com.example.foodplanner.data.model.MealCard;
+import com.example.foodplanner.data.model.Meal;
 import com.example.foodplanner.data.model.MealsRepositoryImpl;
 import com.example.foodplanner.data.network.ProductRemoteDataSourceImpl;
 import com.example.foodplanner.screens.sharedMainActivity.search.Ingredients.Presenter.IngredientMealsPresenterImp;
@@ -24,7 +24,7 @@ public class SearchByIngredient extends AppCompatActivity implements IngredientM
     LinearLayoutManager linearLayoutManager;
     MealsRepositoryImpl mealsRepository;
     ProductRemoteDataSourceImpl prductRemoteDataSource;
-    FaviourtLocalDataSource prodcutsLocalDataSource;
+    FavouriteLocalDataSource prodcutsLocalDataSource;
     PlannedLocalDataSourceImpl plannedLocalDataSource;
     IngredientMealsPresenterImp ingredientMealsPresenterImp;
     EditText searchByIngredient;
@@ -40,7 +40,7 @@ public class SearchByIngredient extends AppCompatActivity implements IngredientM
         searchByIngredient=findViewById(R.id.ed_search_by);
 
         prductRemoteDataSource = new ProductRemoteDataSourceImpl();
-        prodcutsLocalDataSource = new FaviourtLocalDataSource(this);
+        prodcutsLocalDataSource = new FavouriteLocalDataSource(this);
         plannedLocalDataSource = new PlannedLocalDataSourceImpl(this);
         mealsRepository = MealsRepositoryImpl.getInstance(prductRemoteDataSource, prodcutsLocalDataSource, plannedLocalDataSource);
         ingredientMealsPresenterImp= new IngredientMealsPresenterImp(mealsRepository,this);
@@ -60,7 +60,7 @@ public class SearchByIngredient extends AppCompatActivity implements IngredientM
     }
 
     @Override
-    public void showData(ArrayList<MealCard> meals) {
+    public void showData(ArrayList<Meal> meals) {
         specificIngredientMealsAdaptor = new SpecificIngredientMealsAdaptor(this, meals);
         recyclerView.setAdapter(specificIngredientMealsAdaptor);
     }

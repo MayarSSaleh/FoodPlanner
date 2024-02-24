@@ -13,11 +13,11 @@ import androidx.lifecycle.Observer;
 
 import com.example.foodplanner.R;
 import com.example.foodplanner.data.local_db.APPDataBase;
-import com.example.foodplanner.data.local_db.favMeals.FaviourtLocalDataSource;
+import com.example.foodplanner.data.local_db.favMeals.FavouriteLocalDataSource;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedLocalDataSourceImpl;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedMeals;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedMealsDAO;
-import com.example.foodplanner.data.model.MealCard;
+import com.example.foodplanner.data.model.Meal;
 import com.example.foodplanner.data.model.MealsRepositoryImpl;
 import com.example.foodplanner.data.network.ProductRemoteDataSourceImpl;
 import com.example.foodplanner.screens.Card.presenter.MealCardPresenterImp;
@@ -26,30 +26,30 @@ import java.util.List;
 
 public class ChossePlannedDay extends AppCompatActivity {
     private static final String TAG = "TAG";
-    TextView sta, sun, mon, tues, wed, thu, friday;
+    TextView saturday, sunday, monday, tuesday, wednesday, thursday, friday;
     MealCardPresenterImp mealCardPresenterImp;
-    MealCard planeThisMeal;
+    Meal planeThisMeal;
     MealCardView mealCardView;
     MealsRepositoryImpl repository;
     ProductRemoteDataSourceImpl productRemoteDataSource;
-    FaviourtLocalDataSource prodcutsLocalDataSource;
+    FavouriteLocalDataSource prodcutsLocalDataSource;
     PlannedLocalDataSourceImpl plannedLocalDataSource;
     List<PlannedMeals> allPlannedmeals;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fra_choose_the_day);
+        setContentView(R.layout.choose_the_day);
         userInterface();
         setOnClickListenersForDays();
         productRemoteDataSource = new ProductRemoteDataSourceImpl();
-        prodcutsLocalDataSource = new FaviourtLocalDataSource(this);
+        prodcutsLocalDataSource = new FavouriteLocalDataSource(this);
         plannedLocalDataSource = new PlannedLocalDataSourceImpl(this);
         repository = MealsRepositoryImpl.getInstance(productRemoteDataSource, prodcutsLocalDataSource, plannedLocalDataSource);
         mealCardPresenterImp = new MealCardPresenterImp(mealCardView, repository, ChossePlannedDay.this);
 
         Intent intent = getIntent();
-        planeThisMeal = (MealCard) intent.getSerializableExtra("myObject");
+        planeThisMeal = (Meal) intent.getSerializableExtra("myObject");
 
         APPDataBase db = APPDataBase.getInstance(ChossePlannedDay.this);
         PlannedMealsDAO dao = db.getPlannedMealsDAO();
@@ -57,35 +57,32 @@ public class ChossePlannedDay extends AppCompatActivity {
         savedMeals.observe(this, new Observer<List<PlannedMeals>>() {
             @Override
             public void onChanged(List<PlannedMeals> lifeSavedMeals) {
-
                 allPlannedmeals = lifeSavedMeals;
             }
         });
     }
 
     private void userInterface(){
-        sta = findViewById(R.id.tv_saturday);
-        sun = findViewById(R.id.tv_suunday);
-        mon = findViewById(R.id.tv_monday);
-        tues = findViewById(R.id.tv_tuesday);
-        wed = findViewById(R.id.tv_wednesday);
-        thu = findViewById(R.id.tv_thursday);
+        saturday = findViewById(R.id.tv_saturday);
+        sunday = findViewById(R.id.tv_sunday);
+        monday = findViewById(R.id.tv_monday);
+        tuesday = findViewById(R.id.tv_tuesday);
+        wednesday = findViewById(R.id.tv_wednesday);
+        thursday = findViewById(R.id.tv_thursday);
         friday = findViewById(R.id.tv_friday);
     }
 
-
     private void setOnClickListenersForDays(){
-        sta.setOnClickListener(new View.OnClickListener() {
+        saturday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mealCardPresenterImp.addToPlan(allPlannedmeals, planeThisMeal, "Saturday");
                 Toast.makeText(ChossePlannedDay.this, "The meal added to the plan", Toast.LENGTH_SHORT).show();
                 finish();
-                Log.i(TAG, "onClick: of Saturday choose planed day ");
             }
         });
 
-        sun.setOnClickListener(new View.OnClickListener() {
+        sunday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mealCardPresenterImp.addToPlan(allPlannedmeals, planeThisMeal, "Sunday");
@@ -94,7 +91,7 @@ public class ChossePlannedDay extends AppCompatActivity {
             }
         });
 
-        mon.setOnClickListener(new View.OnClickListener() {
+        monday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mealCardPresenterImp.addToPlan(allPlannedmeals, planeThisMeal, "Monday");
@@ -103,7 +100,7 @@ public class ChossePlannedDay extends AppCompatActivity {
             }
         });
 
-        tues.setOnClickListener(new View.OnClickListener() {
+        tuesday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(ChossePlannedDay.this, "The meal added to the plan", Toast.LENGTH_SHORT).show();
@@ -112,7 +109,7 @@ public class ChossePlannedDay extends AppCompatActivity {
             }
         });
 
-        wed.setOnClickListener(new View.OnClickListener() {
+        wednesday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mealCardPresenterImp.addToPlan(allPlannedmeals, planeThisMeal, "Wednesday");
@@ -121,7 +118,7 @@ public class ChossePlannedDay extends AppCompatActivity {
             }
         });
 
-        thu.setOnClickListener(new View.OnClickListener() {
+        thursday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mealCardPresenterImp.addToPlan(allPlannedmeals, planeThisMeal, "Thursday");

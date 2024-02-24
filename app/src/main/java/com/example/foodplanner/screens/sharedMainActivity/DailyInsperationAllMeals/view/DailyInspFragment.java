@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,9 +17,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.R;
-import com.example.foodplanner.data.local_db.favMeals.FaviourtLocalDataSource;
+import com.example.foodplanner.data.local_db.favMeals.FavouriteLocalDataSource;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedLocalDataSourceImpl;
-import com.example.foodplanner.data.model.MealCard;
+import com.example.foodplanner.data.model.Meal;
 import com.example.foodplanner.data.model.MealsRepositoryImpl;
 import com.example.foodplanner.data.network.ProductRemoteDataSourceImpl;
 import com.example.foodplanner.screens.Card.view.MealCardActivity;
@@ -34,7 +33,7 @@ public class DailyInspFragment extends Fragment implements InsperMealsView {
     InsperMealsPresenterImp insperMealsPresenter;
     TextView mealName;
     ImageView mealImage;
-    MealCard dailyInsperationMeal;
+    Meal dailyInsperationMeal;
 
     public DailyInspFragment() {
     }
@@ -46,7 +45,7 @@ public class DailyInspFragment extends Fragment implements InsperMealsView {
         mealName = rootView.findViewById(R.id.tv_meal_name_daily);
         mealImage = rootView.findViewById(R.id.img_mealDaily);
         insperMealsPresenter = new InsperMealsPresenterImp(MealsRepositoryImpl.getInstance(new ProductRemoteDataSourceImpl(),
-                new FaviourtLocalDataSource(getContext()), new PlannedLocalDataSourceImpl(getContext())), DailyInspFragment.this);
+                new FavouriteLocalDataSource(getContext()), new PlannedLocalDataSourceImpl(getContext())), DailyInspFragment.this);
         insperMealsPresenter.getAllProducts();
         return rootView;
     }
@@ -65,7 +64,7 @@ public class DailyInspFragment extends Fragment implements InsperMealsView {
     }
 
     @Override
-    public void showData(MealCard mealCard) {
+    public void showData(Meal mealCard) {
         if (getActivity() == null) return;
         mealName.setText(mealCard.getName());
         dailyInsperationMeal = mealCard;

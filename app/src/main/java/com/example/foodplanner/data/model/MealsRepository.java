@@ -1,10 +1,7 @@
 package com.example.foodplanner.data.model;
 
 import android.content.Context;
-
 import androidx.lifecycle.LifecycleOwner;
-
-import com.example.foodplanner.data.local_db.favMeals.FavMeals;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedMeals;
 import java.util.List;
 import io.reactivex.rxjava3.core.Completable;
@@ -15,15 +12,20 @@ public interface MealsRepository {
     String TAG = "TAG";
 
 
-    void addPlannedMealToFirebaseRepo(LifecycleOwner lifecycleOwner, Context context);
+    Completable insertInFavTable(Meal mealCard, Context c);
 
-    void removeAllPlannedMeals();
+    void addPlannedMealToFirebaseRepoThenRemoveLocal(LifecycleOwner lifecycleOwner, Context context);
+
+
+    void deletePlannedMeals();
 
     void insertFromFirebaseToLocalPlanTable(PlannedMeals meal);
 
-    Completable insertFromFirbaseToLocalFavTable(FavMeals favmeal);
+     Flowable<List<Meal>> getStoredFvProduct();
 
-     Flowable<List<FavMeals>> getStoredFvProduct();
+    Completable insertFromFirbaseToLocalFavTable(Meal favmeal);
+
+    Completable deleteFromFav(Meal mealCard, Context context);
 
     Completable deleteAllFav();
 
@@ -41,18 +43,13 @@ public interface MealsRepository {
 
     Observable<AreaResponse> getAreas();
 //    Observable<IngredientResponse> getIngredient();
-
-    //>>>>>>>>>>>>>>>>>>>>>>...for fav<<<<<<<<<
-
-    Completable insertinFavTable(FavMeals favmeal, MealCard mealCard, Context c);
-
-    Completable deleteFromFav(FavMeals favMeal, MealCard mealCard, Context context);
-
+    
 
     //>>>>>>>>>>>>>>>>>>>>>>...for plan<<<<<<<<<
-    void insertintoPlanTable(List<PlannedMeals> meals, PlannedMeals plannedMeal, String day);
 
-    void deleteFromPlanTable(PlannedMeals plannedMeal, String day);
+    void insertInToPlanTable(List<PlannedMeals> meals, PlannedMeals plannedMeal, String day, Context context);
+
+    void deleteFromPlanTable(PlannedMeals plannedMeal, String day, Context context);
 
     void getUserData(Context context);
 }

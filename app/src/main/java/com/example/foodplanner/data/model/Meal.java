@@ -1,15 +1,25 @@
 package com.example.foodplanner.data.model;
 
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+import com.example.foodplanner.data.local_db.ConvertersIngredientsList;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MealCard implements Serializable {
+@Entity(tableName = "favMeals_table")
+@TypeConverters(ConvertersIngredientsList.class)
 
+public class Meal implements Serializable {
 
+    @PrimaryKey
+    @NonNull
     @SerializedName("idMeal")
     String mealId;
     @SerializedName("strMeal")
@@ -103,21 +113,27 @@ public class MealCard implements Serializable {
     @SerializedName("strInstructions")
     String steps;
 
+// check if empty ,so it is new meal
+    List<Ingredient> allIngredient = new ArrayList<>();
+    boolean isFav;
 
-    List<Ingredient> allingredient = new ArrayList<>();
-
-    boolean fav;
-    boolean plan;    //if click add to plan button make value = true and opposite
-
-    public MealCard() {
+    public boolean isFav() {
+        return isFav;
     }
 
-    public List<Ingredient> getAllingredient() {
-        return allingredient;
+    public void setFav(boolean fav) {
+        isFav = fav;
     }
 
-    public void setAllingredient(List<Ingredient> allingredient) {
-        this.allingredient = allingredient;
+    public Meal() {
+    }
+
+    public List<Ingredient> getAllIngredient() {
+        return allIngredient;
+    }
+
+    public void setAllIngredient(List<Ingredient> allIngredient) {
+        this.allIngredient = allIngredient;
     }
 
     public String getMealId() {
@@ -486,20 +502,6 @@ public class MealCard implements Serializable {
 
     public void setSteps(String steps) {
         this.steps = steps;
-    }
-
-    public boolean isFav() {
-        return fav;
-    }
-
-    public void setFav(boolean fav) { this.fav = fav; }
-
-    public boolean isPlan() {
-        return plan;
-    }
-
-    public void setPlan(boolean plan) {
-        this.plan = plan;
     }
 
 }

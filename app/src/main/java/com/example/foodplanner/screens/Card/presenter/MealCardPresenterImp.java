@@ -1,21 +1,16 @@
 package com.example.foodplanner.screens.Card.presenter;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.example.foodplanner.data.local_db.favMeals.FavMeals;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedMeals;
 import com.example.foodplanner.data.model.Ingredient;
-import com.example.foodplanner.data.model.MealCard;
+import com.example.foodplanner.data.model.Meal;
 import com.example.foodplanner.data.model.MealsRepositoryImpl;
 import com.example.foodplanner.data.model.MealsResponse;
-import com.example.foodplanner.screens.Card.view.MealCardActivity;
 import com.example.foodplanner.screens.Card.view.MealCardView;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observable;
@@ -27,6 +22,7 @@ public class MealCardPresenterImp implements MealCardPresenter {
     MealCardView mealCardView;
     MealsRepositoryImpl repository;
     Context context;
+    String TAG = "TAG";
 
     public MealCardPresenterImp(MealCardView mealCardView, MealsRepositoryImpl repository, Context context) {
         this.mealCardView = mealCardView;
@@ -35,43 +31,36 @@ public class MealCardPresenterImp implements MealCardPresenter {
     }
 
     @Override
-    public void getMealDetailsofThisMeal(String mealName) {
+    public void getMealDetailsOfThisMeal(String mealName) {
         Observable<MealsResponse> observable = repository.getMealDetails(mealName);
         observable.observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<MealsResponse>() {
                     @Override
-                    public void onSubscribe(@NonNull Disposable d) {
-                    }
+                    public void onSubscribe(@NonNull Disposable d) {}
 
                     @Override
                     public void onNext(@NonNull MealsResponse mealsResponse) {
-//                        Log.d("daaaaaaaaa",":::  "  + mealsResponse.meals.size());
-//                        Log.d("daaaaaaaaa",":::  "  + mealsResponse.meals.get(0).getName());
-                        if ( mealsResponse.meals != null && !mealsResponse.meals.isEmpty()) {
+                       if (mealsResponse.meals != null && !mealsResponse.meals.isEmpty()) {
                             mealCardView.setThisMealAtCard(mealsResponse.meals.get(0));
-                        }
-                        else    mealCardView.notGetTheMealDetails("we try to get your meal ,but not found, try another meal");
-
+                        } else
+                            mealCardView.notGetTheMealDetails("we try to get your meal ,but not found, try another meal");
                     }
-
                     @Override
                     public void onError(@NonNull Throwable e) {
-
                         mealCardView.notGetTheMealDetails(e.getMessage());
                     }
 
                     @Override
-                    public void onComplete() {
-                    }
+                    public void onComplete() {}
                 });
     }
 
 
     @Override
-    public ArrayList<Ingredient> getIngredients(MealCard meal) {
+    public ArrayList<Ingredient> getIngredients(Meal meal) {
         ArrayList<Ingredient> ingredientsList = new ArrayList<>();
 
-        if (meal.getAllingredient().isEmpty()) {
+        if (meal.getAllIngredient().isEmpty()) {
             if (meal.getIngr1() != null && !meal.getIngr1().isEmpty())
                 ingredientsList.add(new Ingredient(meal.getIngr1(), meal.getIngr1m()));
             if (meal.getIngr2() != null && !meal.getIngr2().isEmpty())
@@ -114,57 +103,45 @@ public class MealCardPresenterImp implements MealCardPresenter {
                 ingredientsList.add(new Ingredient(meal.getIngr20(), meal.getIngr20m()));
             }
         } else {
-
-            ingredientsList.addAll(meal.getAllingredient());
+            ingredientsList.addAll(meal.getAllIngredient());
         }
         return ingredientsList;
     }
 
     @Override
-    public void addToPlan(List<PlannedMeals> meals, MealCard mealCard, String day) {
+    public void addToPlan(List<PlannedMeals> meals, Meal mealCard, String day) {
         PlannedMeals newMeal = new PlannedMeals();
-        newMeal.setName(mealCard.getName());
-        newMeal.setMealId(mealCard.getMealId());
-        newMeal.setCountry(mealCard.getCountry());
-        newMeal.setPhotourl(mealCard.getPhotourl());
-        newMeal.setVideoUrl(mealCard.getVideoUrl());
-        newMeal.setAllingredient(mealCard.getAllingredient());
-        newMeal.setFav(mealCard.isFav());
-        newMeal.setSteps(mealCard.getSteps());
-        Log.i(TAG, "mealCard day " + day);
-
-        if (day.equals("Saturday")) {
-            newMeal.setSaturday(true);
-        } else if (day.equals("Sunday")) {
-            newMeal.setSunday(true);
-        } else if (day.equals("Monday")) {
-            newMeal.setMonday(true);
-        } else if (day.equals("Tuesday")) {
-            newMeal.setTuesday(true);
-        } else if (day.equals("Wednesday")) {
-            newMeal.setWednesday(true);
-        } else if (day.equals("Thursday")) {
-            newMeal.setThursday(true);
-        } else if (day.equals("Friday")) {
-            newMeal.setFriday(true);
+        switch (day) {
+            case "Saturday":
+                newMeal.setSaturday(true);
+                break;
+            case "Sunday":
+                newMeal.setSunday(true);
+                break;
+            case "Monday":
+                newMeal.setMonday(true);
+                break;
+            case "Tuesday":
+                newMeal.setTuesday(true);
+                break;
+            case "Wednesday":
+                newMeal.setWednesday(true);
+                break;
+            case "Thursday":
+                newMeal.setThursday(true);
+                break;
+            case "Friday":
+                newMeal.setFriday(true);
+                break;
         }
-//        Log.i(TAG, "in meal card presenter imp ");
-        repository.insertintoPlanTable(meals, newMeal, day);
+        newMeal.setMealId(mealCard.getMealId());
+        newMeal.setPlannedMeal(mealCard);
+        repository.insertInToPlanTable(meals, newMeal, day, context);
     }
 
-
     @Override
-    public void addtoDataBaseFavMeal(MealCard mealCard) {
-        FavMeals newFavMeal = new FavMeals();
-        newFavMeal.setName(mealCard.getName());
-        newFavMeal.setMealId(mealCard.getMealId());
-        newFavMeal.setCountry(mealCard.getCountry());
-        newFavMeal.setPhotourl(mealCard.getPhotourl());
-        newFavMeal.setVideoUrl(mealCard.getVideoUrl());
-        newFavMeal.setAllingredient(mealCard.getAllingredient());
-        newFavMeal.setFav(true);
-        newFavMeal.setSteps(mealCard.getSteps());
-        repository.insertinFavTable(newFavMeal, mealCard, context)
+    public void addToDataBaseFavMeal(Meal mealCard) {
+        repository.insertInFavTable(mealCard, context)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -178,54 +155,17 @@ public class MealCardPresenterImp implements MealCardPresenter {
     }
 
     @Override
-    public void removeFeomDBfavMeal(MealCard mealCard) {
-        FavMeals newFavMeal = new FavMeals();
-        newFavMeal.setMealId(mealCard.getMealId());
-        repository.deleteFromFav(newFavMeal, mealCard, context)
+    public void removeFromDBFavMeal(Meal mealCard) {
+        repository.deleteFromFav(mealCard, context)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         () -> {
-                            Toast.makeText(context, "Removed from your Favouirt", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Removed from your Favouirte", Toast.LENGTH_SHORT).show();
                         },
                         error -> {
                         }
                 );
-    }
-
-    String TAG = "TAG";
-
-    public void showThisFavMeal(FavMeals favMeal) {
-
-        MealCard mealCard = new MealCard();
-        mealCard.setMealId(favMeal.getMealId());
-        mealCard.setName(favMeal.getName());
-        mealCard.setCountry(favMeal.getCountry());
-        mealCard.setAllingredient(favMeal.getAllingredient());
-//        Log.i(TAG, "showThisFavMeal:fav .getsteps " + favMeal.getSteps());
-        mealCard.setSteps(favMeal.getSteps());
-//        Log.i(TAG, "mealCard " + mealCard.getSteps());
-
-        mealCard.setFav(true);
-        mealCard.setPhotourl(favMeal.getPhotourl());
-        mealCard.setVideoUrl(favMeal.getVideoUrl());
-        mealCardView.setThisMealAtCard(mealCard);
-    }
-
-    public void showThisPlannedMeal(PlannedMeals plannedMeal) {
-        MealCard mealCard = new MealCard();
-        mealCard.setMealId(plannedMeal.getMealId());
-        mealCard.setName(plannedMeal.getName());
-        mealCard.setCountry(plannedMeal.getCountry());
-        mealCard.setAllingredient(plannedMeal.getAllingredient());
-        Log.i(TAG, "showThisFavMeal:fav .getsteps " + plannedMeal.getSteps());
-        mealCard.setSteps(plannedMeal.getSteps());
-        Log.i(TAG, "mealCard " + mealCard.getSteps());
-        mealCard.setFav(plannedMeal.isFav());
-        mealCard.setPhotourl(plannedMeal.getPhotourl());
-        mealCard.setVideoUrl(plannedMeal.getVideoUrl());
-        mealCardView.setThisMealAtCard(mealCard);
-
     }
 
 }

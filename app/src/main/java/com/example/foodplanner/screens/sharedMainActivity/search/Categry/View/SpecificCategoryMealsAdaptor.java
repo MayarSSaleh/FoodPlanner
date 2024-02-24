@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.R;
-import com.example.foodplanner.data.model.MealCard;
+import com.example.foodplanner.data.model.Meal;
 import com.example.foodplanner.screens.Card.view.MealCardActivity;
 
 import java.util.List;
@@ -21,10 +21,10 @@ import java.util.List;
 public class SpecificCategoryMealsAdaptor extends RecyclerView.Adapter<SpecificCategoryMealsAdaptor.CategoryMealViewHolder> {
 
     private Context context;
-    private List<MealCard> mealCards; // expexted open the website
+    private List<Meal> mealCards; // expexted open the website
     String TAG = "TAG";
 
-    public SpecificCategoryMealsAdaptor(Context context, List<MealCard> mealCards) {
+    public SpecificCategoryMealsAdaptor(Context context, List<Meal> mealCards) {
         this.context = context;
         this.mealCards = mealCards;
     }
@@ -38,7 +38,7 @@ public class SpecificCategoryMealsAdaptor extends RecyclerView.Adapter<SpecificC
 
     @Override
     public void onBindViewHolder(@NonNull SpecificCategoryMealsAdaptor.CategoryMealViewHolder holder, int position) {
-        MealCard current = mealCards.get(position);
+        Meal current = mealCards.get(position);
 //        Log.i(TAG, "on binding" + current.getName());
         holder.nameTextView.setText(current.getName());
         Glide.with(context).load(current.getPhotourl()).into(holder.imageView);

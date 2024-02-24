@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import java.util.List;
@@ -14,28 +15,7 @@ public interface PlannedMealsDAO {
     @Query("SELECT * From plannedMeals_table")
     public LiveData<List<PlannedMeals>> getAllPlannedMeals();
 
-    @Query("SELECT * FROM plannedMeals_table WHERE Saturday =true ")
-    public LiveData<List<PlannedMeals>> getSaturdayPlannedMeals();
-
-    @Query("SELECT * FROM plannedMeals_table WHERE Sunday =true ")
-    public LiveData<List<PlannedMeals>> getSundayPlannedMeals();
-
-    @Query("SELECT * FROM plannedMeals_table WHERE Monday =true ")
-    public LiveData<List<PlannedMeals>> getMondayPlannedMeals();
-
-    @Query("SELECT * FROM plannedMeals_table WHERE Tuesday =true ")
-    public LiveData<List<PlannedMeals>> getTuesdayPlannedMeals();
-
-    @Query("SELECT * FROM plannedMeals_table WHERE Wednesday =true ")
-    public LiveData<List<PlannedMeals>> getWednesdayPlannedMeals();
-
-    @Query("SELECT * FROM plannedMeals_table WHERE Thursday =true ")
-    public LiveData<List<PlannedMeals>> getThursdayPlannedMeals();
-
-    @Query("SELECT * FROM plannedMeals_table WHERE Friday =true ")
-    public LiveData<List<PlannedMeals>> getFridayPlannedMeals();
-
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     public void insert(PlannedMeals plannedMeals);
 
     @Query("UPDATE plannedMeals_table SET Saturday = :sign WHERE mealId = :mealId")

@@ -3,7 +3,7 @@ package com.example.foodplanner.screens.sharedMainActivity.plan.presenter;
 import android.content.Context;
 import android.util.Log;
 
-import com.example.foodplanner.data.local_db.favMeals.FaviourtLocalDataSource;
+import com.example.foodplanner.data.local_db.favMeals.FavouriteLocalDataSource;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedLocalDataSourceImpl;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedMeals;
 import com.example.foodplanner.data.model.MealsRepositoryImpl;
@@ -25,7 +25,7 @@ public class PlanMealsPresenterImp implements PlanMealPresenter {
     List<PlannedMeals> FridayAllMeals;
     MealsRepositoryImpl repository;
     ProductRemoteDataSourceImpl productRemoteDataSource;
-    FaviourtLocalDataSource prodcutsLocalDataSource;
+    FavouriteLocalDataSource prodcutsLocalDataSource;
     PlannedLocalDataSourceImpl plannedLocalDataSource;
 
 
@@ -39,8 +39,6 @@ public class PlanMealsPresenterImp implements PlanMealPresenter {
         WednesdayallMeals=new ArrayList<>();
         ThursdayallMeals=new ArrayList<>();
         FridayAllMeals=new ArrayList<>();
-        String TAG="TAG";
-        Log.i(TAG, "CollectMealsAcoordingDay:allMeals SIZE "+ allMeals.size());
 
         for (PlannedMeals meal : allMeals) {
             if (meal.isSaturday()) {
@@ -77,12 +75,12 @@ public class PlanMealsPresenterImp implements PlanMealPresenter {
 
     @Override
     public void removeFromPlan(PlannedMeals meal, String day, Context context) {
-        Log.d("TAG, ","onClick: remove in plan presenert");
+//        Log.d("TAG, ","onClick: remove in plan presenert");
 
         productRemoteDataSource = new ProductRemoteDataSourceImpl();
-        prodcutsLocalDataSource = new FaviourtLocalDataSource(context);
+        prodcutsLocalDataSource = new FavouriteLocalDataSource(context);
         plannedLocalDataSource = new PlannedLocalDataSourceImpl(context);
         repository = MealsRepositoryImpl.getInstance(productRemoteDataSource, prodcutsLocalDataSource, plannedLocalDataSource);
-        repository.deleteFromPlanTable(meal,day);
+        repository.deleteFromPlanTable(meal,day,context);
     }
 }

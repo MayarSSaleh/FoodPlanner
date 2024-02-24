@@ -1,43 +1,41 @@
 package com.example.foodplanner.data.local_db.favMeals;
 
 import android.content.Context;
-import android.util.Log;
 
-import com.example.foodplanner.data.firebase.UpdateFirebase;
 import com.example.foodplanner.data.local_db.APPDataBase;
+import com.example.foodplanner.data.model.Meal;
 
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
 
-// i write imp after the name of calss as we can make interface , but for now we didinot
-public class FaviourtLocalDataSource {
+public class FavouriteLocalDataSource {
     private static final String TAG = "team";
     private Context context;
     private FavMealsDAO mealDAO;
-    private Flowable<List<FavMeals>> storedFvProduct;
-    private static FaviourtLocalDataSource rep = null;
+    private Flowable<List<Meal>> storedFvProduct;
+    private static FavouriteLocalDataSource rep = null;
 
-    public FaviourtLocalDataSource(Context context) {
+    public FavouriteLocalDataSource(Context context) {
         this.context = context;
         APPDataBase db = APPDataBase.getInstance(context);
         mealDAO = db.getFavMealsDAO();
         storedFvProduct = mealDAO.getAllFavProducts();
     }
 
-    public static FaviourtLocalDataSource getInstance(Context context ) {
+    public static FavouriteLocalDataSource getInstance(Context context ) {
         if (rep == null) {
-            rep = new FaviourtLocalDataSource(context );
+            rep = new FavouriteLocalDataSource(context );
         }
         return rep;
     }
 
-    public Flowable<List<FavMeals>> getStoredFvProduct() {
+    public Flowable<List<Meal>> getStoredFvProduct() {
         return mealDAO.getAllFavProducts();
     }
 
-    public Completable delete(FavMeals mealCard) {
+    public Completable delete(Meal mealCard) {
         return mealDAO.deleteFromFav(mealCard);
     }
 
@@ -45,8 +43,7 @@ public class FaviourtLocalDataSource {
         return mealDAO.deleteAll();
     }
 
-    public Completable insert(FavMeals mealCard) {
-//        Log.d("keep", "insert method to conform the inserrrrrrrrrtiion");
+    public Completable insert(Meal mealCard) {
         return mealDAO.insertToFav(mealCard);
     }
 

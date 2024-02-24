@@ -52,4 +52,9 @@
     <string name="skip">Skip</string>
     <string name="user_email">user email</string>
     <string name="mayar_saleh">Mayar saleh</string>
+    <string name="food_planner">Food Planner</string>
+    <string name="discover_new_meals">Discover New Meals</string>
+    <string name="click_here_to_search_by_ingredient">click here,To Search by ingredient</string>
+    <string name="click_here">Click here</string>
+    <string name="ingredient">Ingredient</string>
 </resources>

@@ -12,17 +12,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.R;
-import com.example.foodplanner.data.model.MealCard;
+import com.example.foodplanner.data.model.Meal;
 import com.example.foodplanner.screens.Card.view.MealCardActivity;
 import java.util.List;
 
 public class AreaMealsAdapter extends RecyclerView.Adapter<AreaMealsAdapter.AreaViewHolder> {
 
     private Context context;
-    private List<MealCard> mealCards;
+    private List<Meal> mealCards;
     String TAG = "TAG";
 
-    public AreaMealsAdapter(Context context, List<MealCard> mealCards) {
+    public AreaMealsAdapter(Context context, List<Meal> mealCards) {
         this.context = context;
         this.mealCards = mealCards;
     }
@@ -36,7 +36,7 @@ public class AreaMealsAdapter extends RecyclerView.Adapter<AreaMealsAdapter.Area
 
     @Override
     public void onBindViewHolder(@NonNull AreaMealsAdapter.AreaViewHolder holder, int position) {
-        MealCard current = mealCards.get(position);
+        Meal current = mealCards.get(position);
 //        Log.i(TAG, "on binding" + current.getName());
         holder.nameTextView.setText(current.getName());
         Glide.with(context).load(current.getPhotourl()).into(holder.imageView);

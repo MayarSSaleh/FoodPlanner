@@ -44,8 +44,8 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.DaysViewHolder
     @Override
     public void onBindViewHolder(@NonNull DaysAdapter.DaysViewHolder holder, int position) {
         PlannedMeals current = plannedMealsforAday.get(position);
-        holder.mealName.setText(current.getName());
-        Glide.with(context).load(current.getPhotourl()).into(holder.mealImage);
+         holder.mealName.setText(current.getPlannedMeal().getName());
+        Glide.with(context).load(current.getPlannedMeal().getPhotourl()).into(holder.mealImage);
         holder.mealImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,7 +62,6 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.DaysViewHolder
             }
         }
         );
-//        Log.i(TAG, "onBindViewHolder: "+ current.getName() + current.getPhotourl());
     }
 
     @Override

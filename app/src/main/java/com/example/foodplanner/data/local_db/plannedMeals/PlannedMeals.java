@@ -4,52 +4,40 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
-import com.example.foodplanner.data.local_db.Converters;
-import com.example.foodplanner.data.model.Ingredient;
-
+import com.example.foodplanner.data.local_db.ConvertMeal;
+import com.example.foodplanner.data.model.Meal;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity(tableName = "plannedMeals_table")
-@TypeConverters(Converters.class)
+@TypeConverters(ConvertMeal.class)
+public class PlannedMeals implements Serializable {
 
-public class PlannedMeals implements Serializable  {
     @PrimaryKey
     @NonNull
     String mealId;
-    String name;
-    boolean Saturday,Monday,Tuesday,Wednesday,Thursday,Sunday,Friday;
-    String photourl;
-    String country;
-    String videoUrl;
-    List<Ingredient> allingredient = new ArrayList<>();
-    String steps;
-    boolean isFav;
-    boolean isinplan;    //if click add to plan button make value = true and opposite
 
-    public boolean isFriday() {
-        return Friday;
+    Meal plannedMeal;
+    boolean Saturday, Monday, Tuesday, Wednesday, Thursday, Sunday, Friday;
+
+    public PlannedMeals() {
     }
 
-    public void setFriday(boolean friday) {
-        Friday = friday;
-    }
 
+    @NonNull
     public String getMealId() {
         return mealId;
     }
 
-    public void setMealId(String mealId) {
+    public void setMealId(@NonNull String mealId) {
         this.mealId = mealId;
     }
 
-    public List<Ingredient> getAllingredient() {
-        return allingredient;
+    public Meal getPlannedMeal() {
+        return plannedMeal;
     }
 
-    public void setAllingredient(List<Ingredient> allingredient) {
-        this.allingredient = allingredient;
+    public void setPlannedMeal(Meal plannedMeal) {
+        this.plannedMeal = plannedMeal;
     }
 
     public boolean isSaturday() {
@@ -100,64 +88,12 @@ public class PlannedMeals implements Serializable  {
         Sunday = sunday;
     }
 
-    @NonNull
-    public String getName() {
-        return name;
+    public boolean isFriday() {
+        return Friday;
     }
 
-    public void setName(@NonNull String name) {
-        this.name = name;
-    }
-
-    public String getPhotourl() {
-        return photourl;
-    }
-
-    public void setPhotourl(String photourl) {
-        this.photourl = photourl;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getVideoUrl() {
-        return videoUrl;
-    }
-
-    public void setVideoUrl(String videoUrl) {
-        this.videoUrl = videoUrl;
-    }
-
-    public String getSteps() {
-        return steps;
-    }
-
-    public void setSteps(String steps) {
-        this.steps = steps;
-    }
-
-    public boolean isFav() {
-        return isFav;
-    }
-
-    public void setFav(boolean fav) {
-        isFav = fav;
-    }
-
-    public boolean isIsinplan() {
-        return isinplan;
-    }
-
-    public void setIsinplan(boolean isinplan) {
-        this.isinplan = isinplan;
-    }
-
-    public PlannedMeals() {
+    public void setFriday(boolean friday) {
+        Friday = friday;
     }
 }
 

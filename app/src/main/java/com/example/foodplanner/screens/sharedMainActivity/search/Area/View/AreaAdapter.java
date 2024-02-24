@@ -1,32 +1,45 @@
 package com.example.foodplanner.screens.sharedMainActivity.search.Area.View;
+
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.foodplanner.R;
 import com.example.foodplanner.data.model.Area;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.AreaViewHolder> implements Filterable {
-
+public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.AreaViewHolder> {
     private Context context;
     private List<Area> areaList;
-    private List<Area> allAreaList;// as original
 
     public AreaAdapter(Context context, List<Area> areaList) {
         this.context = context;
         this.areaList = areaList;
-        this.allAreaList = new ArrayList<>(areaList);
+    }
+
+    String[] countryCodes = {
+            "US", "GB", "CA", "CN", "HR", "NL", "EG", "PH", "FR", "GR",
+            "IN", "IE", "IT", "JM", "JP", "KE", "MY", "MX", "MA", "PL",
+            "PT", "RU", "ES", "TH", "TN", "TR", "FM", "VN"
+    };
+
+    void setAreaList(List<Area> areaList) {
+        this.areaList = areaList;
     }
 
     @NonNull
@@ -38,9 +51,15 @@ public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.AreaViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull AreaViewHolder holder, int position) {
-
         Area current = areaList.get(position);
+        String countryCode = countryCodes[position];
+
         holder.tv_areaName.setText(current.getStrArea());
+//https://flagsapi.com/US/flat/64.png
+        Glide.with(context).load("https://flagsapi.com/" + countryCode + "/flat/64.png")
+                .apply(new RequestOptions().override(120, 64))
+                .into(holder.AreaMealImage);
+
         holder.tv_areaName.setOnClickListener(v -> {
             Intent intent = new Intent(context, AreaMealsActivity.class);
             intent.putExtra("areaName", current.getStrArea());
@@ -55,36 +74,13 @@ public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.AreaViewHolder
 
     static class AreaViewHolder extends RecyclerView.ViewHolder {
         TextView tv_areaName;
+        ImageView AreaMealImage;
 
         public AreaViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_areaName = itemView.findViewById(R.id.tv_areaName);
+            AreaMealImage = itemView.findViewById(R.id.img_area);
         }
     }
 
-    @Override
-    public Filter getFilter() {
-        return filter;
-    }
-
-    Filter filter = new Filter() {
-        @Override
-        protected FilterResults performFiltering(CharSequence constraint) {
-            List<Area> filteredList = allAreaList.stream()
-//                     area.getStrArea()
-                    .filter(area -> constraint.toString().isEmpty() ||
-                            area.getStrArea().toLowerCase().contains(constraint.toString().toLowerCase()))
-                    .collect(Collectors.toList());
-            FilterResults filterResults = new FilterResults();
-            filterResults.values = filteredList;
-            return filterResults;
-        }
-
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-            areaList.clear();
-            areaList.addAll((List<Area>) results.values);
-            notifyDataSetChanged();
-        }
-    };
 }

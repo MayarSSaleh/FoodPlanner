@@ -1,10 +1,8 @@
 package com.example.foodplanner.screens.sharedMainActivity.DailyInsperationAllMeals.MinimizedMealCard.view;
 
-import com.example.foodplanner.data.model.MealCard;
-
-import java.util.List;
+import com.example.foodplanner.data.model.Meal;
 
 public interface InsperMealsView {
-    public void showData (MealCard mealCard);
+    public void showData (Meal mealCard);
     public void showErrMsg(String error);
 }

@@ -1,8 +1,8 @@
 package com.example.foodplanner.screens.Card.view;
 
-import com.example.foodplanner.data.model.MealCard;
+import com.example.foodplanner.data.model.Meal;
 
 public interface OnAddToPlanClickListener {
-    public void addToPlan(MealCard mealCard);
+    public void addToPlan(Meal mealCard);
 
 }

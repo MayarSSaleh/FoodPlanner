@@ -6,7 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.List;
 
-public class Converters {
+public class ConvertersIngredientsList {
     @TypeConverter
     public static List<Ingredient> fromString(String value) {
         Type listType = new TypeToken<List<Ingredient>>() {}.getType();

@@ -2,9 +2,8 @@ package com.example.foodplanner.screens.sharedMainActivity.BasicSharedScreen.pre
 
 import static android.content.Context.MODE_PRIVATE;
 
-import com.example.foodplanner.data.local_db.favMeals.FaviourtLocalDataSource;
+import com.example.foodplanner.data.local_db.favMeals.FavouriteLocalDataSource;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedLocalDataSourceImpl;
-import com.example.foodplanner.data.model.MealsRepository;
 import com.example.foodplanner.data.model.MealsRepositoryImpl;
 import com.example.foodplanner.data.network.ProductRemoteDataSourceImpl;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -16,8 +15,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
-import android.widget.Toast;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LifecycleOwner;
@@ -38,14 +37,14 @@ public class MainScreenPresenterImp implements MainScreenPresenter {
     LifecycleOwner lifeCycleOwner;
 
 
-    public MainScreenPresenterImp(Context context, FirebaseUser user, GoogleSignInAccount account,LifecycleOwner lifeCycleOwner) {
+    public MainScreenPresenterImp(Context context, FirebaseUser user, GoogleSignInAccount account, LifecycleOwner lifeCycleOwner) {
         this.context = context;
         this.user = user;
         this.account = account;
-       this.lifeCycleOwner=lifeCycleOwner;
+        this.lifeCycleOwner = lifeCycleOwner;
         this.repository = MealsRepositoryImpl.getInstance(
                 new ProductRemoteDataSourceImpl(),
-                new FaviourtLocalDataSource(context),
+                new FavouriteLocalDataSource(context),
                 new PlannedLocalDataSourceImpl(context)
         );
     }
@@ -55,7 +54,6 @@ public class MainScreenPresenterImp implements MainScreenPresenter {
         if (user == null && account == null)
             isGuest = true;
         else {
-            Log.d("keep", "inside is gurst fun  is guest = fales");
             isGuest = false;
             saveAcount();
             logInSoGetTheData(context);
@@ -71,45 +69,54 @@ public class MainScreenPresenterImp implements MainScreenPresenter {
         editor.apply();
     }
 
-
     void logInSoGetTheData(Context context) {
-//        Log.d("keep", "inside is login so get the data fun " + user.getUid() + "  "+ user.getEmail());
-//        Toast.makeText(context, "get user data", Toast.LENGTH_SHORT).show();
-        repository.getUserData(context );
+        repository.getUserData(context);
     }
 
 
     @Override
-    public void logOut(GoogleSignInClient googleSignInClient) {
-        if (user != null) {
-            FirebaseAuth.getInstance().signOut();
-        }
-        if (account != null) {
-            googleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                }
-            });
-        }
-        repository.deleteAllFav()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        () -> {
-//                            Toast.makeText(context, "Removed Favouirt DATA SUCCF", Toast.LENGTH_SHORT).show();
-                        },
-                        error -> {
-//                            Toast.makeText(context, " FAUILT IN Removed Favouirt DATA", Toast.LENGTH_SHORT).show();
+    public boolean logOut(GoogleSignInClient googleSignInClient) {
+        if (isNetworkConnected()) {
+            if (user != null) {
+                FirebaseAuth.getInstance().signOut();
+            }
+            if (account != null) {
+                googleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                    }
+                });
+            }
 
-                        }
-                );
-        repository.addPlannedMealToFirebaseRepo( lifeCycleOwner,context);
-//        Toast.makeText(context, " after add plan and before remove", Toast.LENGTH_SHORT).show();
+            repository.deleteAllFav()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            () -> {
+                            },
+                            error -> {
+                            }
+                    );
+            repository.deletePlannedMeals();
+            removeTheUser();
+            return true;
+        }
+        return false;
+    }
 
-        repository.removeAllPlannedMeals();
+    void removeTheUser() {
         sharedPreferences = context.getSharedPreferences(SHARED_PREFS, 0);
         editor = sharedPreferences.edit();
         editor.putString("email", "");
         editor.apply();
+    }
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager != null) {
+            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+            return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+        }
+        return false;
     }
 }

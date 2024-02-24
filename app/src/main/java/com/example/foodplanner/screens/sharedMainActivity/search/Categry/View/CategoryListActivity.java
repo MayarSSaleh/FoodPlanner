@@ -13,16 +13,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodplanner.R;
-import com.example.foodplanner.data.local_db.favMeals.FaviourtLocalDataSource;
+import com.example.foodplanner.data.local_db.favMeals.FavouriteLocalDataSource;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedLocalDataSourceImpl;
 import com.example.foodplanner.data.model.Category;
 import com.example.foodplanner.data.model.MealsRepositoryImpl;
 import com.example.foodplanner.data.network.ProductRemoteDataSourceImpl;
-import com.example.foodplanner.screens.sharedMainActivity.search.Area.View.AreaActivity;
 import com.example.foodplanner.screens.sharedMainActivity.search.Categry.Presenter.CategoryPresenterImp;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class CategoryListActivity extends AppCompatActivity implements CategoryView {
 
@@ -32,7 +30,7 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryV
     CategoryPresenterImp categoryPresenter;
     MealsRepositoryImpl mealsRepository;
     ProductRemoteDataSourceImpl productRemoteDataSource;
-    FaviourtLocalDataSource prodcutsLocalDataSource;
+    FavouriteLocalDataSource prodcutsLocalDataSource;
     PlannedLocalDataSourceImpl plannedLocalDataSource;
     EditText et_searchbyCategory;
     ProgressBar progressBar;

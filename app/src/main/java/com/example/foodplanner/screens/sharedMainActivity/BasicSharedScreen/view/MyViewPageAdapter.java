@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.foodplanner.screens.sharedMainActivity.DailyInsperationAllMeals.MinimizedMealCard.view.DailyInspFragment;
-import com.example.foodplanner.screens.sharedMainActivity.favMeals.favList.views.FragFavMeals;
+import com.example.foodplanner.screens.sharedMainActivity.favMeals.views.FragFavMeals;
 import com.example.foodplanner.screens.sharedMainActivity.plan.view.PlanFragment;
 import com.example.foodplanner.screens.sharedMainActivity.search.mainSearchScreen.view.FragSearchView;
 

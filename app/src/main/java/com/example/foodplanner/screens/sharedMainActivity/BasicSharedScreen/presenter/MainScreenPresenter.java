@@ -8,5 +8,5 @@ public interface MainScreenPresenter {
 
     void saveAcount();
 
-    void logOut(GoogleSignInClient googleSignInClient);
+    boolean logOut(GoogleSignInClient googleSignInClient);
 }

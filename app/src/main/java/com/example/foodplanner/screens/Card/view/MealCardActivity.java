@@ -21,11 +21,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.R;
-import com.example.foodplanner.data.local_db.favMeals.FavMeals;
-import com.example.foodplanner.data.local_db.favMeals.FaviourtLocalDataSource;
+import com.example.foodplanner.data.local_db.favMeals.FavouriteLocalDataSource;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedLocalDataSourceImpl;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedMeals;
-import com.example.foodplanner.data.model.MealCard;
+import com.example.foodplanner.data.model.Meal;
 import com.example.foodplanner.data.model.MealsRepositoryImpl;
 import com.example.foodplanner.data.network.ProductRemoteDataSourceImpl;
 import com.example.foodplanner.screens.Card.presenter.MealCardPresenterImp;
@@ -37,12 +36,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MealCardActivity extends AppCompatActivity implements MealCardView, OnAddORrmoveFavClickListener {
-    //    String videoUrl = "https://www.example.com/your_video.mp4";
+public class MealCardActivity extends AppCompatActivity implements MealCardView, OnAddORemoveFavClickListener {
     public static final String FAV_OBJECT = "FavObject";
     public static final String PLANNED_MEAL = "planned_meal";
-
-    MealCard currentMeal = new MealCard();
+    Meal currentMeal = new Meal();
     String TAG = "TAG";
     private ImageView mealImage;
     private ImageView favStatus;
@@ -60,7 +57,7 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
     Drawable drawable;
     MealsRepositoryImpl mealsRepository;
     ProductRemoteDataSourceImpl productRemoteDataSource;
-    FaviourtLocalDataSource prodcutsLocalDataSource;
+    FavouriteLocalDataSource prodcutsLocalDataSource;
     PlannedLocalDataSourceImpl plannedLocalDataSource;
     FirebaseAuth auth;
     FirebaseUser user;
@@ -77,14 +74,12 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
         googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
         account = GoogleSignIn.getLastSignedInAccount(this);
-
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         productRemoteDataSource = new ProductRemoteDataSourceImpl();
-        prodcutsLocalDataSource = new FaviourtLocalDataSource(this);
+        prodcutsLocalDataSource = new FavouriteLocalDataSource(this);
         plannedLocalDataSource = new PlannedLocalDataSourceImpl(this);
         mealsRepository = MealsRepositoryImpl.getInstance(productRemoteDataSource, prodcutsLocalDataSource, plannedLocalDataSource);
-
         UI();
         ingredientsAdapter = new IngredientsAdapter(this);
         intent = getIntent();
@@ -92,27 +87,25 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
 
         /////to get from fav
-//        Log.i(TAG, "intent" + intent.hasExtra(FAV_OBJECT));
-        FavMeals current = (FavMeals) intent.getSerializableExtra(FAV_OBJECT);
-//        Log.i(TAG, "on card" + current);
+        Meal current = (Meal) intent.getSerializableExtra(FAV_OBJECT);
         if (current != null) {
-            mealCardPresenterImp.showThisFavMeal(current);
+            setThisMealAtCard(current);
         }
 
 // get from planned
         PlannedMeals plannedMeal = (PlannedMeals) intent.getSerializableExtra(PLANNED_MEAL);
         if (plannedMeal != null) {
-            mealCardPresenterImp.showThisPlannedMeal(plannedMeal);
+            setThisMealAtCard(plannedMeal.getPlannedMeal());
         }
 //to get object from daily insper
-        MealCard inspMeal = (MealCard) intent.getSerializableExtra("object");
+        Meal inspMeal = (Meal) intent.getSerializableExtra("object");
         if (inspMeal != null) {
             setThisMealAtCard(inspMeal);
         }
 // come from list or search by name
         String mealComeFromList = intent.getStringExtra("mealName");
         if (mealComeFromList != null) {
-            mealCardPresenterImp.getMealDetailsofThisMeal(mealComeFromList);
+            mealCardPresenterImp.getMealDetailsOfThisMeal(mealComeFromList);
         }
         handlingSetonAction();
     }
@@ -127,33 +120,25 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
         favStatus = findViewById(R.id.img_fav);
         drawable = favStatus.getDrawable();
         addToPlanButton = findViewById(R.id.btn_add_to_plan);
-
     }
 
     @Override
-    public void setThisMealAtCard(MealCard mealCard) {
-//        Log.d(TAG, "First: " + mealCard.getName());
+    public void setThisMealAtCard(Meal mealCard) {
         currentMeal = mealCard;
-//        Log.d(TAG, "second: " + currentMeal.getName());
         mealName.setText(mealCard.getName());
         country.setText(mealCard.getCountry());
         ingS_recyclerView.setLayoutManager(new LinearLayoutManager(this));
         if (!mealCard.isFav()) {
-//            Log.d(TAG, "getIngr1: " + mealCard.getIngr1() + currentMeal);
-//            Log.d(TAG, "mealCard: " + mealCard.getIngr1() + mealCard);
-
-            currentMeal.setAllingredient(mealCardPresenterImp.getIngredients(mealCard));
+            currentMeal.setAllIngredient(mealCardPresenterImp.getIngredients(mealCard));
             ingredientsAdapter.setIngredientsList(mealCardPresenterImp.getIngredients(mealCard));
         } else {
-            ingredientsAdapter.setIngredientsList(currentMeal.getAllingredient());
+            ingredientsAdapter.setIngredientsList(currentMeal.getAllIngredient());
         }
         ingredientsAdapter.notifyDataSetChanged();
         ingS_recyclerView.setAdapter(ingredientsAdapter);
         allSteps.setText(mealCard.getSteps());
         Glide.with(MealCardActivity.this).load(mealCard.getPhotourl()).into(mealImage);
-//        Log.d(TAG, "VIDEO URL: " + mealCard.getVideoUrl());
-//        updatefavImageAccordingActullayStatus(mealCard.getMealId());
-        updatefavImageAccordingActullayStatus(mealCard);
+        updateFavImageAccordingActuallyStatus(mealCard);
 
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient());
@@ -162,14 +147,14 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
 
     @Override
     public void notGetTheMealDetails(String error) {
-        Toast.makeText(MealCardActivity.this, "Sorry, we can not get the meal,check your internet connection and try another meal " , Toast.LENGTH_LONG).show();
-    finish();
+        Toast.makeText(MealCardActivity.this, "Sorry, we can not get the meal,check your internet connection and try another meal ", Toast.LENGTH_LONG).show();
+        finish();
     }
 
     public void handlingSetonAction() {
         addToPlanButton.setOnClickListener(view -> {
             if (user == null && account == null) {
-                youWantTologIn();
+                youWantTologin();
                 Toast.makeText(MealCardActivity.this, "Login to add to plan ", Toast.LENGTH_LONG).show();
             } else {
                 Intent intent = new Intent(MealCardActivity.this, ChossePlannedDay.class);
@@ -182,7 +167,7 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
             public void onClick(View v) {
                 Drawable drawable = favStatus.getDrawable();
                 if (user == null && account == null) {
-                    youWantTologIn();
+                    youWantTologin();
                     Toast.makeText(MealCardActivity.this, "Login to add to favourite ", Toast.LENGTH_SHORT).show();
                 } else {
                     if (isFav) {
@@ -191,23 +176,20 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
                         favStatus.setImageDrawable(drawable);
                         currentMeal.setFav(false);
                         removeFromFav(currentMeal);
-//                    finish();
                     } else {
                         drawable.setColorFilter(ContextCompat.getColor(MealCardActivity.this, com.google.android.material.R.color.design_dark_default_color_error), PorterDuff.Mode.SRC_IN);
                         favStatus.setImageDrawable(drawable);
                         isFav = true;
                         currentMeal.setFav(true);
-
-                        currentMeal.setAllingredient(mealCardPresenterImp.getIngredients(currentMeal));
+                        currentMeal.setAllIngredient(mealCardPresenterImp.getIngredients(currentMeal));
                         addToFav(currentMeal);
                     }
                 }
             }
         });
     }
-//|| ! mealCard.isFav()
 
-    public void updatefavImageAccordingActullayStatus(MealCard mealCard) {
+    public void updateFavImageAccordingActuallyStatus(Meal mealCard) {
         Drawable drawable = favStatus.getDrawable();
         if (user == null && account == null) {
             drawable.setColorFilter(null);
@@ -227,15 +209,16 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
     }
 
     @Override
-    public void addToFav(MealCard currentMeal) {
-        mealCardPresenterImp.addtoDataBaseFavMeal(currentMeal);
+    public void addToFav(Meal currentMeal) {
+        mealCardPresenterImp.addToDataBaseFavMeal(currentMeal);
     }
 
     @Override
-    public void removeFromFav(MealCard currentMeal) {
-        mealCardPresenterImp.removeFeomDBfavMeal(currentMeal);
+    public void removeFromFav(Meal currentMeal) {
+        mealCardPresenterImp.removeFromDBFavMeal(currentMeal);
     }
-    void youWantTologIn() {
+
+    void youWantTologin() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MealCardActivity.this);
         builder.setTitle("Hi Chef")
                 .setMessage("            let's Login to start cooking?")
@@ -247,7 +230,5 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
                 });
         AlertDialog dialog = builder.create();
         dialog.show();
-
     }
-
 }

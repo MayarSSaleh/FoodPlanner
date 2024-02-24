@@ -17,13 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.R;
-import com.example.foodplanner.data.local_db.favMeals.FaviourtLocalDataSource;
-import com.example.foodplanner.data.local_db.plannedMeals.PlannedLocalDataSourceImpl;
-import com.example.foodplanner.data.model.Area;
 import com.example.foodplanner.data.model.Category;
-import com.example.foodplanner.data.model.MealsRepositoryImpl;
-import com.example.foodplanner.data.network.ProductRemoteDataSourceImpl;
-import com.example.foodplanner.screens.sharedMainActivity.search.Categry.Presenter.CategoryPresenterImp;
 
 import java.util.ArrayList;
 import java.util.List;

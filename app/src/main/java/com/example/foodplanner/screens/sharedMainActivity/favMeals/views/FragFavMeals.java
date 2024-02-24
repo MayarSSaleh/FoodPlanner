@@ -1,4 +1,4 @@
-package com.example.foodplanner.screens.sharedMainActivity.favMeals.favList.views;
+package com.example.foodplanner.screens.sharedMainActivity.favMeals.views;
 
 import android.os.Bundle;
 
@@ -12,12 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.foodplanner.R;
-import com.example.foodplanner.data.local_db.favMeals.FavMeals;
-import com.example.foodplanner.data.local_db.favMeals.FaviourtLocalDataSource;
+import com.example.foodplanner.data.local_db.favMeals.FavouriteLocalDataSource;
 import com.example.foodplanner.data.local_db.plannedMeals.PlannedLocalDataSourceImpl;
+import com.example.foodplanner.data.model.Meal;
 import com.example.foodplanner.data.model.MealsRepositoryImpl;
 import com.example.foodplanner.data.network.ProductRemoteDataSourceImpl;
-import com.example.foodplanner.screens.sharedMainActivity.favMeals.favList.presenter.FavMealsPresnterImp;
+import com.example.foodplanner.screens.sharedMainActivity.favMeals.presenter.FaveMealsPresenterImp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,53 +27,38 @@ import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class FragFavMeals extends Fragment implements FraFavMeals {
-    private static final String TAG = "team";
     FavMiniMealsCardAdaptor miniMealsCardAdaptor;
     RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
     MealsRepositoryImpl repository;
-    ProductRemoteDataSourceImpl productRemoteDataSource;
-    FaviourtLocalDataSource prodcutsLocalDataSource;
-    PlannedLocalDataSourceImpl plannedLocalDataSource;
-    List<FavMeals> favMealsList;
-    FavMealsPresnterImp presenterImp;
-
+    List<Meal> favMealsList;
+    FaveMealsPresenterImp presenterImp;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fav_meals, container, false);
         recyclerView = rootView.findViewById(R.id.fav_recycle);
-
-        productRemoteDataSource = new ProductRemoteDataSourceImpl();
-        prodcutsLocalDataSource = new FaviourtLocalDataSource(requireContext());
-        plannedLocalDataSource = new PlannedLocalDataSourceImpl(requireContext());
-        repository = MealsRepositoryImpl.getInstance(productRemoteDataSource, prodcutsLocalDataSource, plannedLocalDataSource);
+        repository = MealsRepositoryImpl.getInstance(new ProductRemoteDataSourceImpl(), new FavouriteLocalDataSource(requireContext()), new PlannedLocalDataSourceImpl(requireContext()));
         linearLayoutManager = new LinearLayoutManager(getContext());
         favMealsList = new ArrayList<>();
         miniMealsCardAdaptor = new FavMiniMealsCardAdaptor(getContext(), favMealsList);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(miniMealsCardAdaptor);
-        Log.i(TAG, "on creation of fav");
-        presenterImp = new FavMealsPresnterImp(repository);
+        presenterImp = new FaveMealsPresenterImp(repository);
         showFavProdcuts();
         return rootView;
     }
 
     @Override
     public void showFavProdcuts() {
-//        Log.d("keep", "in show fav pro");
-//        miniMealsCardAdaptor.setList(test);
-//        Log.d("keep", "after mini");
-        Flowable<List<FavMeals>> theFav = presenterImp.getStoredFvProduct();
-        theFav.subscribeOn(Schedulers.io())
+        Flowable<List<Meal>> storedFvProduct = presenterImp.getStoredFvProduct();
+        storedFvProduct.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(meals -> {
                     if (!meals.isEmpty()) {
-//                        Log.d("keep", "after mini" + meals.get(0).getName() + "    " + meals.size());
                         miniMealsCardAdaptor.setList(meals);
-                    } else {
-//                        Log.d("keep", "meals list is empty");
+                        miniMealsCardAdaptor.notifyDataSetChanged();
                     }
                 });
     }

@@ -5,6 +5,6 @@ import java.util.ArrayList;
 // the incoming was arraylist of products so i make in class a method taks arrarylist of prodcut
 
 public class MealsResponse {
-     public ArrayList <MealCard> meals;
+     public ArrayList <Meal> meals;
 
 }

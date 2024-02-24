@@ -17,12 +17,10 @@ public class WeekAdapter extends RecyclerView.Adapter<WeekAdapter.DaysViewHolder
     Context context;
     List<DayMeals> dayMeals;
     DaysAdapter daysAdapter;
-    String TAG = "a";
 
     public WeekAdapter(Context context, List<DayMeals> dayMeals) {
         this.context = context;
         this.dayMeals = dayMeals;
-//        Log.i(TAG, "WeekAdapter: " + dayMeals.size());
     }
 
     @NonNull
