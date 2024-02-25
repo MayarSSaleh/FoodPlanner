@@ -28,12 +28,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="@string/mayar_saleh"
+            android:fontFamily="@font/berkshire_swash"
             android:layout_marginVertical="10dp"
             android:layout_marginEnd="10dp"
             android:textColor="@color/black"
             android:textStyle="bold"
             android:textSize="24sp"
-
             />
     </androidx.appcompat.widget.Toolbar>
 

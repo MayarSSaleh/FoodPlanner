@@ -1,6 +1,8 @@
 package com.example.foodplanner.screens.sharedMainActivity.plan.view;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -55,7 +57,16 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.DaysViewHolder
         holder.removeFromPlan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new PlanMealsPresenterImp().removeFromPlan(current, day, context);
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Hi Chef")
+                        .setMessage("Remove the meal from "+ day + " plan?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                new PlanMealsPresenterImp().removeFromPlan(current, day, context);
+                            }
+                        });
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         }
         );

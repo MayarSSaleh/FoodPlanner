@@ -7,6 +7,8 @@ import com.example.foodplanner.data.model.Meal;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Flowable;
+
 public interface MealCardPresenter {
     void getMealDetailsOfThisMeal(String meal);
     ArrayList<Ingredient> getIngredients(Meal meal);
@@ -14,4 +16,5 @@ public interface MealCardPresenter {
     public void addToDataBaseFavMeal(Meal mealCard);
     public void removeFromDBFavMeal(Meal mealCard);
 
+    Flowable<Boolean> isInFavMeals(Meal checkThisMeal);
 }

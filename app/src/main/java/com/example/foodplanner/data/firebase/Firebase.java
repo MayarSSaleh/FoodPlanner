@@ -30,7 +30,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class Firebase {
 
-    
+
     static DatabaseReference planDB;
     static String currentUserId;
 

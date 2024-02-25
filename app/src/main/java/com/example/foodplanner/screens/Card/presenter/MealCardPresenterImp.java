@@ -15,6 +15,7 @@ import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
@@ -170,5 +171,18 @@ public class MealCardPresenterImp implements MealCardPresenter {
                         }
                 );
     }
-
+    @Override
+    public Flowable<Boolean> isInFavMeals (Meal checkThisMeal) {
+        return repository.getStoredFvProduct()
+                .map(meals -> {
+                    if (meals.isEmpty()) {
+                        return false;
+                    } else {
+                        return meals.stream()
+                                .anyMatch(meal -> checkThisMeal.getMealId().equals(meal.getMealId()));
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 }

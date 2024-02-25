@@ -36,6 +36,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import io.reactivex.rxjava3.functions.Consumer;
+
 public class MealCardActivity extends AppCompatActivity implements MealCardView, OnAddORemoveFavClickListener {
     public static final String FAV_OBJECT = "FavObject";
     public static final String PLANNED_MEAL = "planned_meal";
@@ -92,6 +94,7 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
         allSteps = findViewById(R.id.steps);
         favStatus = findViewById(R.id.img_fav);
         drawable = favStatus.getDrawable();
+        drawable.setColorFilter(null);
         addToPlanButton = findViewById(R.id.btn_add_to_plan);
     }
 
@@ -115,7 +118,6 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
         String mealComeFromList = intent.getStringExtra("mealName");
         if (mealComeFromList != null) {
             mealCardPresenterImp.getMealDetailsOfThisMeal(mealComeFromList);
-
         }
     }
 
@@ -167,11 +169,7 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
                     Toast.makeText(MealCardActivity.this, "Login to add to favourite ", Toast.LENGTH_SHORT).show();
                 } else {
                     if (isFav) {
-                        isFav = false;
-                        drawable.setColorFilter(null);
-                        favStatus.setImageDrawable(drawable);
-                        currentMeal.setFav(false);
-                        removeFromFav(currentMeal);
+                        conformRemoveMeal(currentMeal);
                     } else {
                         drawable.setColorFilter(ContextCompat.getColor(MealCardActivity.this, com.google.android.material.R.color.design_dark_default_color_error), PorterDuff.Mode.SRC_IN);
                         favStatus.setImageDrawable(drawable);
@@ -185,7 +183,24 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
         });
     }
 
-    public void updateFavImageAccordingActuallyStatus(Meal mealCard) {
+    private void conformRemoveMeal(Meal currentMeal) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MealCardActivity.this);
+        builder.setTitle("Hi  Chef")
+                .setMessage("Remove the meal from favourite list?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        isFav = false;
+                        drawable.setColorFilter(null);
+                        favStatus.setImageDrawable(drawable);
+                        currentMeal.setFav(false);
+                        removeFromFav(currentMeal);
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void updateFavImageAccordingActuallyStatus(Meal mealCard) {
         Drawable drawable = favStatus.getDrawable();
         if (user == null && account == null) {
             drawable.setColorFilter(null);
@@ -197,14 +212,26 @@ public class MealCardActivity extends AppCompatActivity implements MealCardView,
                 favStatus.setImageDrawable(drawable);
                 isFav = true;
             } else {
-                drawable.setColorFilter(null);
-                favStatus.setImageDrawable(drawable);
-                isFav = false;
+                mealCardPresenterImp.isInFavMeals(mealCard)
+                        .subscribe(new Consumer<Boolean>() {
+                            @Override
+                            public void accept(Boolean isFavorite) throws Exception {
+                                if (isFavorite) {
+                                    drawable.setColorFilter(ContextCompat.getColor(MealCardActivity.this, com.google.android.material.R.color.design_dark_default_color_error), PorterDuff.Mode.SRC_IN);
+                                    favStatus.setImageDrawable(drawable);
+                                    isFav = true;
+                                } else {
+                                    drawable.setColorFilter(null);
+                                    favStatus.setImageDrawable(drawable);
+                                    isFav = false;
+                                }
+                            }
+                        });
             }
         }
     }
 
-    public void youWantTologin() {
+    private void youWantTologin() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MealCardActivity.this);
         builder.setTitle("Hi Chef")
                 .setMessage("            let's Login to start cooking?")
