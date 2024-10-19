@@ -20,5 +20,5 @@ Whether you're looking for new recipe ideas or want to plan your weekly meals, F
 * UI: Material Design
 * Animations: Lottie
 
-# Photos:
-  https://drive.google.com/drive/folders/1tJZwkb5rKEVsdGKtNz1cassfJ43u2cwn?usp=sharing 
+# Video:
+https://www.linkedin.com/feed/update/urn:li:activity:7167944787277430784/
